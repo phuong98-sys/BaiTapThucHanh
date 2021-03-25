@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Misa.ApplicationCore
 {
-    public interface IBaseService
+    public interface IBaseServiceN
     {
         public IEnumerable<MISAEntity> GetAll<MISAEntity>();
         public MISAEntity GetObjectById<MISAEntity>(Guid entityId);

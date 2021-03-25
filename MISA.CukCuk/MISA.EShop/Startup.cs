@@ -6,16 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Misa.ApplicationCore;
-using Misa.ApplicationCore.Interface;
-using Misa.ApplicationCore.Services;
-using Misa.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MISA.CukCuk.API
+namespace MISA.EShop
 {
     public class Startup
     {
@@ -33,13 +29,8 @@ namespace MISA.CukCuk.API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MISA.CukCuk.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MISA.EShop", Version = "v1" });
             });
-            services.AddScoped< IBaseService , BaseService2>();
-            services.AddScoped<ICustomerService, CustomerService>();
-            services.AddScoped<ICustomerContext, CustomerContext>();
-            services.AddScoped<IBaseContext,BaseContext>();
-            services.AddScoped<IBaseResponsitory,BaseResponsitory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +40,7 @@ namespace MISA.CukCuk.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MISA.CukCuk.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MISA.EShop v1"));
             }
 
             app.UseRouting();

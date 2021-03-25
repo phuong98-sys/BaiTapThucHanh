@@ -1,0 +1,126 @@
+(G- ThucHanh)
+-vue ko mở đc trên trình duyệt gồm các đoạn mã html, css, js trong 1 file thôi
+-gộp các component trong 1 file
+về làm xong giao diện 
++ Bind dữ liệu 2 chiều
++ Phụ thuộc vào kiểu của element
++ Vòng đời của component:
+Khởi tạo-> Khởi tạo sữ liệu -> Mount( dữ liệu( dưới) thay đổi-> render và vá DOM ảo -> update-> mount)
+	(Hooks- các hàm tự động đc gọi khi đến giai đoạn tương ứng
++ v-bind:   khiến cho attribute chọn biến chứ không chọn text)
+	+ Thẻ class có thẻ trở thành obj chứa các thuộc tính có thể viết css( class{daChon:Selected,....})
++ Model: Liên kết thẻ bên trên với data bên dưới ( 2 ways): v-model hiển thị value vào thẻ có thể là mảng hoặc obj.
++Event handling:
+	+ Bắt skien từ các element
+	+v-on:click="" = @click=""
++ Prevent: 
+	Huye br event mặc định
++v-for: phải có key
++watch: hiển thị gì đó khi dữ liệu thay đổi ( để lưu notepad khi save hoặc kiểm tra nhập input đúng dạng so với trc ko)
++Hook: các hàm chạy như hàm khởi tạo ví dụ: mounted(){gọi api// những loading đầu tiên của chương trình}
++ Props: Tổ chức như obj nhận các dữ liệu từ component bên ngoài vào componen của nó
++ Filter: lọc lại dữ liệu từ data để đẩy lên html( không thay đổi dữ liệu từ data để còn tsnh toán data cho các hàm sau)
+
+ASP.NET Core
+- Các file túm trong namespace rồi build thành các file dll, cần mã hóa để tránh ăn cắp mã nguồn
+	+ CÓ 3 LOẠI LỖI PHỔ BIẾN
+	+ NHỚ VIẾT HÀM TRONG TRY- CATCH
+	+ Exception chỉ xảy ra trong run time( complier hết chương trình r mới báo lỗi), ghi log vào csdl để lưu lỗi cho dev
+	+ Dependency...
+	+MiddleWeare
+-file startup: để config các file tĩnh cs, js... DI, Middle giống WWWROOT
+-file appsettings: file json, khai báo 1 số thông tin để dễ dàng chỉnh sửa( tên csdl)
+- Máy chủ window có 1 ip định danh duy nhất, ứng với domain định tên 
+- Vieest API:
+	+[DOMAIN/END POINT]  http://localhost:60856/api/tests GET/POST/PUT/DELETE
+	+200: dữ liệu trả về thành công
+	+ 400 ko hop le, ko dung kieu du lieu truyền từ client lên
+	+ 204: du lieu tra ve bi null
+	+ 201: tạo dl thành công( POST)
+	+ 401: ko có quyền đăng nhập vào tài nguyên này
+	+ 403: truy cập đc vào, đc đọc nhưng ko đc phép truy cập( dung lượng bị quá ko đc ghi file)
+	+ 404: url ko tồn tại 
+	+ 500: có lỗi xảy ra với máy chủ, lỗi xảy ra( exception)
+	+ ? tra ve nullneu ko co gia tri tra ve
+
+		API-2( xem lại ID)
+-  Truyền nhiều tham số qua POST và PUT ko dùng GET hay DELETE ( MỖI LÂN TRUYỀN 1 ĐỐI TƯỢNG, HOẶC 2 PARAM TRONG 1 OBJ)
+- Khi truyền trong body, có dấu hỏi chấm thì nó sẽ lấy tham số, ko thì thôi
+		- ctrl+ Alt+ P = Atl+ SHift+ B
+		- stop debug = Shift F5
+		- bật debug= ctrl + B(p)
+- Guid: kiểu dl duy nhất trên toàn cầu
+- vùng nớ stack lưu trữ biến
+- Chú ý: mã lỗi, version, đặt tên danh từ, gian lược
+			
+		MARIADB
+-Về xem bài sinh dữ liệu giả
+- Tên ng, chức vụ, liên quan ng để nvarchar(100) còn lại mặc định 255
+- DELETE ROLE:( no action- với 2 bảng nối trực tiếp, cascase với bảng chính-bảng phụ trung gian)
+	+ No action: ko cho xóa nếu liên kết các bảng( hình như các bảng con, còn cha vẫn bị xóa)
+	+ CasCase: XÓa nhóm thì xóa luôn khách hàng liên quan
+	+ Set null: Set null các bảng liên quan cái đã xóa
+	+ restrict: ko cho xóa cả cha cả con
+- Update Rule: luôn chọn no action tránh trường hợp sửa khóa chính ở bảng chủ mà các bảng khách không thay đổi
+- Indexes: tăng tốc độ truy vấn chứ insert hay gì thì thôi
+	+ non- unique:
+	+ unique: PHẢI LÀ: Bắt buộc + không trùng nhau
+( shift +9: Xem nhan giá trị đang debug của nó, ra console debug, 1024.768)?
+
+		KIẾN TRÚC ỨNG DỤNG
+-Nên cho trường là private để bảo mật
+- Get set thì mới lấy, set đc dữ liệu
+- Khởi tạo sao cho muộn nhất( cho vào hàm khởi tạo), phân biệt public vs iteral
+- virtual( cho phép con ghi đè), new..[tên phương thức ko cho ghi đè]: cha ko cho phép nó tự đi theo đg của nó
+- CustomerService( tách thêm?) -> tạo thêm interface như bản hợp đồng?
+- Hợp đồng thawfg cha có thể thêm method nhưng thằng con thì ko, chỉ sử dụng những method mà interface có thôi 
+- Xem lại customerController với Interface, thêm 1 customerController2 thì tạo mới và sửa trong start-> dễ bảo trì, mở 
+
+- Viết cho nhân viên, kế thừa lại interface để hoàn thành tác vụ nào đó( quay video tech Smith)
+( Sửa lại button pagging, giới tính thành nam- nữ căn ra giữa, mã khách hàng cho nhỏ lại, dòng khách hàng nhỏ lại
+Ctrl + Alt + C: Call stack(luc dang debug bam to hop phim mo ra: xem tat ca cac ham no da chay qua, có luôn cửa sổ imediate window
+Ctrl + shift + A: Add new items
+Tạo Genneric cho Interface bằng cách truyền trên tên Interface hoặc truyền vào method
+ + Phải truyền tên Genneric cho cả class cha trước Interface dùng nó
+
+
+- 12/3: class con gọi cha thì nó mới call đến cha, ko thì nó gọi hàm bên dưới nó
+ ! Không lặp lại những việc mình đã làm
+-Interface con kế thừa Interface cha,..
+- Tận dụng các hàm chung của cha và viết các hàm riêng( đa hình)
+- Tất cả KẾT NỐI VỚI CORE qua Interface
+- Cha có hàm khởi tạo -> con cũng phải khởi tạo
+- Interface ko tạo ra đc đối tượng nên dùng hàm khởi tạo của class để tham chiếu và sử dụng các hàm
+- I con : I cha -> Validate dữ liệu
+ !TẠO CHUỖI KẾT NỐI Ở APPSETTING và các lỗi phải có ĐỐI TƯỢNG HIỂN THỊ RA MÃ, MESSAGE,... chứ ko được để thuần túy, xuất hiện nhiều lần
+! Vào hàm F11, Shift F11/ F10-> chạy hết hàm để thoát hàm 
+- Ctrl + Alt+ i để mở imediate window để test luôn và ngay hàm
+- Nếu khai báo 2 Interface thì suy nghĩ cho 2 cái kế thừa nhau và bỏ đi 1 cái, chỉ gửi tham số I của class( con) -> base(I) đến cha
+- TRỪU TƯỢNG: ko khởi tạo đối tượng mà tham chiếu đến đối tượng
+ ! Mở từ mũi tên debug condition để đặt điều kiện cho property cần xem (NÓ SẼ DỪNG LẠI)
+F5: chạy ra hàm tiếp
+( Quay TechSmit camtasima)
+		VUEJS(js cuối,vue, validate, debugger)
+
+- Tách các:
+	+  thành phần chung nhất( dùng 1 lần): Layout, Menu, header,...
+	+ Phải tách các nút, textBox , table thành các component,... : base
+- Thường thì css của components nào thì cho riêng của nó dễ baaro trì
+-Tách employee vs Customer sử dụng router, tách file chuẩn và viết tiếng anh + Làm với Dialog(v)
+	+ <style scoped> css này dùng riêng cho chính nó, ko bị ảnh hưởng bởi bất kì css nào
+	./ ra ngoài cái ngang bằng
+- Các phần component thì tách ra và css riêng, các nút hay textBox thì tách thành css/components/button.css rồi nhúng vào components App
+* VỀ TÌM HIỂU VÀ THỰC HÀNH
+-Vue - Loader
+-Axios(api) :api nếu chưa load xong thì sẽ có ... chờ để phòng khi bấm các nút trước khi load đc
+	
+
+-Ứng dụng làm gì, cho ai?
+-div(inpit, div) :after, addClass
+-debugger
+- focus ô đầu
+- button đều chuẩn
+-Validate đúng định dạng, nghiệp vụ
+- Thêm vào thi lên đầu tiên, reload lại thì theo tiêu chí ban đầu
+
+      

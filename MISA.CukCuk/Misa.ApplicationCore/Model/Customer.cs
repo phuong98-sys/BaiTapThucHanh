@@ -10,7 +10,8 @@ namespace Misa.ApplicationCore.Model
 
     /// <summary>
     /// Thông tin kh
-    /// CreatedBY: Nguyễn Thị Phượng(6/3/2021)
+    /// CreatedBy: Nguyễn Thị Phượng
+    /// CreatedDate:25/3/2021
     /// </summary>
     public class Customer:BaseEntity
     {
