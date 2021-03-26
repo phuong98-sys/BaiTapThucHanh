@@ -14,14 +14,14 @@ namespace Misa.ApplicationCore.Services
     public class BaseService2<MISAEntity> : IBaseService<MISAEntity> where MISAEntity:BaseEntity
     {     
 
-        IBaseResponsitory<MISAEntity> _baseResponsitory;
+        IBaseRepository<MISAEntity> _baseRepository;
         //ICustomerContext _customerContext;
         protected ServiceResult serviceResult;
         public List<string> listError;
         string className = "";
-        public BaseService2(IBaseResponsitory<MISAEntity> baseResponsitory)
+        public BaseService2(IBaseRepository<MISAEntity> baseRepository)
         {
-            this._baseResponsitory = baseResponsitory;
+            this._baseRepository = baseRepository;
             //this._customerContext = customerContext;
             this.serviceResult = new ServiceResult();
             this.serviceResult.MISACode = MisaCode.Susscess;
@@ -31,13 +31,13 @@ namespace Misa.ApplicationCore.Services
         public IEnumerable<MISAEntity> GetAll()
         {
 
-            var entities = _baseResponsitory.GetAll();
+            var entities = _baseRepository.GetAll();
             return entities;
         }
         public MISAEntity GetObjectById(Guid entityId)
         {
 
-            var entitie = _baseResponsitory.GetObjectById(entityId);
+            var entitie = _baseRepository.GetObjectById(entityId);
             return entitie;
         }
         // Validate mã code chung
@@ -149,7 +149,7 @@ namespace Misa.ApplicationCore.Services
                 {
                     if (!(property.GetValue(entity) is null) && (property.GetValue(entity).ToString().Length != 0))
                     {
-                        var entities = _baseResponsitory.GetEntitiesBySpecs(property.Name, property.GetValue(entity));
+                        var entities = _baseRepository.GetEntitiesBySpecs(property.Name, property.GetValue(entity));
                         if (entities.Count() > 0)
                         {
                             //Nếu chỉ có một entity trùng thuộc tính với entity mình đang kiểm tra
@@ -208,7 +208,7 @@ namespace Misa.ApplicationCore.Services
                 // nếu dữ liệu hợp lệ xong kiểm tra có thêm được hàng nào vào chưa
                 else
                 {
-                    var rowAffect = _baseResponsitory.InsertObject(entity);
+                    var rowAffect = _baseRepository.InsertObject(entity);
                     if (rowAffect <= 0)
                     {
                         serviceResult.Msg = Properties.Resources.ErrorMsg_NotRecordAddToDB;
@@ -263,7 +263,7 @@ namespace Misa.ApplicationCore.Services
                 // nếu dữ liệu hợp lệ xong kiểm tra có thêm được hàng nào vào chưa
                 else
                 {
-                    var rowAffect = _baseResponsitory.UpdateObject(entity);
+                    var rowAffect = _baseRepository.UpdateObject(entity);
                     if (rowAffect <= 0)
                     {
                         serviceResult.Msg = Properties.Resources.ErrorMsg_NotRecordAddToDB;
@@ -314,7 +314,7 @@ namespace Misa.ApplicationCore.Services
             //// nếu dữ liệu hợp lệ xong kiểm tra có thêm được hàng nào vào chưa
             //else
             //{
-            //    var rowAffect = _baseResponsitory.InsertObject<MISAEntity>(entity);
+            //    var rowAffect = _baseRepository.InsertObject<MISAEntity>(entity);
             //    if (rowAffect <= 0)
             //    {
             //        serviceResult.Msg = Properties.Resources.ErrorMsg_NotRecordAddToDB;
@@ -332,7 +332,7 @@ namespace Misa.ApplicationCore.Services
             //        return serviceResult;
             //    }
             //}
-            var rowAffect = _baseResponsitory.DeleteObject(entityId);
+            var rowAffect = _baseRepository.DeleteObject(entityId);
             return rowAffect;
         }
         #endregion

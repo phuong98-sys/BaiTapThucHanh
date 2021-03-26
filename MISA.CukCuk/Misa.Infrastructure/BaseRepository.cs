@@ -15,7 +15,7 @@ namespace Misa.Infrastructure
     /// CreatedBy:Nguyễn Thị Phượng
     /// CreatedBy: 25/3/2021
     /// </summary>
-    public class BaseResponsitory<T>:IBaseResponsitory<T> 
+    public class BaseRepository<T>:IBaseRepository<T> 
     {
         /// <summary>
         /// chuỗi kết nối đến database
@@ -26,11 +26,13 @@ namespace Misa.Infrastructure
                 "User Id = dev;" +
                 "Password=12345678";
         protected IDbConnection _dbConnection;
-        string className = "";
-        public BaseResponsitory()
+        protected string className = "";
+         string procName ="";
+        public BaseRepository()
         {
             _dbConnection = new MySqlConnection(_connectionString);
             className = typeof(T).Name;
+            procName = $"Proc_Get{className}s";
         }
         /// <summary>
         /// Hàm lấy thông tin tất cả các đối tượng 
@@ -40,7 +42,7 @@ namespace Misa.Infrastructure
         public IEnumerable<T> GetAll()
         {
            
-            var procName = $"Proc_Get{className}s";
+           
             var entities = _dbConnection.Query<T>(procName, commandType: CommandType.StoredProcedure);
             return entities;
         }
@@ -53,7 +55,7 @@ namespace Misa.Infrastructure
         public T GetObjectById(Guid entityId)
         {
           
-            var procName = $"Proc_Get{className}ById";
+            
             var dynamicParams = new DynamicParameters();
             dynamicParams.Add($"{className}Id", entityId.ToString());
             var entity = _dbConnection.Query<T>(procName, param: dynamicParams, commandType: CommandType.StoredProcedure).FirstOrDefault();

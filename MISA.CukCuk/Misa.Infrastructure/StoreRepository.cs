@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Misa.Infrastructure
 {
-    public class StoreResponsitory:BaseResponsitory<Store>
+    public class StoreRepository:BaseRepository<Store>
     {
         //public StoreResponsitory(IBaseResponsitory<MISAEntity> baseResponsitory) : base(baseResponsitory)
         //{

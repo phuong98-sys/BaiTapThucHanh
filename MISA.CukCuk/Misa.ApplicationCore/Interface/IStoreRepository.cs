@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Misa.ApplicationCore.Interface
 {
-    interface IStoreResponsitory
+    interface IStoreRepository
     {
     }
 }

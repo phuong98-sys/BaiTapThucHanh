@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Misa.ApplicationCore.Interface
 {
-    public interface IBaseResponsitory<MISAEntity>
+    public interface IBaseRepository<MISAEntity>
     {
         public IEnumerable<MISAEntity> GetAll();
         public MISAEntity GetObjectById(Guid entityId);
