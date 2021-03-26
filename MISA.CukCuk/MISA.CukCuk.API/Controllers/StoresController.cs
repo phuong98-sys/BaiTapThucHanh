@@ -13,7 +13,7 @@ namespace MISA.CukCuk.API.Controllers
     [ApiController]
     public class StoresController : BaseController<Store>
     {
-        public StoresController(IBaseService baseService) : base(baseService)
+        public StoresController(IBaseService<Store> baseService) : base(baseService)
         {
 
         }

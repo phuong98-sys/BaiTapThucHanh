@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Misa.ApplicationCore.Interface
 {
-    public interface ICustomerService: IBaseService
+    public interface ICustomerService/*: IBaseService*/
     {
         public Customer GetCustomerByCode(string customerCode);
        

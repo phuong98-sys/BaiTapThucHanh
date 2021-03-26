@@ -1,10 +1,16 @@
-﻿using System;
+﻿using Misa.ApplicationCore.Interface;
+using Misa.ApplicationCore.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Misa.Infrastructure
 {
-    class StoreResponsitory:BaseResponsitory
+    public class StoreResponsitory:BaseResponsitory<Store>
     {
+        //public StoreResponsitory(IBaseResponsitory<MISAEntity> baseResponsitory) : base(baseResponsitory)
+        //{
+
+        //}
     }
 }

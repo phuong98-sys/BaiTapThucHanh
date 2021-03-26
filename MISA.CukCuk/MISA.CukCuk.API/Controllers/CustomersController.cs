@@ -15,13 +15,13 @@ namespace MISA.CukCuk.API.Controllers
     /// api tương tác với thông tin khách hàng
     /// </summary>
   
-    public class CustomersController : BaseController<Customer>
+    public class CustomersController /*: BaseController<Customer>*/
     {
-        ICustomerService _customerService;
-        public CustomersController( ICustomerService customerService) : base(customerService)
-        {
-            _customerService = customerService;
-        }
+        //ICustomerService _customerService;
+        //public CustomersController( ICustomerService customerService) : base(customerService)
+        //{
+        //    _customerService = customerService;
+        //}
 
         /// <summary>
         /// Lấy thông tin danh sách khách hàng

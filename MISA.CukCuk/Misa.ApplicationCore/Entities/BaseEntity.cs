@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Misa.ApplicationCore.Model
+namespace Misa.ApplicationCore.Entity
 {
 
     /// <summary>

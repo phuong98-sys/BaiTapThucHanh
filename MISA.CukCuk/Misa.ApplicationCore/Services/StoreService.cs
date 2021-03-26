@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Misa.ApplicationCore.Services
 {
-    class StoreService:BaseService2
+    class StoreService/*:BaseService2*/
     {
-        public StoreService(IBaseResponsitory baseresponsitory) : base(baseresponsitory)
-        {
+        //public StoreService(IBaseResponsitory baseresponsitory) : base(baseresponsitory)
+        //{
 
-        }
+        //}
     }
 }

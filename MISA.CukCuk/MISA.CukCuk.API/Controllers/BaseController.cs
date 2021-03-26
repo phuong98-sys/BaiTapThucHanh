@@ -15,9 +15,9 @@ namespace MISA.CukCuk.API.Controllers
     [ApiController]
     public class BaseController<MISAEntity> : ControllerBase
     {
-        IBaseService _baseService;
+        IBaseService<MISAEntity> _baseService;
         ServiceResult serviceResult;
-        public BaseController(IBaseService baseService)
+        public BaseController(IBaseService<MISAEntity> baseService)
         {
             this._baseService = baseService;
             this.serviceResult = new ServiceResult();
@@ -30,7 +30,7 @@ namespace MISA.CukCuk.API.Controllers
         public IActionResult Get()
         {
 
-            var entities = _baseService.GetAll<MISAEntity>().ToList();
+            var entities = _baseService.GetAll().ToList();
             if (entities.Count > 0)
             {
                 return StatusCode(200, entities);
@@ -49,7 +49,7 @@ namespace MISA.CukCuk.API.Controllers
         public IActionResult GetById(Guid entityId)
         {
 
-            var entity = _baseService.GetObjectById<MISAEntity>(entityId);
+            var entity = _baseService.GetObjectById(entityId);
             if (entity != null)
             {
                 return StatusCode(200, entity);
@@ -70,7 +70,8 @@ namespace MISA.CukCuk.API.Controllers
 
             try
             {
-            var serviceResult = _baseService.InsertObject<MISAEntity>(entity)  ;
+               
+                var serviceResult = _baseService.InsertObject(entity)  ;
 
                 if (serviceResult.MISACode == MisaCode.Susscess)
                 {
@@ -84,6 +85,11 @@ namespace MISA.CukCuk.API.Controllers
                 {
                     return NoContent();
                 }
+                //var messages = "";
+                //foreach (var mess in listError)
+                //{
+                //    messages += mess + "\n";
+                //}
 
             }
             catch (Exception ex)
@@ -104,7 +110,7 @@ namespace MISA.CukCuk.API.Controllers
 
             try
             {
-                serviceResult = _baseService.UpdateObject<MISAEntity>(entity);
+                serviceResult = _baseService.UpdateObject(entity);
 
                 if (serviceResult.MISACode == MisaCode.Susscess)
                 {
@@ -135,7 +141,7 @@ namespace MISA.CukCuk.API.Controllers
         [HttpDelete("{entityId}")]
         public IActionResult Delete(Guid entityId)
         {
-            var rowAffect = _baseService.DeleteObject<MISAEntity>(entityId);
+            var rowAffect = _baseService.DeleteObject(entityId);
             try
             {
                 if (rowAffect <= 0)

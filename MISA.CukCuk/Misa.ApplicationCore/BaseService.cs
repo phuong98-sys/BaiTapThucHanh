@@ -1,4 +1,5 @@
 ﻿using Misa.ApplicationCore.Entities;
+using Misa.ApplicationCore.Entity;
 using Misa.ApplicationCore.Enums;
 using Misa.ApplicationCore.Interface;
 using Misa.ApplicationCore.Model;
@@ -12,7 +13,7 @@ using System.Text;
 
 namespace Misa.ApplicationCore
 {
-    public class BaseService : IBaseService
+    public class BaseService /*: IBaseServe<MISAEntity>*/
 
     {
         IBaseContext _baseContext;

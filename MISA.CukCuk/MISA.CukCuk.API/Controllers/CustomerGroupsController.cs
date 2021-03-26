@@ -17,7 +17,7 @@ namespace MISA.CukCuk.API.Controllers
     
     public class CustomerGroupsController : BaseController<CustomerGroup>
     {
-        public CustomerGroupsController(IBaseService baseService):base(baseService)
+        public CustomerGroupsController(IBaseService<CustomerGroup> baseService):base(baseService)
         {
 
         }

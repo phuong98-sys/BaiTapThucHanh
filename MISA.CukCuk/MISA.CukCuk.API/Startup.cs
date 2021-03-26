@@ -35,11 +35,13 @@ namespace MISA.CukCuk.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MISA.CukCuk.API", Version = "v1" });
             });
-            services.AddScoped< IBaseService , BaseService2>();
+            services.AddScoped(typeof(IBaseResponsitory<>), typeof(BaseResponsitory<>));
+            services.AddScoped(typeof(IBaseService<>), typeof(BaseService2<>));
+            //services.AddScoped< IBaseService , BaseService2>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<ICustomerContext, CustomerContext>();
             services.AddScoped<IBaseContext,BaseContext>();
-            services.AddScoped<IBaseResponsitory,BaseResponsitory>();
+            //services.AddScoped<IBaseResponsitory,BaseResponsitory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

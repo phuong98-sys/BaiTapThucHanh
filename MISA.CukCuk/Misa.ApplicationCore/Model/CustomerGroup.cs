@@ -1,4 +1,5 @@
-﻿using Misa.ApplicationCore.Model;
+﻿using Misa.ApplicationCore.Entity;
+using Misa.ApplicationCore.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,22 +46,6 @@ namespace MISA.Entity.Model
         ///// Khóa chính cha nhóm khách hàng
         ///// </summary>
         public Guid? ParentId { get; set; }
-        ///// <summary>
-        ///// Ngày tạo
-        ///// </summary>
-        //public DateTime? CreatedDate { get; set; }
-        ///// <summary>
-        ///// Người tạo
-        ///// </summary>
-        //public string CreatedBy { get; set; }
-        ///// <summary>
-        ///// Ngày sửa
-        ///// </summary>
-        //public DateTime? ModifiedDate { get; set; }
-        ///// <summary>
-        ///// Người sửa
-        ///// </summary>
-        //public string ModifiedBy { get; set; }
 
     }
 }

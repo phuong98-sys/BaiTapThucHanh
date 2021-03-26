@@ -4,13 +4,15 @@ using System.Text;
 
 namespace Misa.ApplicationCore.Interface
 {
-    public interface IBaseResponsitory
+    public interface IBaseResponsitory<MISAEntity>
     {
-        public IEnumerable<MISAEntity> GetAll<MISAEntity>();
-        public MISAEntity GetObjectById<MISAEntity>(Guid entityId);
-        public int InsertObject<MISAEntity>(MISAEntity entity);
+        public IEnumerable<MISAEntity> GetAll();
+        public MISAEntity GetObjectById(Guid entityId);
+        public int InsertObject(MISAEntity entity);
         //public MISAEntity GetEntityByProperty(MISAEntity entity, PropertyInfo property);
-        public int DeleteObject<MISAEntity>(Guid entityId);
-        public int UpdateObject<MISAEntity>(MISAEntity entity);
+        public int DeleteObject(Guid entityId);
+        public int UpdateObject(MISAEntity entity);
+        public IEnumerable<MISAEntity> GetEntitiesBySpecs(string propertyName, object propertyValue);
+
     }
 }
