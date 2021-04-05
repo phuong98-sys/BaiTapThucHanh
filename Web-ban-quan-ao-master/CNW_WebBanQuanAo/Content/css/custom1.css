@@ -1,0 +1,52 @@
+﻿body {
+}
+
+.button {
+    background-color: transparent;
+    border-style: solid;
+    color: #BF382B;
+    padding: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-color: #BF382B;
+}
+
+.right-item {
+    display: inline-block;
+}
+
+.hand {
+    cursor:pointer;
+}
+
+.button:hover {
+    background-color: #BF382B;
+    color: white;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+.rounded {
+    border-radius: 12px;
+}
+
+.color-box {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.payment label
+{
+    color:aqua;
+}

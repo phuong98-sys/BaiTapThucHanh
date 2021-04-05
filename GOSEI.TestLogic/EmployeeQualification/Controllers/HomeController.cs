@@ -73,14 +73,14 @@ namespace EmployeeQualification.Controllers
             {
                 ViewBag.Success = " Thêm thành công";
                 model = new Employee();
-
+context.SaveChanges();
             }
             else
             {
                 ModelState.AddModelError("", " Thêm thất bại");
 
             }
-            context.SaveChanges();
+            
             return View(model);
         }
 

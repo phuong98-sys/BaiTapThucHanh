@@ -1,0 +1,40 @@
+﻿@model CNW_WebBanQuanAo.Models.NHASANXUAT
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Xóa bỏ nhà sản xuất</h2>
+
+<h3>Bạn có chắc muốn xóa nhà sản xuất này khỏi dữ liệu của mình?</h3>
+<div>
+    <h4>Nhà sản xuất</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenNSX)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenNSX)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Trở lại trang danh sách", "Index")
+        </div>
+    }
+</div>

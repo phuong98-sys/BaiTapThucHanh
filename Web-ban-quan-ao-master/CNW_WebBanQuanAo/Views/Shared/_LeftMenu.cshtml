@@ -1,0 +1,80 @@
+﻿@using CNW_WebBanQuanAo.Models;
+@model List<NHASANXUAT>
+
+<div class="col-sm-3">
+    <div class="left-sidebar">
+        <div class="brands_products">
+            <!--brands_products-->
+            <a href="/Product/Index?MaNSX=-1" style="text-decoration:none"><h2>Thương hiệu</h2></a>
+            <div class="brands-name">
+                <ul class="nav nav-pills nav-stacked">
+                    @foreach (NHASANXUAT it in Model)
+                    {
+                        <li><a href="/Product/Index?MaNSX=@it.MaNSX">@it.TenNSX</a></li>
+                    }
+                </ul>
+            </div>
+        </div><!--/brands_products-->
+
+        <div class="price-range">
+            <!--price-range-->
+            <h2>Khoảng giá</h2>
+            @*<div class="well text-center">
+                <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="2000000" data-slider-step="5" data-slider-value="[0,2000000]" id="sl2"><br />
+                <b class="pull-left">0₫ </b> <b class="pull-right">1 000 000₫</b>
+            </div>*@
+        <div class="row text-center">
+            <div class="row">
+                <input type="number" class="btn-primary" id="GiaDau" min="0" max="2000000" step="10000" title="Giá bé nhất" value="0"/>
+                -
+                <input type="number" class="btn-success" id="GiaCuoi" min="0" max="2000000" step="10000" title="Giá lớn nhất" value="2000000"/>
+            </div>
+            <br />
+            <div class="row">
+                <button type="submit" onclick="btnPriceClick()">Áp dụng</button>
+            </div>
+        </div>
+
+        </div><!--/price-range-->
+
+        <div class="shipping text-center">
+            <!--shipping-->
+            <img src="~/Content/images/home/shipping.jpg" alt="" />
+        </div><!--/shipping-->
+
+    </div>
+</div>
+
+
+<script>
+
+    function btnPriceClick() {
+        var minPrice = parseInt($("#GiaDau").val()) / 1000;
+        var maxPrice = parseInt($("#GiaCuoi").val()) / 1000;
+
+        //alert(minPrice);
+        //alert(maxPrice);
+
+        @*var sort = @ViewBag.CurrentSort;
+        var nsx = @ViewBag.NSX;*@
+
+        var url = '/Product/Index?minPrice=' + minPrice.toString()
+            +'&maxPrice=' + maxPrice.toString();
+
+        //alert(url);
+
+        //return location.href = '/Home/Index';
+        return location.href = url;
+    }
+
+    //$(document).ready(function () {
+        //$(".brands_products li a").click(function () {
+        //    //alert('bam vao roi');
+        //    $(".brands_products li a").css("color", "#696763");
+        //    $(this).css("color", "red");
+        //})
+        //$(".slider-track").click(function () {
+        //    alert('cahgne roi')
+        //})
+    //})
+</script>

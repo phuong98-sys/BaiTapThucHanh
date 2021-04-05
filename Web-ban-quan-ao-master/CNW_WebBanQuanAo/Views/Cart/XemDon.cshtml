@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "XemDon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using CNW_WebBanQuanAo.ViewModel;
+@using CNW_WebBanQuanAo.Models;
+@using CNW_WebBanQuanAo.Controllers;
+@using PagedList;
+@using PagedList.Mvc;
+
+
+@model PagedList<xemgiohang>
+    <div class="container">
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="price">Mã hóa đơn</td>
+                        <td class="image">Sản phẩm</td>
+                        <td class="description">Tên mặt hàng</td>
+
+                        <td class="price">Tên màu</td>
+                        <td class="price">Mã size</td>
+
+                        <td class="quantity">Số lượng</td>
+                        <td class="price">Giá</td>
+
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (xemgiohang it in Model)
+                    {
+                        <tr>
+                            <td class="cart_price">
+                                <p>@it.Mahd</p>
+                            </td>
+                            <td class="cart_product">
+                                <img src="~/Content/images/cart/@it.url" alt="">
+                            </td>
+                            <td class="cart_description">
+                                <h4><a href="">@it.tenmh</a></h4>
+                                <p>@it.MaQa</p>
+                            </td>
+                            <td class="cart_price">
+                                <p>@it.tenmau</p>
+                            </td>
+                            <td class="cart_price">
+                                <p>@it.size</p>
+                            </td>
+
+                            <td class="cart_price">
+                                <p>@it.so</p>
+                            </td>
+                            <td class="cart_price">
+                                <p>@it.Gia 000đ</p>
+                            </td>
+
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            @Html.PagedListPager(Model, sotrang => Url.Action("XemDon", new { Page = sotrang }))
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+
+
+

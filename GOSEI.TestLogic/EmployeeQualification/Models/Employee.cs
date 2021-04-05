@@ -30,7 +30,7 @@ namespace EmployeeQualification.Models
 
         [StringLength(50)]
         public string Gender { get; set; }
-        [DisplayName("Date of Birth")]
+        //[DisplayName("Date of Birth")]
         [DataType(DataType.DateTime)]
         //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }

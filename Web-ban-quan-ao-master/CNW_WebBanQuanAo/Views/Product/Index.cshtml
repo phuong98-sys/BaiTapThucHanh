@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "Danh sach san pham";
+}
+
+@using CNW_WebBanQuanAo.Models;
+@model PagedList.IPagedList<CNW_WebBanQuanAo.Models.MATHANG>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@*@model IEnumerable<MATHANG>*@
+
+<section id="advertisement">
+    <div class="container">
+        <img src="~/Content/images/shop/advertisement.jpg" alt="" />
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            @Html.Action("LeftMenu", "Home")
+
+            <div class="col-sm-9 padding-right">
+                <div class="features_items">
+                    <!--features_items-->
+                    <h2 class="title text-center">Sản phẩm đang bán</h2>
+                    <div>
+                        <span>Ưu tiên xem: </span>
+                        <ul>
+                            <li class="right-item">
+                                @Html.ActionLink("GIÁ THẤP", "Index", new { SortOrder = "asc", MaNSX = ViewBag.NSX })
+                            </li>
+                            <li class="right-item">
+                                @Html.ActionLink("GIÁ CAO", "Index", new { SortOrder = "desc", MaNSX = ViewBag.NSX })
+                            </li>
+                            <li class="right-item"><a>BÁN CHẠY</a></li>
+                        </ul>
+                    </div>
+                    @foreach (MATHANG it in Model)
+                    {
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <a href="@Url.Action("Detail", "Product", new { id = it.MaMH })">
+                                            <img src="~/Content/images/sanpham/@it.UrlAnh" alt="" />
+                                        </a>
+                                        <h2>@it.GiaBan 000 ₫</h2>
+                                        <p>@it.TenMH</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div><!--features_items-->
+            </div>
+        </div>
+        <div class="row">
+            <br />
+            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+                new { page, sortOrder = ViewBag.CurrentSort, MaNSX = ViewBag.NSX }))
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $(".slider-track").click(function () {
+            alert('cahgne roi')
+        })
+    })
+</script>
+
+@*
+    $(document).ready(function () {
+        $(".brands_products li a").click(function () {
+            $(".brands_products li a").css("color", "#696763");
+            $(this).css("color", "red");
+            $.ajax({
+                type: "GET",
+                url: "/Product/Index?MaNSX=" + $(this).attr("at"),
+                success: function(result) {
+                    alert('vafo success nha')
+                },
+                error: function (ex) {
+                    alert('vafo errr nha')
+                }
+
+            })
+
+            //$.ajax({
+            //    type: "POST",
+            //    url: "/Product/ProductsByBrand",
+            //    dataType: 'json',
+            //    contentType: "application/json; charset=utf-8",
+            //    success: function(result) {
+            //        alert('vafo success nha')
+            //        alert(result)
+            //    },
+            //    error: function (ex) {
+            //        alert('vafo errr nha')
+            //    }
+            //})
+        })
+    })*@

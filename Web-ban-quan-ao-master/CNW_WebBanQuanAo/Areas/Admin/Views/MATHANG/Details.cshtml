@@ -1,0 +1,110 @@
+﻿@model CNW_WebBanQuanAo.Models.MATHANG
+
+@{ ViewBag.Title = "Details"; }
+
+<h2>Chi tiết mặt hàng</h2>
+
+<div>
+    <h4>Mặt hàng</h4>
+    <hr />
+    <div class="col-sm-6">
+        <dl class="dl-horizontal">
+            <dt>
+                Nhà sản xuất
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NHASANXUAT.TenNSX)
+            </dd>
+
+            <dt>
+                Tên mặt hàng
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenMH)
+            </dd>
+
+
+            <dt>
+                Kiểu dáng
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.KieuDang)
+            </dd>
+
+            <dt>
+                Chất liệu
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ChatLieu)
+            </dd>
+
+            <dt>
+                Giá bán
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.GiaBan)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="col-sm-6">
+        <img src="~/Content/images/sanpham/@Model.UrlAnh" style="height:200px;" />
+        <p>Ảnh mặt hàng</p>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.MaMH }) |
+    @Html.ActionLink("Trở lại danh sách mặt hàng", "Index")
+</p>
+
+
+<br />
+
+<a href="/Admin/SANPHAM/Create">Thêm sản phẩm</a>
+
+<table class="table">
+    <tr>
+        <th>
+            Tên mặt hàng
+        </th>
+        <th>
+            Màu
+        </th>
+        <th>
+            Size
+        </th>
+        <th>
+            Số lượng
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.SANPHAM)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.MATHANG.TenMH)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MAU.TenMau)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SIZE.MaSize)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SoLuong)
+    </td>
+    <td>
+        @*@Html.ActionLink("Chỉnh sửa", "Edit", "SANPHAM", new { id = item.MaQA }) |*@
+        <a href="/Admin/SANPHAM/Edit/@item.MaQA">Chỉnh sửa</a> |
+        <a href="/Admin/SANPHAM/Details/@item.MaQA">Chi tiết</a> |
+        <a href="/Admin/SANPHAM/Delete/@item.MaQA">Xóa</a>
+    </td>
+</tr>}
+
+</table>
