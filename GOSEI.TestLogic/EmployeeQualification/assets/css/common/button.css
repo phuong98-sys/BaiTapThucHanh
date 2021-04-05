@@ -1,0 +1,64 @@
+﻿.find-box .btn-find{
+    width:5%;
+    height:40px;
+    background-color:#0088c1;
+    border:none;
+    color:#fff;
+}
+.content-header .btn-content-header{
+    margin-top:10px;
+    position:absolute;
+    right:120px;
+    display:flex;
+    align-items:center;
+    line-height:30px;
+    width:50px;
+    height:30px;
+    background-color:#808080;
+    color:#fff;
+}
+ #btn-delete{
+     padding-left:10px;
+    width:80px;
+    height:30px;
+    line-height:30px;
+    border:1px solid red;
+    color:red;
+    background-color:#fff;
+}
+    #btn-delete:hover {
+        background-color: #ff6a00;
+        cursor: pointer;
+    }
+.btn-paging {
+    line-height: 30px;
+    width: 36px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 36px;
+    border: 1px solid #bbbbbb;
+    background-size: contain;
+    background-repeat: no-repeat;
+    color: #0088c1;
+}
+.btn-paging:hover{
+    background-color:#e5e5e5;
+    cursor:pointer;
+}
+.btn-prev {
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 36px;
+    height: 36px;
+    background-image: url('/assets/content/icon/btn-firstpage.svg');
+}
+.btn-next {
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 36px;
+    height: 36px;
+    background-image: url('/assets/content/icon/btn-lastpage.svg');
+}
+
+

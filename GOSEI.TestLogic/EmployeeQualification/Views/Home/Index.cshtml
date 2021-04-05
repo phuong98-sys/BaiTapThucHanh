@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "Home Page ADD";
+}
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<EmployeeQualification.Models.Employee>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/common/common.css" rel="stylesheet" />
+<link href="~/assets/css/common/grid.css" rel="stylesheet" />
+<link href="~/assets/css/common/button.css" rel="stylesheet" />
+<link href="~/assets/css/common/input.css" rel="stylesheet" />
+<link href="~/assets/css/pages/employee.css" rel="stylesheet" />
+<div class="container">
+
+    @using (Html.BeginForm())
+    {
+        <div class="find-box">
+            @Html.TextBox("searchString", ViewBag.FilterValue as string, new { @placeholder = "search for first name, last name...." })
+
+            <input type="submit" value="GO" id="find" name="input-find" placeholder="search for first name, last name...." />
+
+        </div>
+    }
+
+    <div class="content">
+        <div class="content-header">
+            <div class="content-header-text">Employees</div>
+            <button class="btn-content-header" style="color:#fff"> @Html.ActionLink("ADD","Add", "Home")</button>
+        </div>
+        <div class="grid">
+            <table>
+                <colgroup>
+                    <col width="50" />
+                    <col width="150" />
+                    <col width="150" />
+                    <col width="100" />
+                    <col width="200" />
+                    <col width="300" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th id="title-first-name">@Html.ActionLink("First Name", "Index", "Home", new { sortOrder = "FirstName" }, null)</th>
+                        <th id="title-last-name">@Html.ActionLink("Last Name", "Index", "Home", new { sortOrder = "LastName" }, null)</th>
+                        <th>Gender</th>
+                        <th>Birth Date</th>
+                        <th>Email Address</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(x => item.Id)
+                            </td>
+                            <td id="col-first-name">
+                                @Html.DisplayFor(x => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.LastName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(x => item.Gender)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.BirthDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.Email)
+                            </td>
+                            <td>
+                                <div id="btn-delete" href="@Url.Action("RemoveLine", new { id = item.Id })">
+                                    <b>x</b>
+                                    Delete 
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="paging">
+
+          @*  Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount*@
+
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+                new { page, sortOrder = ViewBag.CurrentSort }))
+        </div>
+
+
+    </div>

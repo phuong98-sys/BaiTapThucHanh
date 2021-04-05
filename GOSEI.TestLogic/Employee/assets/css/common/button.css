@@ -1,0 +1,210 @@
+﻿#btn-add {
+    float: right;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    background-color: #019160;
+    border-radius: 4px;
+    margin-right: 16px;
+    padding-right: 16px;
+    padding-left: 16px;
+}
+
+#btn-add .text-add {
+    border: none;
+    color: #fff;
+    background: none;
+    font-size: 13px;
+    padding-left: 8px;
+    font-family: 'GoogleSans-Regular';
+    outline: none;
+}
+
+#btn-add:hover {
+    cursor: pointer;
+    background-color: #2FBE8E;
+}
+
+.btn-feature {
+    padding-right: 10px;
+    background-color: #026b97;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    line-height: center;
+    color: white;
+    display: flex;
+}
+
+.d-btn-feature {
+    margin-left: 10px;
+    padding-right: 10px;
+    height: 35px;
+    border: none;
+    display: flex;
+    align-items: center;
+    line-height: center;
+    color: white;
+    border-radius: 5px;
+    outline: none;
+}
+
+.d-btn-feature:hover {
+    background-color: #0088c1;
+    cursor: pointer;
+}
+
+.btn-sort-colum {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #bbbbbb;
+    background-color: #ffffff;
+    ;
+    line-height: 40px;
+    margin: 0 1px 0 1px;
+}
+
+.btn-feature:hover {
+    background-color: #0088c1;
+}
+
+.btn-paging {
+    height: 30px;
+    width: 30px;
+    z-index: 5;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 1px solid #bbbbbb;
+    border-radius: 5px;
+    margin-right: 3px;
+}
+
+.btn-paging:hover {
+    background-color: #0088c1;
+}
+
+.btn-first-page {
+    background-image: url('../../content/icon/btn-firstpage.svg');
+}
+
+.btn-next-page {
+    margin-left: 15px;
+    background-image: url('../../content/icon/btn-next-page.svg');
+}
+
+.btn-prev-page {
+    margin-right: 5px;
+    background-image: url('../../content/icon/btn-prev-page.svg');
+}
+
+.btn-last-page {
+    background-image: url('../../content/icon/btn-lastpage.svg');
+}
+
+.btn-page-number {
+    border: 1px solid #bbbbbb;
+    margin: 0 8px 0 13px;
+    height: 30px;
+    width: 50px;
+    line-height: 30px;
+    text-align: center;
+    outline: none;
+}
+
+.btn-refresh {
+    background-image: url('../../content/icon/refresh.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.btn-page-total {
+    width: inherit;
+    height: inherit;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    -webkit-appearance: auto;
+    outline: none;
+}
+
+#page-total {
+    width: 50px;
+}
+
+.btn-paging:hover {
+    background-color: #0088c1;
+    cursor: pointer;
+}
+
+.btn-common-feature {
+    width: 90px;
+    height: 35px;
+    float: right;
+    margin: 10px 16px 0 0;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #bbbbbb;
+    background-color: #fff;
+    border: none;
+}
+
+.btn-common-feature:hover {
+    background-color: #bbbbbb;
+}
+
+#btn-cancel {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    color: #026b97;
+    padding: 0;
+}
+
+#btn-cancel:hover {
+    background-color: #0088c1;
+}
+
+#btn-save:hover {
+    background-color: #0088c1;
+}
+
+#btn-delete {
+    display: flex;
+    align-items: center;
+    background-color: red;
+    color: #fff;
+}
+
+#btn-delete:hover {
+    background-color: #eb7728;
+}
+
+#btn-delete .btn-paging:hover {
+    background-color: #eb7728;
+}
+
+#btn-save-add {
+    display: flex;
+    align-items: center;
+    border: 1px solid #026b97;
+    color: #026b97;
+}
+
+#btn-save {
+    background-color: #026b97;
+}
+
+#btn-close {
+    padding: 0;
+    background-color: #e5e5e5;
+}
+
+#btn-close:hover {
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+.btn-feature:hover {
+    cursor: pointer;
+    background-color: #0088c1;
+}
