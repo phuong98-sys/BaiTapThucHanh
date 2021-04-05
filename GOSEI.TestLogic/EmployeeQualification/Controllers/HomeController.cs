@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using PagedList;
 using PagedList.Mvc;
 using EmployeeQualification.Models;
+using System.Data.Entity;
 
 namespace EmployeeQualification.Controllers
 {
@@ -52,54 +53,171 @@ namespace EmployeeQualification.Controllers
 
            
             eployee = model.ToPagedList(pageIndex, pageSize);
-
-         
-
-
+            //ViewBag.Message = "Form submitted.";
             return View(eployee);
         }
-        public ActionResult Add(Employee model)
-        {
-            var user = new Employee();
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.MiddleName = model.MiddleName;
-            user.Gender = model.Gender;
-            user.BirthDate = model.BirthDate;
-            user.Note = model.Note;
-          
-            var result = context.Employees.Add(user);
-            if (result != null)
-            {
-                ViewBag.Success = " Thêm thành công";
-                model = new Employee();
-context.SaveChanges();
-            }
-            else
-            {
-                ModelState.AddModelError("", " Thêm thất bại");
 
-            }
+        public ActionResult Add([Bind(Include = "FirstName,MiddleName,LastName,Gender,BirthDate,Email,Note")] Employee employee)
+        {
             
-            return View(model);
+                if (ModelState.IsValid)
+                {
+                    context.Employees.Add(employee);
+
+                    context.SaveChanges();
+
+                    ViewBag.Success = "Add Employee Susscess!";
+                    ViewBag.isValid = true;
+
+                    return RedirectToAction("Index");
+                }
+                //if(employee.FirstName==""|| employee.LastName=="" || employee.BirthDate = "")
+                //{
+                else
+                {
+                    ViewBag.isValid = false;
+                    //ViewBag.Fail = "Add Employee Fail!";
+                    //ViewBag.Success = "Add Employee Susscess!";
+
+                    //ModelState.AddModelError("", "add employee fail!");
+                }
+
+                //}
+            //}
+            //else
+            //{
+            //    if (ModelState.IsValid)
+            //    {
+            //        context.Entry(employee).State = EntityState.Modified;
+                    
+
+            //        context.SaveChanges();
+
+            //        ViewBag.Success = "Edit Employee Susscess!";
+            //        ViewBag.isValid = true;
+
+            //        return RedirectToAction("Index");
+            //    }
+            //    //if(employee.FirstName==""|| employee.LastName=="" || employee.BirthDate = "")
+            //    //{
+            //    else
+            //    {
+            //        ViewBag.isValid = false;
+            //        //ViewBag.Fail = "Add Employee Fail!";
+            //        //ViewBag.Success = "Add Employee Susscess!";
+
+            //        //ModelState.AddModelError("", "add employee fail!");
+                   
+            //    }
+            //}
+
+
+
+
+
+            //ViewBag.MaNSX = new SelectList(db.NHASANXUAT, "MaNSX", "TenNSX", mATHANG.MaNSX);
+            return View(employee);
         }
+        //public void UpdateItem(Employee e, string firstName, string lastName, string gender, DateTime birthDate)
+        //{
+        //    CartItem line = lineCollection
+        //        .Where(p => p.Sanpham.MaQA == sp.MaQA)
+        //        .FirstOrDefault();
 
-        public ActionResult About()
+        //    if (line != null)
+        //    {
+              
+        //            line.Quantity = quantity;
+               
+        //    }
+        //}
+        public ActionResult Edit(int id, string firstName, string lastName, string gender)
         {
-            ViewBag.Message = "Your application description page.";
 
-            return View();
-        }
+            ViewBag.firstName = firstName;
+            ViewBag.lastName = lastName;
+            ViewBag.gender = gender;
+            //ViewBag.birthDate = birthDate;
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
 
-            return View();
+            var model = context.Employees.Where(m => m.Id != null);
+
+            Employee employee = context.Employees.Find(id);
+            //Employee line = model
+            //    .Where(p => p.Id == id)
+            //    .FirstOrDefault();
+
+            if (employee != null)
+            {
+                employee.FirstName = firstName;
+                employee.LastName = lastName;
+
+                 context.SaveChanges();
+                return View("Index");
+            }
+           
+
+            
+
+
+
+
+            //if (ModelState.IsValid)
+            //{
+            //    context.Entry(employee).State = EntityState.Modified;
+
+
+            //    context.SaveChanges();
+
+            //    ViewBag.Success = "Edit Employee Susscess!";
+            //    ViewBag.isValid = true;
+
+            //    return RedirectToAction("Index");
+            //}
+            ////if(employee.FirstName==""|| employee.LastName=="" || employee.BirthDate = "")
+            ////{
+            //else
+            //{
+            //    ViewBag.isValid = false;
+            //    //ViewBag.Fail = "Add Employee Fail!";
+            //    //ViewBag.Success = "Add Employee Susscess!";
+
+            //    //ModelState.AddModelError("", "add employee fail!");
+
+            //}
+            //if (ModelState.IsValid)
+            //{
+            //    context.Employees.Add(employee);
+
+            //    context.SaveChanges();
+
+            //    ViewBag.Success = "Add Employee Susscess!";
+            //    ViewBag.isValid = true;
+
+            //    return RedirectToAction("Index");
+            //}
+            ////if(employee.FirstName==""|| employee.LastName=="" || employee.BirthDate = "")
+            ////{
+            //else
+            //{
+            //    ViewBag.isValid = false;
+            //    //ViewBag.Fail = "Add Employee Fail!";
+            //    //ViewBag.Success = "Add Employee Susscess!";
+
+            //    //ModelState.AddModelError("", "add employee fail!");
+            //}
+
+            ////}
+
+
+
+
+            ////ViewBag.MaNSX = new SelectList(db.NHASANXUAT, "MaNSX", "TenNSX", mATHANG.MaNSX);
+            return View(employee);
         }
         public ActionResult RemoveLine(int id)
         {
-            var employee = context.Employees.Find(id);
+            Employee employee = context.Employees.Find(id);
             context.Employees.Remove(employee);
             context.SaveChanges();
             return RedirectToAction("Index");

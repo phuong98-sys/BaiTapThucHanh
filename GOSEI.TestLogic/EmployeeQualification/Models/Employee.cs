@@ -2,6 +2,7 @@ namespace EmployeeQualification.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -14,10 +15,11 @@ namespace EmployeeQualification.Models
         {
             EmployeeQualifications = new HashSet<EmployeeQualification>();
         }
-
+        [Key]
         public int Id { get; set; }
 
         [Required]
+        //[Required(ErrorMessage = "The FirstName field is required.")]
         [StringLength(250)]
         public string FirstName { get; set; }
 
@@ -31,9 +33,17 @@ namespace EmployeeQualification.Models
         [StringLength(50)]
         public string Gender { get; set; }
         //[DisplayName("Date of Birth")]
-        [DataType(DataType.DateTime)]
+        [Required]
+        [DisplayName("Date of Birth")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString =
+      "{0:yyyy-MM-dd}",
+       ApplyFormatInEditMode = true)]
         //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
+
+       
+
 
         [StringLength(50)]
         public string Email { get; set; }
