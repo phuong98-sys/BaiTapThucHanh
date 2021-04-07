@@ -2,8 +2,9 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
+using TestWeb.Models;
 
-namespace EmployeeQualification.Models
+namespace TestWeb.Models
 {
     public partial class MyContext : DbContext
     {

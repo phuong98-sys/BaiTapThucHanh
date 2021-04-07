@@ -135,14 +135,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\QualificationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\EmployeeQualification.cs" />
+    <Compile Include="Models\ListQualification.cs" />
     <Compile Include="Models\MyContext.cs" />
     <Compile Include="Models\Qualification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\DetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\content\font\fontawesome-5.15.1\attribution.js" />
@@ -1997,6 +2000,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Add.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Qualifications\Add.cshtml" />
+    <Content Include="Views\Qualifications\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

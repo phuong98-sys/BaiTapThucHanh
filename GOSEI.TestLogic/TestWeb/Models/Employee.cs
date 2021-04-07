@@ -1,4 +1,4 @@
-namespace EmployeeQualification.Models
+namespace TestWeb.Models
 {
     using System;
     using System.Collections.Generic;

@@ -1,5 +1,6 @@
-namespace EmployeeQualification.Models
+namespace TestWeb.Models
 {
+    using global::TestWeb.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,6 @@ namespace EmployeeQualification.Models
         public int Id { get; set; }
 
         public int? EmployeeId { get; set; }
-
         public int QualificationId { get; set; }
 
         [Required]
