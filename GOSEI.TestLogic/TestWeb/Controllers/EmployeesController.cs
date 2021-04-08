@@ -38,10 +38,10 @@ namespace TestWeb.Controllers
                     model = model.OrderByDescending(s => s.FirstName);
                     break;
                 case "LastName":
-                    model = model.OrderByDescending(s => s.LastName);
+                    model = model.OrderBy(s => s.LastName);
                     break;
                 default:
-                    model = model.OrderBy(s => s.Id);
+                    model = model.OrderBy(s => s.FirstName);
                     break;
             }
 
@@ -82,39 +82,6 @@ namespace TestWeb.Controllers
 
                 //ModelState.AddModelError("", "add employee fail!");
             }
-
-            //}
-            //}
-            //else
-            //{
-            //    if (ModelState.IsValid)
-            //    {
-            //        context.Entry(employee).State = EntityState.Modified;
-
-
-            //        context.SaveChanges();
-
-            //        ViewBag.Success = "Edit Employee Susscess!";
-            //        ViewBag.isValid = true;
-
-            //        return RedirectToAction("Index");
-            //    }
-            //    //if(employee.FirstName==""|| employee.LastName=="" || employee.BirthDate = "")
-            //    //{
-            //    else
-            //    {
-            //        ViewBag.isValid = false;
-            //        //ViewBag.Fail = "Add Employee Fail!";
-            //        //ViewBag.Success = "Add Employee Susscess!";
-
-            //        //ModelState.AddModelError("", "add employee fail!");
-
-            //    }
-            //}
-
-
-
-
 
             //ViewBag.MaNSX = new SelectList(db.NHASANXUAT, "MaNSX", "TenNSX", mATHANG.MaNSX);
             return View(employee);
@@ -163,11 +130,12 @@ namespace TestWeb.Controllers
                               Name = q.Name,
                               City = eq.City,
                               Institution = eq.Institution,
-                              Qualification = eq.Qualification,
-                              QualificationId = eq.QualificationId
+                              ValidFrom = eq.ValidFrom,
+                              ValidTo = eq.ValidTo
+                              
                           }).OrderBy(x => x.EmployeeId).ToList();
             //model2 = model2.OrderBy(s => s.Id);
-
+            
             int pageSize = 5;
             int pageIndex = 1;
 
@@ -184,90 +152,6 @@ namespace TestWeb.Controllers
             //return View();
         }
 
-        //public ActionResult Edit(int id, string firstName, string lastName, string gender)
-        //{
-
-        //    ViewBag.firstName = firstName;
-        //    ViewBag.lastName = lastName;
-        //    ViewBag.gender = gender;
-        //    //ViewBag.birthDate = birthDate;
-
-
-        //    var model = context.Employees.Where(m => m.Id != null);
-
-        //    Employee employee = context.Employees.Find(id);
-        //    //Employee line = model
-        //    //    .Where(p => p.Id == id)
-        //    //    .FirstOrDefault();
-
-        //    if (employee != null)
-        //    {
-        //        employee.FirstName = firstName;
-        //        employee.LastName = lastName;
-
-        //        context.SaveChanges();
-        //        return View("Index");
-        //    }
-
-
-
-
-
-
-
-        //if (ModelState.IsValid)
-        //{
-        //    context.Entry(employee).State = EntityState.Modified;
-
-
-        //    context.SaveChanges();
-
-        //    ViewBag.Success = "Edit Employee Susscess!";
-        //    ViewBag.isValid = true;
-
-        //    return RedirectToAction("Index");
-        //}
-        ////if(employee.FirstName==""|| employee.LastName=="" || employee.BirthDate = "")
-        ////{
-        //else
-        //{
-        //    ViewBag.isValid = false;
-        //    //ViewBag.Fail = "Add Employee Fail!";
-        //    //ViewBag.Success = "Add Employee Susscess!";
-
-        //    //ModelState.AddModelError("", "add employee fail!");
-
-        //}
-        //if (ModelState.IsValid)
-        //{
-        //    context.Employees.Add(employee);
-
-        //    context.SaveChanges();
-
-        //    ViewBag.Success = "Add Employee Susscess!";
-        //    ViewBag.isValid = true;
-
-        //    return RedirectToAction("Index");
-        //}
-        ////if(employee.FirstName==""|| employee.LastName=="" || employee.BirthDate = "")
-        ////{
-        //else
-        //{
-        //    ViewBag.isValid = false;
-        //    //ViewBag.Fail = "Add Employee Fail!";
-        //    //ViewBag.Success = "Add Employee Susscess!";
-
-        //    //ModelState.AddModelError("", "add employee fail!");
-        //}
-
-        ////}
-
-
-
-
-        ////ViewBag.MaNSX = new SelectList(db.NHASANXUAT, "MaNSX", "TenNSX", mATHANG.MaNSX);
-        //    return View(employee);
-        //}
         public ActionResult RemoveLine(int id)
         {
             Employee employee = context.Employees.Find(id);

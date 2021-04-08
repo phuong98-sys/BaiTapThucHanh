@@ -1,9 +1,18 @@
-﻿.icon-dashboard {
-    background-image: url('../../Icon/dashboard.png');
+﻿.icon-common {
+    width: 15px;
+    height: 15px;
+    background-repeat: no-repeat;
+    background-size: contain;
+   
+    margin:auto;
 }
 
-.icon-report {
-    background-image: url('../../Icon/report.png');
+.icon-not-valid {
+    background-image: url('../../Icon/crossed.png');
+}
+
+.icon-valid {
+    background-image: url('../../Icon/check.svg');
 }
 
 .icon-order {
@@ -33,14 +42,6 @@
     height: 18px;
 }
 
-.icon-feature {
-    width: 12px;
-    height: 12px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    margin: 0 10px;
-    display: flex;
-}
 
 .icon-avatar {
     margin-left: 16px;

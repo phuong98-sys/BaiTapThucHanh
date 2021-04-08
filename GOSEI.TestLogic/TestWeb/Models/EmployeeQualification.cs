@@ -3,6 +3,7 @@ namespace TestWeb.Models
     using global::TestWeb.Models;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -22,11 +23,21 @@ namespace TestWeb.Models
         [StringLength(250)]
         public string City { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? ValidFrom { get; set; }
+        [Required]
+        [DisplayName("Date of Birth")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString =
+     "{0:yyyy-MM-dd}",
+      ApplyFormatInEditMode = true)]
+        public DateTime ValidFrom { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? ValidTo { get; set; }
+        [Required]
+        [DisplayName("Date of Birth")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString =
+     "{0:yyyy-MM-dd}",
+      ApplyFormatInEditMode = true)]
+        public DateTime ValidTo { get; set; }
 
         public string Note { get; set; }
 

@@ -1836,10 +1836,12 @@
     <Content Include="assets\Icon\btn-prev-page.svg" />
     <Content Include="assets\Icon\calendar-60.svg" />
     <Content Include="assets\Icon\cancel.svg" />
+    <Content Include="assets\Icon\check.svg" />
     <Content Include="assets\Icon\close-green.png" />
     <Content Include="assets\Icon\common.svg" />
     <Content Include="assets\Icon\community-line.svg" />
     <Content Include="assets\Icon\computer-line.svg" />
+    <Content Include="assets\Icon\crossed.png" />
     <Content Include="assets\Icon\dashboard.png" />
     <Content Include="assets\Icon\default-toolbar-small-s-arrow.png" />
     <Content Include="assets\Icon\dic-employee.png" />
@@ -2009,7 +2011,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Employee\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

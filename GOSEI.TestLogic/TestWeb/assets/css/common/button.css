@@ -5,26 +5,33 @@
     border:none;
     color:#fff;
 }
-.content-header .btn-content-header{
+.content-header .btn-content-header {
     margin-top:10px;
     position:absolute;
-    right:120px;
+    right:10px;
     display:flex;
     align-items:center;
     line-height:30px;
     width:50px;
     height:30px;
     background-color:#808080;
-    color:#fff;
+    
 }
- #btn-delete{
-     padding-left:10px;
-    width:80px;
-    height:30px;
-    line-height:30px;
-    border:1px solid red;
+.btn-content-header a {
+    color: #fff;
+    border:none;
+}
+#btn-delete {
+    padding-left: 10px;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid red;
+    color: red;
+    background-color: #fff;
+}
+#btn-delete a{
     color:red;
-    background-color:#fff;
 }
     #btn-delete:hover {
         background-color: #ff6a00;
@@ -60,5 +67,22 @@
     height: 36px;
     background-image: url('/assets/content/icon/btn-lastpage.svg');
 }
+#btn-cancel {
+    height: 34px;
+    margin-right:5px;
+   border:none;
 
+}
+#btn-accept {
+    height: 34px;
+    color: #fff;
+    background-color: #0088c1;
+    border:none;
+}
+.btn-container {
+    display:flex;
+    height: 34px;
+    position: absolute;
+    right: 10px;
 
+}

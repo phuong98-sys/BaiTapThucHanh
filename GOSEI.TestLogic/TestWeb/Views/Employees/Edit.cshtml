@@ -14,159 +14,173 @@
 <link href="~/assets/css/common/grid.css" rel="stylesheet" />
 <link href="~/assets/css/common/button.css" rel="stylesheet" />
 <link href="~/assets/css/common/input.css" rel="stylesheet" />
+<link href="~/assets/css/common/icon.css" rel="stylesheet" />
 <link href="~/assets/css/pages/employee.css" rel="stylesheet" />
 @*@modelt  EmployeeQualification.Models.EmployeeQualification*@
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-@Html.AntiForgeryToken()
-                <div>
-                    <h2>Thêm nhân viên mới</h2>
+        <div class="content">
+            <div class="content-header">
+                @ViewBag.firstname
+            </div>
+            <div class="content-body">
+                <form action="/Home/Edit" method="post">
 
-                    <div class="form-horizontal">
-                        <form action="/Home/Edit" method="post">
-                            <div class="form-group">
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @Html.Hidden("Id", new { id = ViewBag.id, @value = ViewBag.id })
-                                @*@if (ViewBag.Success != null)
-                                    {<div class="alert  alert-success">@ViewBag.Success</div>}
-                                    @if (ViewBag.isValid != true)
-                                    {<div class="alert  alert-success">@ViewBag.Success</div>}*@
-                            </div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.Hidden("Id", new { id = ViewBag.id, @value = ViewBag.id })
+                    @*@if (ViewBag.Success != null)
+                        {<div class="alert  alert-success">@ViewBag.Success</div>}
+                        @if (ViewBag.isValid != true)
+                        {<div class="alert  alert-success">@ViewBag.Success</div>}*@
 
-                            <hr />
-                            @*  @Html.HiddenFor(model => model.Id=1)*@
-                            <div class="form-group">
-                                @Html.Label("FirstName", htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.TextBox("FirstName", new { @class = "form-control" })
-                                    @Html.ValidationMessage("FirstName", "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.Label("MiddleName", htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.Editor("MiddleName", new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessage("MiddleName", "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.Label("LastName", htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.Editor("LastName", new { htmlAttributes = new { @class = "form-control", @value = ViewBag.lastName } })
-                                    @Html.ValidationMessage("LastName", "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.Label("Gender", htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.DropDownList("Gender", new List<SelectListItem>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {
-                                    new SelectListItem{ Text="Male", Value="Male"},
-                                    new SelectListItem{ Text="Female", Value="Female"} }, new { @class = "form-control", @value = ViewBag.gender })
-                                    @Html.ValidationMessage("Gender", "", new { @class = "text-danger" })
-
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.Label("BirthDate", htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.Editor("BirthDate", new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessage("BirthDate", "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.TextBox("Email", new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessage("Email", "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.Label("Note", htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.TextArea("Note", new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessage("Note", "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-
-                                    <input type="submit" value="save" class="btn btn-default" />
-                                </div>
-                            </div>
-                        </form>
+                    @*  @Html.HiddenFor(model => model.Id=1)*@
+                    <div class="g-form-group">
+                        @Html.Label("FirstName", htmlAttributes: new { @class = "g-control-label" })
+                        <div class="group-input">
+                            @Html.Editor("FirstName", new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessage("FirstName", "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                    <button>
-                        @Html.ActionLink("Hủy bỏ", "Index")
+                    <div class="g-form-group">
+                        @Html.Label("MiddleName", htmlAttributes: new { @class = "g-control-label" })
+                        <div class="group-input">
+                            @Html.Editor("MiddleName", new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessage("MiddleName", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="g-form-group">
+                        @Html.Label("LastName", htmlAttributes: new { @class = "g-control-label" })
+                        <div class="group-input">
+                            @Html.Editor("LastName", new { htmlAttributes = new { @class = "form-control", @value = ViewBag.lastName, required = "required" } })
+                            @Html.ValidationMessage("LastName", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="g-form-group">
+                        @Html.Label("Gender", htmlAttributes: new { @class = "g-control-label" })
+                        <div class="group-input">
+                            @Html.DropDownList("Gender", new List<SelectListItem>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {
+                            new SelectListItem{ Text="Male", Value="Male"},
+                            new SelectListItem{ Text="Female", Value="Female"} }, new { @class = "form-control", @value = ViewBag.gender, style = "max-width:100%" })
+                            @Html.ValidationMessage("Gender", "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="g-form-group">
+                        @Html.Label("BirthDate", htmlAttributes: new { @class = "g-control-label" })
+                        <div class="group-input">
+                            @Html.Editor("BirthDate", new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessage("BirthDate", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="g-form-group">
+                        @Html.Label("Note", htmlAttributes: new { @class = "g-control-label" })
+                        <div class="group-input">
+                            @Html.TextArea("Note", new { htmlAttributes = new { @class = "form-control" }, style = "max-width:100%" })
+                            @Html.ValidationMessage("Note", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <hr />
+                    <hr />
+                </form>
+            </div>
+
+            <div class="paging paging-content">
+                <div class="btn-container">
+                    <button id="btn-cancel">
+                        @Html.ActionLink("Cancel", "Index")
                     </button>
+
+                    <input type="submit" value="Accept" id="btn-accept" style="color:#fff; background-color:#0088c1" />
+
                 </div>
 
-                                <div class="content">
-                                    <div class="content-header">
-                                        <div class="content-header-text">Employees</div>
-                                        <button class="btn-content-header" style="color:#fff">
-                                            @Html.ActionLink("ADD", "Add", "Qualifications", new { id = ViewBag.id }, null)
-                                        </button>
-                                    </div>
-                                    <div class="grid">
-                                        <table>
-                                            <colgroup>
-                                                <col width="50" />
-                                                <col width="150" />
-                                                <col width="150" />
-                                                <col width="100" />
-                                                <col width="200" />
-                                                <col width="300" />
-                                            </colgroup>
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Institution</th>
-                                                    <th>City</th>
-                                                    <th>Valid Form</th>
-                                                    <th>Valid To</th>
-                                                    <th>Is Valid?</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
 
-                                                @foreach (TestWeb.Models.ListQualification it in Model)
-                                                {
-                                <tr>
+            </div>
+        </div>
+        //////////////////////////
+        <hr />
+
+        <div class="content">
+            <div class="content-header">
+                <div class="content-header-text">Employees</div>
+                <button class="btn-content-header" style="color:#fff">
+                    @Html.ActionLink("ADD", "Add", "Qualifications", new { id = ViewBag.id }, null)
+                </button>
+            </div>
+            <div class="grid">
+                <table>
+                    <colgroup>
+                        <col width="50" />
+                        <col width="150" />
+                        <col width="150" />
+                        <col width="100" />
+                        <col width="200" />
+                        <col width="300" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Institution</th>
+                            <th>City</th>
+                            <th>Valid Form</th>
+                            <th>Valid To</th>
+                            <th>Is Valid?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int i = 0;}
+                        @foreach (TestWeb.Models.ListQualification it in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @(i+1)
+                                </td>
+                                <td>
+
+                                    @it.Name
+                                </td>
+
+                                <td>
+                                    @it.Institution
+                                </td>
+                                <td>
+                                    @it.City
+                                </td>
+                                <td>
+                                    @it.ValidFrom
+                                </td>
+                                <td>
+                                    @it.ValidTo
+                                </td>
+                                <td>
+                                    @if (it.IsValid)
+                                    {
+                                        <div class="icon-common icon-valid"></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="icon-common icon-not-valid"></div>
+                                    }
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
 
 
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        @*@Html.DisplayFor(x => x.Name)*@
-                                        @it.Name;
-                                    </td>
+            <div class="paging">
 
-                                    @*<td>
-                                            @Html.DisplayFor(x => item.Institution)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(x => item.Qualification)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(x => item.QualificationId)
-                                        </td>*@
+                @*  Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount*@
 
-
-                                </tr>}
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-
-                                    <div class="paging">
-
-                                        @*  Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount*@
-
-                                        @Html.PagedListPager(Model, page => Url.Action("Edit", "Home",
-                                         new { id = ViewBag.id, firstName = ViewBag.firstName, lastName = ViewBag.lastName, birthDate = ViewBag.birthDate, page }))
-                                    </div>
-                                </div>}
+                @Html.PagedListPager(Model, page => Url.Action("Edit", "Home",
+                 new { id = ViewBag.id, firstName = ViewBag.firstName, lastName = ViewBag.lastName, birthDate = ViewBag.birthDate, page }))
+            </div>
+        </div>}

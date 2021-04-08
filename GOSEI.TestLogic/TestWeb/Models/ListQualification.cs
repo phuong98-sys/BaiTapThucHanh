@@ -11,7 +11,8 @@
     public partial class ListQualification
     {
         public int Id { get; set; }
-
+        public TimeSpan? Time { get; set; }
+        public double? diff { get; set; }
         public int? EmployeeId { get; set; }
         public int QualificationId { get; set; }
         public string Name { get; set; }
@@ -23,15 +24,27 @@
         public string City { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? ValidFrom { get; set; }
+        public DateTime ValidFrom { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? ValidTo { get; set; }
+        public DateTime ValidTo { get; set; }
 
         public string Note { get; set; }
 
         public virtual Employee Employee { get; set; }
 
         public virtual Qualification Qualification { get; set; }
+
+        public bool IsValid { get {
+                if(DateTime.Compare(ValidTo, ValidFrom) >= 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+   
+            } }
     }
 }
