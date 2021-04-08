@@ -17,7 +17,7 @@ namespace EmployeeQualification.Controllers
         }
         public ActionResult Add(TestWeb.Models.EmployeeQualification model, int id)
         {
-
+            ViewBag.Id = id;
             if (ModelState.IsValid)
             {
                 //var e = new Employee();
@@ -25,6 +25,7 @@ namespace EmployeeQualification.Controllers
                 e.QualificationId = model.QualificationId;
                 e.EmployeeId = id;
                 e.Note = model.Note;
+                e.Institution = model.Institution;
                 context.EmployeeQualifications.Add(e);
 
                 //context.Entry(employee).State = EntityState.Modified;
@@ -35,13 +36,15 @@ namespace EmployeeQualification.Controllers
             }
 
            
-            ViewBag.qualificationId = new SelectList(context.Qualifications, "Id", "Name", model.QualificationId);
+
+                SelectList cateList = new SelectList(context.Qualifications, "Id", "Name", model.QualificationId);
+            ViewBag.qualificationId= cateList;
             //else
             //{
             //    ViewBag.isValid = false;
             //}
 
-          
+
             return View(model);
         }
     }
