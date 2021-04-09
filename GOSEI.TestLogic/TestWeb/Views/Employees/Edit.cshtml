@@ -6,9 +6,6 @@
 @using PagedList.Mvc;
 
 @model PagedList.IPagedList<TestWeb.Models.ListQualification>
-@*@model  TestWeb.Models.Employee*@
-@*@model  TestWeb.ViewModel.DetailViewModel*@
-
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <link href="~/assets/css/common/common.css" rel="stylesheet" />
 <link href="~/assets/css/common/grid.css" rel="stylesheet" />
@@ -16,45 +13,40 @@
 <link href="~/assets/css/common/input.css" rel="stylesheet" />
 <link href="~/assets/css/common/icon.css" rel="stylesheet" />
 <link href="~/assets/css/pages/employee.css" rel="stylesheet" />
-@*@modelt  EmployeeQualification.Models.EmployeeQualification*@
+
 <div class="container">
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="content">
+            <!--Edit Enployee-->
             <div class="content-header">
-                @ViewBag.firstname
+                @ViewBag.fullName
             </div>
             <div class="content-body">
                 <form action="/Home/Edit" method="post">
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.Hidden("Id", new { id = ViewBag.id, @value = ViewBag.id })
-                    @*@if (ViewBag.Success != null)
-                        {<div class="alert  alert-success">@ViewBag.Success</div>}
-                        @if (ViewBag.isValid != true)
-                        {<div class="alert  alert-success">@ViewBag.Success</div>}*@
 
-                    @*  @Html.HiddenFor(model => model.Id=1)*@
                     <div class="g-form-group">
                         @Html.Label("FirstName", htmlAttributes: new { @class = "g-control-label" })
                         <div class="group-input">
-                            @Html.Editor("FirstName", new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.Editor("FirstName", new { htmlAttributes = new { @class = "form-control", required = "required", style = "max-width:100%" } })
                             @Html.ValidationMessage("FirstName", "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="g-form-group">
                         @Html.Label("MiddleName", htmlAttributes: new { @class = "g-control-label" })
                         <div class="group-input">
-                            @Html.Editor("MiddleName", new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.Editor("MiddleName", new { htmlAttributes = new { @class = "form-control", @value = ViewBag.middleName, style = "max-width:100%" } })
                             @Html.ValidationMessage("MiddleName", "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="g-form-group">
                         @Html.Label("LastName", htmlAttributes: new { @class = "g-control-label" })
                         <div class="group-input">
-                            @Html.Editor("LastName", new { htmlAttributes = new { @class = "form-control", @value = ViewBag.lastName, required = "required" } })
+                            @Html.Editor("LastName", new { htmlAttributes = new { @class = "form-control", @value = ViewBag.lastName, required = "required", style = "max-width:100%" } })
                             @Html.ValidationMessage("LastName", "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -72,7 +64,7 @@
                     <div class="g-form-group">
                         @Html.Label("BirthDate", htmlAttributes: new { @class = "g-control-label" })
                         <div class="group-input">
-                            @Html.Editor("BirthDate", new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.Editor("BirthDate", new { htmlAttributes = new { @class = "form-control", @value = "", required = "required", style = "max-width:100%" } })
                             @Html.ValidationMessage("BirthDate", "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -96,16 +88,16 @@
                     </button>
 
                     <input type="submit" value="Accept" id="btn-accept" style="color:#fff; background-color:#0088c1" />
-
                 </div>
 
 
             </div>
-        </div>
-        //////////////////////////
+        </div><!--Edit Enployee-->
         <hr />
 
         <div class="content">
+            <!--List Qualification of Employee-->
+
             <div class="content-header">
                 <div class="content-header-text">Employees</div>
                 <button class="btn-content-header" style="color:#fff">
@@ -173,14 +165,12 @@
                         }
                     </tbody>
                 </table>
-            </div>
-
+            </div> <!--List Qualification of Employee-->
 
             <div class="paging">
-
-                @*  Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount*@
-
-                @Html.PagedListPager(Model, page => Url.Action("Edit", "Home",
-                 new { id = ViewBag.id, firstName = ViewBag.firstName, lastName = ViewBag.lastName, birthDate = ViewBag.birthDate, page }))
+                @Html.PagedListPager(Model, page => Url.Action("Edit", "Employees",
+                 new { id = ViewBag.id, firstName = ViewBag.firstName, middleName = ViewBag.MiddleName, lastName = ViewBag.lastName, birthDate = ViewBag.birthDate, page }))
             </div>
-        </div>}
+        </div>
+     }
+</div>

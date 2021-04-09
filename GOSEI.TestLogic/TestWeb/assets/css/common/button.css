@@ -6,7 +6,7 @@
     color:#fff;
 }
 .content-header .btn-content-header {
-    margin-top:10px;
+    /*margin-top:10px;*/
     position:absolute;
     right:10px;
     display:flex;
@@ -19,7 +19,8 @@
 }
 .btn-content-header a {
     color: #fff;
-    border:none;
+    border: none;
+    text-decoration: none;
 }
 #btn-delete {
     padding-left: 10px;
@@ -30,9 +31,10 @@
     color: red;
     background-color: #fff;
 }
-#btn-delete a{
-    color:red;
-}
+    #btn-delete a {
+        color: red;
+        text-decoration: none;
+    }
     #btn-delete:hover {
         background-color: #ff6a00;
         cursor: pointer;
@@ -73,6 +75,9 @@
    border:none;
 
 }
+    #btn-cancel a {
+        text-decoration: none;
+    }
 #btn-accept {
     height: 34px;
     color: #fff;

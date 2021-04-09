@@ -11,6 +11,7 @@ namespace TestWeb.Models
     [Table("EmployeeQualification")]
     public partial class EmployeeQualification
     {
+       
         public int Id { get; set; }
 
         public int? EmployeeId { get; set; }
@@ -24,25 +25,20 @@ namespace TestWeb.Models
         public string City { get; set; }
 
         [Required]
-        [DisplayName("Date of Birth")]
+        [DisplayName("Valid From")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString =
-     "{0:yyyy-MM-dd}",
-      ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ValidFrom { get; set; }
+       
 
         [Required]
-        [DisplayName("Date of Birth")]
+        [DisplayName("Valid To")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString =
-     "{0:yyyy-MM-dd}",
-      ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ValidTo { get; set; }
-
+     
         public string Note { get; set; }
-
         public virtual Employee Employee { get; set; }
-
         public virtual Qualification Qualification { get; set; }
     }
 }

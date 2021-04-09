@@ -44,8 +44,8 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th id="title-first-name">@Html.ActionLink("First Name", "Index", "Home", new { sortOrder = "FirstName" }, null)</th>
-                        <th id="title-last-name">@Html.ActionLink("Last Name", "Index", "Home", new { sortOrder = "LastName" }, null)</th>
+                        <th id="title-first-name">@Html.ActionLink("First Name", "Index", "Employees", new { sortOrder = "FirstName" }, null)</th>
+                        <th id="title-last-name">@Html.ActionLink("Last Name", "Index", "Employees", new { sortOrder = "LastName" }, null)</th>
                         <th>Gender</th>
                         <th>Birth Date</th>
                         <th>Email Address</th>
@@ -62,7 +62,7 @@
                             </td>
                             <td id="col-first-name">
                                 <a href="@Url.Action("Edit","Employees",
-                                    new { id = item.Id , firstName= item.FirstName, lastname=item.LastName, birthDate=item.BirthDate})">
+                                    new { id = item.Id , firstName= item.FirstName, middleName=item.MiddleName, lastname=item.LastName, birthDate=item.BirthDate})">
                                     @Html.DisplayFor(x => item.FirstName, new { htmlAttributes = new { @class = "form-control111s" }, style = "color:#0088c1" })
                                 </a>
 

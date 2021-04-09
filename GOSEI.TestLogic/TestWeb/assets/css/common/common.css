@@ -40,9 +40,13 @@
 body {
     margin: 0;
 }
-a{
-    color:#fff;
-}
+
 #title-first-name {
     color: black;
+}
+a {
+    color: black;
+}
+hr{
+    border:none;
 }

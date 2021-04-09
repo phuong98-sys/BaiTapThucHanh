@@ -10,9 +10,8 @@
     [Table("ListQualification")]
     public partial class ListQualification
     {
+        private DateTime startDate = DateTime.Now;
         public int Id { get; set; }
-        public TimeSpan? Time { get; set; }
-        public double? diff { get; set; }
         public int? EmployeeId { get; set; }
         public int QualificationId { get; set; }
         public string Name { get; set; }
@@ -34,9 +33,11 @@
         public virtual Employee Employee { get; set; }
 
         public virtual Qualification Qualification { get; set; }
-
-        public bool IsValid { get {
-                if(DateTime.Compare(ValidTo, ValidFrom) >= 0)
+        public bool IsValid 
+        {
+            get
+            {
+                if (DateTime.Compare(startDate, ValidTo) <= 0)
                 {
                     return true;
                 }
@@ -44,7 +45,8 @@
                 {
                     return false;
                 }
-   
-            } }
+
+            }
+        }
     }
 }

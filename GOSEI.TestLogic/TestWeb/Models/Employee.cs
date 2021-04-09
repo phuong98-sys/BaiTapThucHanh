@@ -11,6 +11,7 @@ namespace TestWeb.Models
     public partial class Employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        private DateTime startDate = DateTime.Now;
         public Employee()
         {
             EmployeeQualifications = new HashSet<EmployeeQualification>();
@@ -19,7 +20,6 @@ namespace TestWeb.Models
         public int Id { get; set; }
 
         [Required]
-        //[Required(ErrorMessage = "The FirstName field is required.")]
         [StringLength(250)]
         public string FirstName { get; set; }
 
@@ -32,29 +32,17 @@ namespace TestWeb.Models
 
         [StringLength(50)]
         public string Gender { get; set; }
-        //[DisplayName("Date of Birth")]
         [Required]
         [DisplayName("Date of Birth")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString =
-      "{0:yyyy-MM-dd}",
-       ApplyFormatInEditMode = true)]
-        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
-
-       
-
-
         [StringLength(50)]
         public string Email { get; set; }
-
         public string Note { get; set; }
-
-      
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeQualification> EmployeeQualifications { get; set; }
 
     }
- 
+
 }

@@ -20,31 +20,18 @@ namespace EmployeeQualification.Controllers
             ViewBag.Id = id;
             if (ModelState.IsValid)
             {
-                //var e = new Employee();
                 TestWeb.Models.EmployeeQualification e = new TestWeb.Models.EmployeeQualification();
                 e.QualificationId = model.QualificationId;
                 e.EmployeeId = id;
                 e.Note = model.Note;
                 e.Institution = model.Institution;
+                e.ValidFrom = model.ValidFrom;
+                e.ValidTo = model.ValidTo;
                 context.EmployeeQualifications.Add(e);
-
-                //context.Entry(employee).State = EntityState.Modified;
-                context.SaveChanges();
-                //mymodel.employee = employee;
-                ViewBag.Success = "Add eq Susscess!";
-                return RedirectToAction("Index");
+                context.SaveChanges();                         
             }
-
-           
-
-                SelectList cateList = new SelectList(context.Qualifications, "Id", "Name", model.QualificationId);
-            ViewBag.qualificationId= cateList;
-            //else
-            //{
-            //    ViewBag.isValid = false;
-            //}
-
-
+            SelectList cateList = new SelectList(context.Qualifications, "Id", "Name", model.QualificationId);
+            ViewBag.qualificationId = cateList;
             return View(model);
         }
     }
