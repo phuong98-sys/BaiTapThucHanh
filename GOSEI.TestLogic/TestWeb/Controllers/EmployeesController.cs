@@ -138,6 +138,10 @@ namespace TestWeb.Controllers
             context.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        public ActionResult test()
+        {
+        
+            return View();
+        }
     }
 }

@@ -1,0 +1,21 @@
+﻿@model TestWeb.Models.EmployeeQualification
+@{
+    ViewBag.Title = "test";
+}
+@using (Html.BeginForm())
+{
+    <br />
+    @Html.EditorFor(model => model.ValidFrom, new { htmlAttributes = new { @class = "datepicker" } })
+}
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+@section script{
+
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script>
+        $(function (){
+            $(".datepicker").datepicker;
+        });
+    </script>
+}
+<h2>test</h2>
+

@@ -58,7 +58,7 @@
                 <div class="g-form-group">
                     @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "g-control-label" })
                     <div class="group-input">
-                        @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control", required = "required", style = "max-width:100%" } })
+                        @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "datepicker", required = "required", style = "max-width:100%" } })
                         @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
                     </div>
 
@@ -82,5 +82,6 @@
                     <input type="submit" value="Accept" id="btn-accept" style="color:#fff; background-color:#0088c1" />
                 </div>
             </div>
-        </div>}
+        </div>
+     }
 </div>
