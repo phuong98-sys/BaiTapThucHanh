@@ -9,6 +9,7 @@ using PagedList.Mvc;
 using TestWeb.Models;
 using System.Data.Entity;
 using System.Dynamic;
+using System.Globalization;
 
 namespace TestWeb.Controllers
 {
@@ -45,8 +46,9 @@ namespace TestWeb.Controllers
             employee = model.ToPagedList(pageIndex, pageSize);
             return View(employee);
         }
-
-        public ActionResult Add([Bind(Include = "FirstName,MiddleName,LastName,Gender,BirthDate,Email,Note")] Employee employee)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add([Bind(Include = "FirstName,MiddleName,LastName,Gender,Email,BirthDate,Email,Note")] Employee employee)
         {
 
             if (ModelState.IsValid)
@@ -56,6 +58,7 @@ namespace TestWeb.Controllers
                 context.SaveChanges();
 
                 ViewBag.Success = "Add Employee Susscess!";
+               
                 ViewBag.isValid = true;
 
                 return RedirectToAction("Index");
@@ -77,7 +80,8 @@ namespace TestWeb.Controllers
             ViewBag.middleName = middleName;
             ViewBag.lastName = lastName;
             ViewBag.fullName = firstName + " " + middleName + " " + lastName;
-            ViewBag.birthDate = model.BirthDate;
+            ViewBag.birthDate = birthDate.ToString("yyyy-MM-dd");
+        
             ViewBag.page = page;
             ViewBag.id = id;
 
@@ -99,7 +103,6 @@ namespace TestWeb.Controllers
             {
                 ModelState.AddModelError("", "loi");
             }
-
             var employeeQualifications = context.EmployeeQualifications.Where(m => m.Id != null);
             var qualifications = context.Qualifications.Where(m => m.Id != null);
             var model2 = (from eq in employeeQualifications

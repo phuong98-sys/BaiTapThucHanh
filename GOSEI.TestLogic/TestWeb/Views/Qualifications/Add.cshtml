@@ -47,21 +47,18 @@
                 <hr />
                 <div class="container-date">
                     <div id="valid-from">
-                        @Html.LabelFor(model => model.ValidFrom, htmlAttributes: new { @class = "g-control-label" })
+                        @Html.Label("ValidFrom", htmlAttributes: new { @class = "g-control-label" })
                         <div class="group-input">
-                            @Html.EditorFor(model => model.ValidFrom, new { htmlAttributes = new { @class = "datepicker" } })
-                            @Html.ValidationMessageFor(model => model.ValidFrom, "", new { @class = "text-danger" })
+                            <input name="ValidFrom" id="ValidFrom" class="form-control" type="date" required="required" style="max-width:100%" />
                         </div>
-
                     </div>
                     <div id="valid-to">
-                        @Html.LabelFor(model => model.ValidTo, htmlAttributes: new { @class = "g-control-label" })
+                        @Html.Label("ValidTo", htmlAttributes: new { @class = "g-control-label" })
                         <div class="group-input">
-                            @Html.EditorFor(model => model.ValidTo, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                            @Html.ValidationMessageFor(model => model.ValidTo, "", new { @class = "text-danger" })
+                            <input name="ValidTo" id="ValidTo" class="form-control" type="date" required="required" style="max-width:100%" />
                         </div>
-
                     </div>
+                   
                 </div>
                 <hr />
             </div>

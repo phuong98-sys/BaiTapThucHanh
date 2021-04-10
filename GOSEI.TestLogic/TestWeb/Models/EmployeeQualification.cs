@@ -13,7 +13,6 @@ namespace TestWeb.Models
     {
        
         public int Id { get; set; }
-
         public int? EmployeeId { get; set; }
         public int QualificationId { get; set; }
 
@@ -29,7 +28,6 @@ namespace TestWeb.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ValidFrom { get; set; }
-       
 
         [Required]
         [DisplayName("Valid To")]

@@ -22,6 +22,7 @@
             <div class="content-body">
                 @if (ViewBag.Success != null)
                 {<div class="alert  alert-success">@ViewBag.Success</div>}
+
                 <div class="g-form-group">
                     @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "g-control-label" })
                     <div class="group-input">
@@ -56,14 +57,18 @@
                     </div>
                 </div>
                 <div class="g-form-group">
-                    @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "g-control-label" })
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "g-control-label" })
                     <div class="group-input">
-                        @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "datepicker", required = "required", style = "max-width:100%" } })
-                        @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", style = "max-width:100%;width:100%;" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
-
                 </div>
-
+                <div class="g-form-group">
+                    @Html.Label("BirthDate", htmlAttributes: new { @class = "g-control-label" })
+                    <div class="group-input">
+                        <input name="BirthDate" id="BirthDate" class="form-control" type="date"  required = "required" style="max-width:100%" />
+                    </div>
+                </div>
                 <div class="g-form-group">
                     @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "g-control-label" })
                     <div class="group-input">

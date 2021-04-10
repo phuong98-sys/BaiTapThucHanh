@@ -4,18 +4,22 @@
 
 @using PagedList;
 @using PagedList.Mvc;
-
 @model PagedList.IPagedList<TestWeb.Models.ListQualification>
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-<link href="~/assets/css/common/common.css" rel="stylesheet" />
-<link href="~/assets/css/common/grid.css" rel="stylesheet" />
-<link href="~/assets/css/common/button.css" rel="stylesheet" />
-<link href="~/assets/css/common/input.css" rel="stylesheet" />
-<link href="~/assets/css/common/icon.css" rel="stylesheet" />
-<link href="~/assets/css/pages/employee.css" rel="stylesheet" />
+<html>
+<head>
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/common/common.css" rel="stylesheet" />
+    <link href="~/assets/css/common/grid.css" rel="stylesheet" />
+    <link href="~/assets/css/common/button.css" rel="stylesheet" />
+    <link href="~/assets/css/common/input.css" rel="stylesheet" />
+    <link href="~/assets/css/common/icon.css" rel="stylesheet" />
+    <link href="~/assets/css/pages/employee.css" rel="stylesheet" />
+</head>
 
+
+<body>
 <div class="container">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Edit","Employees",FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
@@ -62,13 +66,18 @@
                         </div>
                     </div>
                     <div class="g-form-group">
-                        @Html.Label("BirthDate", htmlAttributes: new { @class = "g-control-label" })
+                        @Html.Label("Email", htmlAttributes: new { @class = "g-control-label" })
                         <div class="group-input">
-                            @Html.Editor("BirthDate", new { htmlAttributes = new { @class = "form-control", @value = "", required = "required", style = "max-width:100%" } })
-                            @Html.ValidationMessage("BirthDate", "", new { @class = "text-danger" })
+                            @Html.Editor("Email", new { htmlAttributes = new { @class = "form-control", required = "required", style = "max-width:100%" } })
+                            @Html.ValidationMessage("Email", "", new { @class = "text-danger" })
                         </div>
                     </div>
-
+                    <div class="g-form-group">
+                        @Html.Label("BirthDate", htmlAttributes: new { @class = "g-control-label" })
+                        <div class="group-input">
+                            <input name="BirthDate" id="BirthDate" class="form-control" type="date" value="@ViewBag.birthDate" style="max-width:100%" />
+                        </div>
+                    </div>
                     <div class="g-form-group">
                         @Html.Label("Note", htmlAttributes: new { @class = "g-control-label" })
                         <div class="group-input">
@@ -145,10 +154,10 @@
                                     @it.City
                                 </td>
                                 <td>
-                                    @it.ValidFrom
+                                    @it.ValidFrom.ToString("yyyy-MM-dd")
                                 </td>
                                 <td>
-                                    @it.ValidTo
+                                    @it.ValidTo.ToString("yyyy-MM-dd")
                                 </td>
                                 <td>
                                     @if (it.IsValid)
@@ -172,5 +181,15 @@
                  new { id = ViewBag.id, firstName = ViewBag.firstName, middleName = ViewBag.MiddleName, lastName = ViewBag.lastName, birthDate = ViewBag.birthDate, page }))
             </div>
         </div>
-     }
+    }
 </div>
+
+<script>
+    $(document).ready(function () {
+        document.getElementById("BirthDate").value = "2014-02-09";
+        document.getElementById("test").value = "phuong";
+    });​
+
+</script>
+</body>
+</html>
