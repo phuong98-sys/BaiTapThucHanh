@@ -15,181 +15,182 @@
     <link href="~/assets/css/common/icon.css" rel="stylesheet" />
     <link href="~/assets/css/pages/employee.css" rel="stylesheet" />
 </head>
-
-
 <body>
-<div class="container">
-    @using (Html.BeginForm("Edit","Employees",FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
+    <div class="container">
+        @using (Html.BeginForm("Edit", "Employees", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="content">
+                <!--Edit Enployee-->
+                <div class="content-header">
+                    @ViewBag.fullName
+                </div>
+                <div class="content-body">   
+                    <form action="/Home/Edit" method="post">
 
-        <div class="content">
-            <!--Edit Enployee-->
-            <div class="content-header">
-                @ViewBag.fullName
-            </div>
-            <div class="content-body">
-                <form action="/Home/Edit" method="post">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="g-form-group">
+                            @Html.Label("FirstName", htmlAttributes: new { @class = "g-control-label" })
+                            <div class="group-input">
+                                @Html.Editor("FirstName", new { htmlAttributes = new { @class = "form-control", required = "required", style = "max-width:100%" } })
+                                @Html.ValidationMessage("FirstName", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="g-form-group">
+                            @Html.Label("MiddleName", htmlAttributes: new { @class = "g-control-label" })
+                            <div class="group-input">
+                                @Html.Editor("MiddleName", new { htmlAttributes = new { @class = "form-control", @value = ViewBag.middleName, style = "max-width:100%" } })
+                                @Html.ValidationMessage("MiddleName", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="g-form-group">
+                            @Html.Label("LastName", htmlAttributes: new { @class = "g-control-label" })
+                            <div class="group-input">
+                                @Html.Editor("LastName", new { htmlAttributes = new { @class = "form-control", @value = ViewBag.lastName, required = "required", style = "max-width:100%" } })
+                                @Html.ValidationMessage("LastName", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="g-form-group">
+                            @Html.Label("Gender", htmlAttributes: new { @class = "g-control-label" })
+                            <div class="group-input">
+                                @Html.DropDownList("Gender", new List<SelectListItem>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {
+                                new SelectListItem{ Text="Male", Value="Male"},
+                                new SelectListItem{ Text="Female", Value="Female"} }, new { @class = "form-control", @value = ViewBag.gender, style = "max-width:100%" })
+                                @Html.ValidationMessage("Gender", "", new { @class = "text-danger" })
 
-                    <div class="g-form-group">
-                        @Html.Label("FirstName", htmlAttributes: new { @class = "g-control-label" })
-                        <div class="group-input">
-                            @Html.Editor("FirstName", new { htmlAttributes = new { @class = "form-control", required = "required", style = "max-width:100%" } })
-                            @Html.ValidationMessage("FirstName", "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="g-form-group">
-                        @Html.Label("MiddleName", htmlAttributes: new { @class = "g-control-label" })
-                        <div class="group-input">
-                            @Html.Editor("MiddleName", new { htmlAttributes = new { @class = "form-control", @value = ViewBag.middleName, style = "max-width:100%" } })
-                            @Html.ValidationMessage("MiddleName", "", new { @class = "text-danger" })
+                        <div class="g-form-group">
+                            @Html.Label("Email", htmlAttributes: new { @class = "g-control-label" })
+                            <div class="group-input">
+                                @Html.Editor("Email", new { htmlAttributes = new { @class = "form-control", style = "max-width:100%" } })
+                                @Html.ValidationMessage("Email", "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="g-form-group">
-                        @Html.Label("LastName", htmlAttributes: new { @class = "g-control-label" })
-                        <div class="group-input">
-                            @Html.Editor("LastName", new { htmlAttributes = new { @class = "form-control", @value = ViewBag.lastName, required = "required", style = "max-width:100%" } })
-                            @Html.ValidationMessage("LastName", "", new { @class = "text-danger" })
+                        <div class="g-form-group">
+                            @Html.Label("BirthDate", htmlAttributes: new { @class = "g-control-label" })
+                            <div class="group-input">
+                                <input name="BirthDate" id="BirthDate" class="form-control" type="date" value="@ViewBag.birthDate" style="max-width:100%" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="g-form-group">
-                        @Html.Label("Gender", htmlAttributes: new { @class = "g-control-label" })
-                        <div class="group-input">
-                            @Html.DropDownList("Gender", new List<SelectListItem>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {
-                            new SelectListItem{ Text="Male", Value="Male"},
-                            new SelectListItem{ Text="Female", Value="Female"} }, new { @class = "form-control", @value = ViewBag.gender, style = "max-width:100%" })
-                            @Html.ValidationMessage("Gender", "", new { @class = "text-danger" })
-
+                        <div class="g-form-group">
+                            @Html.Label("Note", htmlAttributes: new { @class = "g-control-label" })
+                            <div class="group-input">
+                                @Html.TextArea("Note", new { htmlAttributes = new { @class = "form-control" }, style = "max-width:100%" })
+                                @Html.ValidationMessage("Note", "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="g-form-group">
-                        @Html.Label("Email", htmlAttributes: new { @class = "g-control-label" })
-                        <div class="group-input">
-                            @Html.Editor("Email", new { htmlAttributes = new { @class = "form-control", required = "required", style = "max-width:100%" } })
-                            @Html.ValidationMessage("Email", "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="g-form-group">
-                        @Html.Label("BirthDate", htmlAttributes: new { @class = "g-control-label" })
-                        <div class="group-input">
-                            <input name="BirthDate" id="BirthDate" class="form-control" type="date" value="@ViewBag.birthDate" style="max-width:100%" />
-                        </div>
-                    </div>
-                    <div class="g-form-group">
-                        @Html.Label("Note", htmlAttributes: new { @class = "g-control-label" })
-                        <div class="group-input">
-                            @Html.TextArea("Note", new { htmlAttributes = new { @class = "form-control" }, style = "max-width:100%" })
-                            @Html.ValidationMessage("Note", "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <hr />
-                    <hr />
-                </form>
-            </div>
-
-            <div class="paging paging-content">
-                <div class="btn-container">
-                    <button id="btn-cancel">
-                        @Html.ActionLink("Cancel", "Index")
-                    </button>
-
-                    <input type="submit" value="Accept" id="btn-accept" style="color:#fff; background-color:#0088c1" />
+                        <hr />
+                        <hr />
+                    </form>
                 </div>
 
+                <div class="paging paging-content">
+                    <div class="btn-container">
+                        <button id="btn-cancel">
 
-            </div>
-        </div><!--Edit Enployee-->
-        <hr />
+                            @Html.ActionLink("Cancel", "Index")
+                        </button>
 
-        <div class="content">
-            <!--List Qualification of Employee-->
+                        <input type="submit" value="Accept" id="Add" style="color:#fff; background-color:#0088c1" />
+                    </div>
 
-            <div class="content-header">
-                <div class="content-header-text">Employees</div>
-                <button class="btn-content-header" style="color:#fff">
-                    @Html.ActionLink("ADD", "Add", "Qualifications", new { id = ViewBag.id }, null)
-                </button>
-            </div>
-            <div class="grid">
-                <table>
-                    <colgroup>
-                        <col width="50" />
-                        <col width="150" />
-                        <col width="150" />
-                        <col width="100" />
-                        <col width="200" />
-                        <col width="300" />
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Institution</th>
-                            <th>City</th>
-                            <th>Valid Form</th>
-                            <th>Valid To</th>
-                            <th>Is Valid?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{ int i = 0;}
-                        @foreach (TestWeb.Models.ListQualification it in Model)
-                        {
+
+                </div>
+            </div><!--Edit Enployee-->
+            <hr />
+
+            <div class="content">
+                <!--List Qualification of Employee-->
+
+                <div class="content-header">
+                    <div class="content-header-text">Employees</div>
+                    <button class="btn-content-header" style="color:#fff">
+                        @Html.ActionLink("ADD", "Add", "Qualifications", new { id = ViewBag.id, firstName = ViewBag.firstName, middleName = ViewBag.middleName, lastname = ViewBag.lastName, birthDate = ViewBag.birthDate }, null)
+                    </button>
+                </div>
+                <div class="grid">
+                    <table>
+                        <colgroup>
+                            <col width="50" />
+                            <col width="150" />
+                            <col width="150" />
+                            <col width="100" />
+                            <col width="200" />
+                            <col width="300" />
+                        </colgroup>
+                        <thead>
                             <tr>
-                                <td>
-                                    @(i+1)
-                                </td>
-                                <td>
-
-                                    @it.Name
-                                </td>
-
-                                <td>
-                                    @it.Institution
-                                </td>
-                                <td>
-                                    @it.City
-                                </td>
-                                <td>
-                                    @it.ValidFrom.ToString("yyyy-MM-dd")
-                                </td>
-                                <td>
-                                    @it.ValidTo.ToString("yyyy-MM-dd")
-                                </td>
-                                <td>
-                                    @if (it.IsValid)
-                                    {
-                                        <div class="icon-common icon-valid"></div>
-                                    }
-                                    else
-                                    {
-                                        <div class="icon-common icon-not-valid"></div>
-                                    }
-                                </td>
-
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Institution</th>
+                                <th>City</th>
+                                <th>Valid Form</th>
+                                <th>Valid To</th>
+                                <th>Is Valid?</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-            </div> <!--List Qualification of Employee-->
+                        </thead>
+                        <tbody>
+                            @{ int i = 0;}
+                            @foreach (TestWeb.Models.ListQualification it in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @(i+1)
+                                    </td>
+                                    <td>
 
-            <div class="paging">
-                @Html.PagedListPager(Model, page => Url.Action("Edit", "Employees",
-                 new { id = ViewBag.id, firstName = ViewBag.firstName, middleName = ViewBag.MiddleName, lastName = ViewBag.lastName, birthDate = ViewBag.birthDate, page }))
+                                        @it.Name
+                                    </td>
+
+                                    <td>
+                                        @it.Institution
+                                    </td>
+                                    <td>
+                                        @it.City
+                                    </td>
+                                    <td>
+                                        @it.ValidFrom.ToString("yyyy-MM-dd")
+                                    </td>
+                                    <td>
+                                        @it.ValidTo.ToString("yyyy-MM-dd")
+                                    </td>
+                                    <td>
+                                        @if (it.IsValid)
+                                        {
+                                            <div class="icon-common icon-valid"></div>
+                                        }
+                                        else
+                                        {
+                                            <div class="icon-common icon-not-valid"></div>
+                                        }
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div> <!--List Qualification of Employee-->
+
+                <div class="paging">
+                    @Html.PagedListPager(Model, page => Url.Action("Edit", "Employees",
+                     new { id = ViewBag.id, firstName = ViewBag.firstName, middleName = ViewBag.MiddleName, lastName = ViewBag.lastName, birthDate = ViewBag.birthDate, page }))
+                </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 
-<script>
-    $(document).ready(function () {
-        document.getElementById("BirthDate").value = "2014-02-09";
-        document.getElementById("test").value = "phuong";
-    });​
-
-</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+           
+            $("form").submit(function () {
+                alert("Edit Success!!!");
+       
+            });
+        });
+    </script>
 </body>
 </html>

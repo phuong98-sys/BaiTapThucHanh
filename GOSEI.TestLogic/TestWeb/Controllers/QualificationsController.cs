@@ -15,9 +15,14 @@ namespace EmployeeQualification.Controllers
         {
             return View();
         }
-        public ActionResult Add(TestWeb.Models.EmployeeQualification model, int id)
+        public ActionResult Add(TestWeb.Models.EmployeeQualification model, int id ,string firstName, string middleName, string lastName, DateTime birthDate)
         {
             ViewBag.Id = id;
+            ViewBag.firstName = firstName;
+            ViewBag.middleName = middleName;
+            ViewBag.lastName = lastName;
+            ViewBag.birthDate = birthDate.ToString("yyyy-MM-dd");
+
             if (ModelState.IsValid)
             {
                 TestWeb.Models.EmployeeQualification e = new TestWeb.Models.EmployeeQualification();
@@ -30,6 +35,7 @@ namespace EmployeeQualification.Controllers
                 context.EmployeeQualifications.Add(e);
                 context.SaveChanges();                         
             }
+            // Hiển thj ra Name của tất cả Qualification trong hệ thống
             SelectList cateList = new SelectList(context.Qualifications, "Id", "Name", model.QualificationId);
             ViewBag.qualificationId = cateList;
             return View(model);

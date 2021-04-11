@@ -37,7 +37,7 @@
         {
             get
             {
-                if (DateTime.Compare(startDate, ValidTo) <= 0)
+                if (DateTime.Compare(startDate, ValidTo) < 0)
                 {
                     return true;
                 }
