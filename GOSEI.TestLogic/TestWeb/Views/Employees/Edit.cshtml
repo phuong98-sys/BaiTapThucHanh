@@ -30,8 +30,8 @@
             @Html.AntiForgeryToken()
             <div class="content">
                 <!--Edit Enployee-->
-                <div class="content-header">
-                    @ViewBag.fullName
+                <div class="panel-heading">
+                   <h3 class="panel-title"> @ViewBag.fullName</h3>
                 </div>
                 <div class="content-body">
                     <form action="Employees/Edit" method="post">
@@ -116,25 +116,22 @@
             <div class="content">
                 <!--List Qualification of Employee-->
 
-                <div class="content-header">
-                    <div class="content-header-text">Qualifications</div>
-                    <button class="btn-content-header" data-toggle="modal" data-target="#myModal">
-                        Add
-                      
-
-                        @* @Html.ActionLink("ADD", "Add", "Qualifications", new { id = ViewBag.id, firstName = ViewBag.firstName, middleName = ViewBag.middleName, lastname = ViewBag.lastName, birthDate = ViewBag.birthDate }, null)*@
+                <div class="panel-heading">
+                    <div class="panel-title">Qualifications</div>
+                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal">
+                        Add                  
                     </button>
-                    <div class="container">
-                       
+                    <div>
+                        <!--Model to Add Qualification-->
                         <div class="modal fade" id="myModal">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                       
+
                                         <a href="#" class="close" data-dismiss="modal">&times;</a>
                                     </div>
                                     <div class="modal-body">
-                                        @using (Html.BeginForm("AddQ", "Employees", FormMethod.Post))
+                                        @using (Html.BeginForm("Edit", "Employees", FormMethod.Post))
                                         {
                                             @Html.AntiForgeryToken()
 
@@ -142,7 +139,7 @@
                                                 <div class="content-header">
                                                 </div>
                                                 <div class="content-body">
-                                                    <form id="form" name="certform" action="Employees/Edit" method="post">
+                                                    <form id="form" name="certform" action="Employees/Edit/firstName=@ViewBag.firstName&birthdate=@ViewBag.birthDate" method="post">
                                                         <input name="EmployeeId" id="EmployeeId" class="form-control" type="hidden" value="@ViewBag.id" />
                                                         <input name="FirstName" id="FirstName" class="form-control" type="hidden" value="@ViewBag.firstName" />
                                                         <input name="LastName" id="LastName" class="form-control" type="hidden" value="@ViewBag.lastName" />
@@ -175,7 +172,7 @@
                                                         <div class="form-group">
                                                             @Html.Label("NoteQualification", htmlAttributes: new { @class = "g-control-label" })
                                                             <div class="group-input">
-                                                                @Html.TextArea("NoteQualification", "", new { htmlAttributes = new { @class = "form-control", @value = "" }, style = "max-width:100%" })
+                                                                @Html.TextArea("NoteQualification", "", new { htmlAttributes = new { @class = "form-control", @value = "" }, style = "max-width:100%;width:100%" })
                                                                 @Html.ValidationMessage("NoteQualification", "", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
@@ -205,46 +202,19 @@
                                                             <a href="@Url.Action("Edit","Employees",
                                                             new { id = ViewBag.id , firstName = ViewBag.firstName, middleName =  ViewBag.middleName, lastname =ViewBag.lastName, birthDate = ViewBag.birthDate})" class="btn btn-default" data-dismiss="modal">Cancel</a>
                                                         </button>
-                                                        @*<a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>*@
                                                         <input type="submit" name="submit2" value="Accept" id="btn btn-success" style="color:#fff; background-color:#0088c1" />
-                                                        
+
                                                     </div>
                                                 </div>
-                                                @*<div class="paging paging-content">
-                                                    <div class="btn-container">
-                                                        <button id="btn-cancel">
-                                                            <a href="@Url.Action("Edit","Employees",
-                                    new { id = ViewBag.id , firstName = ViewBag.firstName, middleName =  ViewBag.middleName, lastname =ViewBag.lastName, birthDate = ViewBag.birthDate})">Cancel</a>
-                                                        </button>
-                                                        
-                                                    </div>
-                                                </div>*@
+
                                             </div>
-                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                                            <script>
-                                                $(document).ready(function () {
-                                                    function closeSelf() {
-                                                        // do something
 
-
-                                                        document.forms['certform'].submit();
-                                                        window.close();
-                                                    }
-}
-
-                                                    $("#form").submit(function () {
-                                                        alert("thanh cong");
-                                                        document.getElementById("form").style.display = "none";
-                                                    });
-
-                                                });
-                                            </script>
                                         }
                                     </div>
-                                   
+
                                 </div>
                             </div>
-                        </div>
+                        </div>    <!--Model to Add Qualification-->
 
                     </div>
 
@@ -319,17 +289,5 @@
             </div>
         }
     </div>
-
-    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-
-
-            $("form").submit(function () {
-               
-
-            });
-        });
-    </script>*@
 </body>
 </html>

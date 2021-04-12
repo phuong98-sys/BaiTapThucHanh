@@ -5,6 +5,7 @@
     border:none;
     color:#fff;
 }
+
 .content-header .btn-content-header {
     /*margin-top:10px;*/
     position:absolute;
@@ -17,26 +18,24 @@
     background-color:#808080;
     
 }
-.btn-content-header a {
+.btn-default a {
     color: #fff;
     border: none;
     text-decoration: none;
 }
-#btn-delete {
-    padding-left: 10px;
-    width: 80px;
-    height: 30px;
-    line-height: 30px;
+.btn-danger {
     border: 1px solid red;
     color: red;
     background-color: #fff;
 }
-    #btn-delete a {
-        color: red;
-        text-decoration: none;
-    }
+#btn-delete {
+  
+}
+.btn-danger a {
+    color: red;
+    text-decoration: none;
+}
     #btn-delete:hover {
-        background-color: #ff6a00;
         cursor: pointer;
     }
 .btn-paging {
@@ -90,4 +89,9 @@
     position: absolute;
     right: 10px;
 
+}
+.btn-default {
+    position: absolute;
+    right: 10px;
+    background-color: #808080;
 }

@@ -98,6 +98,10 @@
     height: 80px;
    
 }
+#NoteQualification {
+    width: 100%;
+    height: 80px;
+}
 #Gender,#Institution,#QualificationId{
     width: 100%;
     height: 35px;
@@ -118,4 +122,12 @@
     float: right;
     width: 200px;
     height: 35px;
+}
+.panel-heading {
+    background-color: #0088c1;
+    align-items:center;
+    line-height:60px;
+    align-self:center;
+    color:#fff;
+
 }
