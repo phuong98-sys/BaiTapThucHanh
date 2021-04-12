@@ -12,7 +12,7 @@
 <link href="~/assets/css/common/button.css" rel="stylesheet" />
 <link href="~/assets/css/common/input.css" rel="stylesheet" />
 <link href="~/assets/css/pages/employee.css" rel="stylesheet" />
-
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css" />
 <div class="container">
 
     @using (Html.BeginForm("Index", "Employees", FormMethod.Get, new { @id = "Form1" }))
@@ -29,11 +29,11 @@
         <div class="content-header">
             <div class="content-header-text">Employees</div>
             <button class="btn-content-header" style="color:#fff">
-                @Html.ActionLink("ADD", "Add", "Employees", new { status = "Add", Style="color:#fff!important" }, null)
+                @Html.ActionLink("ADD", "Add", "Employees", new { status = "Add", Style = "color:#fff!important" }, null)
             </button>
         </div>
         <div class="grid">
-            <table>
+            <table id="table_id">
                 <colgroup>
                     <col width="50" />
                     <col width="150" />
@@ -63,7 +63,7 @@
                             </td>
                             <td id="col-first-name">
                                 <a href="@Url.Action("Edit","Employees",
-                                    new { id = item.Id , firstName= item.FirstName, middleName=item.MiddleName, lastname=item.LastName, birthDate=item.BirthDate})">
+                                    new { id = item.Id , firstName= item.FirstName, middleName=item.MiddleName, lastname=item.LastName, birthDate=item.BirthDate, note=item.Note, email=item.Email})">
                                     @Html.DisplayFor(x => item.FirstName, new { htmlAttributes = new { @class = "form-controls" }, style = "color:#0088c1" })
                                 </a>
 
@@ -105,3 +105,18 @@
         </div>
 
     </div>
+</div>
+@section scripts{
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                "paging": false,
+                "ordering": true,
+                "info": false,
+                searching: false,
+                "search": false
+            });
+        });
+    </script>
+}

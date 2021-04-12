@@ -35,7 +35,7 @@ namespace TestWeb.Models
         [Required]
         [DisplayName("Date of Birth")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
         [StringLength(50)]
         public string Email { get; set; }

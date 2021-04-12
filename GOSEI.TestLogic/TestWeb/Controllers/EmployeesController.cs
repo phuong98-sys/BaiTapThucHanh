@@ -62,9 +62,9 @@ namespace TestWeb.Controllers
         }
 
     
-        public ActionResult Edit(Employee model, int id, string firstName,string middleName, string lastName, DateTime birthDate, int? page)
+        public ActionResult Edit(Employee model, TestWeb.Models.EmployeeQualification modelQ, int id, string firstName,string middleName, string lastName, DateTime birthDate, string email, string note,int? page, string submit,string submit2)
         {
-
+           
             ViewBag.firstName = firstName;
             ViewBag.middleName = middleName;
             ViewBag.lastName = lastName;
@@ -72,8 +72,11 @@ namespace TestWeb.Controllers
             ViewBag.birthDate = birthDate.ToString("yyyy-MM-dd");
             ViewBag.page = page;
             ViewBag.id = id;
-        
-            if (ModelState.IsValid)
+            ViewBag.email = email;
+            ViewBag.note = note;
+
+            ViewBag.isValid = false;
+            if (submit !=null)
             {
                 // Lưu thông tin mới của employee
                 Employee e = context.Employees.Find(id);
@@ -85,7 +88,12 @@ namespace TestWeb.Controllers
                 e.Email = model.Email;
                 e.Note = model.Note;
                 context.SaveChanges();
-                
+                ViewBag.isValid = true;
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.isValid = false;
             }
           
             var employeeQualifications = context.EmployeeQualifications.Where(m => m.Id != null);
@@ -111,9 +119,60 @@ namespace TestWeb.Controllers
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             IPagedList<ListQualification> employeeQualification = null;
             employeeQualification = model2.ToPagedList(pageIndex, pageSize);
+
+            ///////
+            if (submit2 != null)
+            {
+                TestWeb.Models.EmployeeQualification e = new TestWeb.Models.EmployeeQualification();
+                e.QualificationId = modelQ.QualificationId;
+                e.EmployeeId = modelQ.EmployeeId;
+                e.Note = modelQ.Note;
+                e.Institution = modelQ.Institution;
+                e.ValidFrom = modelQ.ValidFrom;
+                e.ValidTo = modelQ.ValidTo;
+                e.City = modelQ.City;
+                context.EmployeeQualifications.Add(e);
+                context.SaveChanges();
+                //return RedirectToAction("Index", "Employees");
+            }
+            // Hiển thj ra Name của tất cả Qualification trong hệ thống
+            SelectList cateList = new SelectList(context.Qualifications, "Id", "Name", modelQ.QualificationId);
+            ViewBag.qualificationId = cateList;
+            //return View(model);
+
+
+
             return View(employeeQualification);
         }
-
+        public void AddQ(TestWeb.Models.EmployeeQualification model, string submit2)
+        {
+            ViewBag.firstName  = Request["FirstName"].ToString();
+            ViewBag.lastName = Request["LastName"].ToString();
+            ViewBag.middleName = Request["MiddleName"].ToString();
+            ViewBag.gender = Request["Gender"].ToString();
+            ViewBag.email = Request["Email"].ToString();
+            ViewBag.birthDate = Request["BirthDate"].ToString();
+            ViewBag.note = Request["Note"].ToString();
+            if (submit2 != null)
+            {
+                TestWeb.Models.EmployeeQualification e = new TestWeb.Models.EmployeeQualification();
+                e.QualificationId = model.QualificationId;
+                e.EmployeeId = model.EmployeeId;
+                e.Note = model.Note;
+                e.Institution = model.Institution;
+                e.ValidFrom = model.ValidFrom;
+                e.ValidTo = model.ValidTo;
+                e.City = model.City;
+                
+                context.EmployeeQualifications.Add(e);
+                context.SaveChanges();
+             
+            }
+            // Hiển thj ra Name của tất cả Qualification trong hệ thống
+            SelectList cateList = new SelectList(context.Qualifications, "Id", "Name", model.QualificationId);
+            ViewBag.qualificationId = cateList;
+            //return RedirectToAction("Edit", "Employees",new {id= model.EmployeeId, firstName=ViewBag.firstname, middleName = ViewBag.MiddleName, lastName = ViewBag.lastName,note=ViewBag.note, email=ViewBag.email,  birthDate = ViewBag.birthDate });
+        }
         public ActionResult RemoveLine(int id)
         {
             //Xóa list Qualifications của employee có mã =id

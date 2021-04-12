@@ -22,6 +22,7 @@
         [StringLength(250)]
         public string City { get; set; }
 
+       
         [Column(TypeName = "date")]
         public DateTime ValidFrom { get; set; }
 
