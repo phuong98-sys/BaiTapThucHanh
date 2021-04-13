@@ -31,35 +31,35 @@
             <div class="content">
                 <!--Edit Enployee-->
                 <div class="panel-heading">
-                   <h3 class="panel-title"> @ViewBag.fullName</h3>
+                    <h3 class="panel-title"> @ViewBag.fullName</h3>
                 </div>
                 <div class="content-body">
-                    <form action="Employees/Edit" method="post">
-                       
+                    <form id="editEmployeeForm" action="Employees/Edit" method="post">
+
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                        <div class="g-form-group">
+                        <div class="form-group">
                             @Html.Label("FirstName", htmlAttributes: new { @class = "g-control-label" })
                             <div class="group-input">
                                 @Html.Editor("FirstName", new { htmlAttributes = new { @class = "form-control", required = "required", style = "max-width:100%" } })
                                 @Html.ValidationMessage("FirstName", "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="g-form-group">
+                        <div class="form-group">
                             @Html.Label("MiddleName", htmlAttributes: new { @class = "g-control-label" })
                             <div class="group-input">
                                 @Html.Editor("MiddleName", new { htmlAttributes = new { @class = "form-control", @value = ViewBag.middleName, style = "max-width:100%" } })
                                 @Html.ValidationMessage("MiddleName", "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="g-form-group">
+                        <div class="form-group">
                             @Html.Label("LastName", htmlAttributes: new { @class = "g-control-label" })
                             <div class="group-input">
                                 @Html.Editor("LastName", new { htmlAttributes = new { @class = "form-control", @value = ViewBag.lastName, required = "required", style = "max-width:100%" } })
                                 @Html.ValidationMessage("LastName", "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="g-form-group">
+                        <div class="form-group">
                             @Html.Label("Gender", htmlAttributes: new { @class = "g-control-label" })
                             <div class="group-input">
                                 @Html.DropDownList("Gender", new List<SelectListItem>
@@ -70,56 +70,49 @@
 
                             </div>
                         </div>
-                        <div class="g-form-group">
+                        <div class="form-group">
                             @Html.Label("Email", htmlAttributes: new { @class = "g-control-label" })
                             <div class="group-input">
                                 @Html.Editor("Email", new { htmlAttributes = new { @class = "form-control", style = "max-width:100%" } })
                                 @Html.ValidationMessage("Email", "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="g-form-group">
+                        <div class="form-group">
                             @Html.Label("BirthDate", htmlAttributes: new { @class = "g-control-label" })
                             <div class="group-input">
                                 <input name="BirthDate" id="BirthDate" class="form-control" type="date" value="@ViewBag.birthDate" style="max-width:100%" />
                             </div>
                         </div>
-                        <div class="g-form-group">
+                        <div class="form-group">
                             @Html.Label("Note", htmlAttributes: new { @class = "g-control-label" })
                             <div class="group-input">
                                 @Html.TextArea("Note", new { htmlAttributes = new { @class = "form-control" }, style = "max-width:100%" })
                                 @Html.ValidationMessage("Note", "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <hr />
-                        <hr />
+
                     </form>
                 </div>
+                
+                <div class="panel-footer">
+                    <input type="submit" name="submit" value="Accept" class="btn btn-success" style="color:#fff; background-color:#0088c1" />
+                    <button class="btn btn-default">
 
-                <div class="paging paging-content">
-                    <div class="btn-container">
-                        <button id="btn-cancel">
-
-                            @Html.ActionLink("Cancel", "Index")
-                        </button>
-
-                        <input type="submit" name="submit" value="Accept" id="Add" style="color:#fff; background-color:#0088c1" />
-
-
-
-                    </div>
+                        @Html.ActionLink("Cancel", "Index")
+                    </button>
 
 
                 </div>
             </div><!--Edit Enployee-->
-            <hr />
+            <br />
 
             <div class="content">
                 <!--List Qualification of Employee-->
 
                 <div class="panel-heading">
                     <div class="panel-title">Qualifications</div>
-                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal">
-                        Add                  
+                    <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#myModal">
+                        Add
                     </button>
                     <div>
                         <!--Model to Add Qualification-->
@@ -131,23 +124,16 @@
                                         <a href="#" class="close" data-dismiss="modal">&times;</a>
                                     </div>
                                     <div class="modal-body">
-                                        @using (Html.BeginForm("Edit", "Employees", FormMethod.Post))
+                                        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "saveQualification" }))
                                         {
                                             @Html.AntiForgeryToken()
 
                                             <div class="content" style="color:black;">
-                                                <div class="content-header">
-                                                </div>
+
                                                 <div class="content-body">
-                                                    <form id="form" name="certform" action="Employees/Edit/firstName=@ViewBag.firstName&birthdate=@ViewBag.birthDate" method="post">
+                                                    <form  method="post">
                                                         <input name="EmployeeId" id="EmployeeId" class="form-control" type="hidden" value="@ViewBag.id" />
-                                                        <input name="FirstName" id="FirstName" class="form-control" type="hidden" value="@ViewBag.firstName" />
-                                                        <input name="LastName" id="LastName" class="form-control" type="hidden" value="@ViewBag.lastName" />
-                                                        <input name="MiddleName" id="MiddleName" class="form-control" type="hidden" value="@ViewBag.middleName" />
-                                                        <input name="Gender" id="Gender" class="form-control" type="hidden" value="@ViewBag.gender" />
-                                                        <input name="Note" id="Note" class="form-control" type="hidden" value="@ViewBag.note" />
-                                                        <input name="Email" id="Email" class="form-control" type="hidden" value="@ViewBag.email" />
-                                                        <input name="BirthDate" id="BirthDate" class="form-control" type="hidden" value="@ViewBag.birthDate" />
+
                                                         <div class="form-group">
                                                             @Html.Label("Name", htmlAttributes: new { @class = "g-control-label" })
                                                             <div class="group-input">
@@ -197,12 +183,10 @@
                                                     </form>
 
                                                     <hr />
-                                                    <div claa="modal-footer">
-                                                        <button id="btn-cancel">
-                                                            <a href="@Url.Action("Edit","Employees",
-                                                            new { id = ViewBag.id , firstName = ViewBag.firstName, middleName =  ViewBag.middleName, lastname =ViewBag.lastName, birthDate = ViewBag.birthDate})" class="btn btn-default" data-dismiss="modal">Cancel</a>
-                                                        </button>
-                                                        <input type="submit" name="submit2" value="Accept" id="btn btn-success" style="color:#fff; background-color:#0088c1" />
+                                                    <div claa="panel-footer">
+
+                                                        <input id="saveQualificationForm" type="submit" name="submit2" id="btnSubmit" value="Accept" class="btn btn-success" style="color:#fff; background-color:#0088c1" />
+                                                        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
 
                                                     </div>
                                                 </div>
@@ -260,10 +244,10 @@
                                         @it.City
                                     </td>
                                     <td>
-                                        @it.ValidFrom.ToString("yyyy-MM-dd")
+                                        @it.ValidFrom.ToString("dd-MM-yyyy")
                                     </td>
                                     <td>
-                                        @it.ValidTo.ToString("yyyy-MM-dd")
+                                        @it.ValidTo.ToString("dd-MM-yyyy")
                                     </td>
                                     <td>
                                         @if (it.IsValid)
@@ -289,5 +273,26 @@
             </div>
         }
     </div>
+    <script>
+        $(document).ready(function () {
+            $('#saveQualification').submit(function (e) {
+               
+                var valdata = $("form").serialize();
+                alert(valdata);
+                $.ajax({
+                    url: "/Employees/SaveQualification",
+                    type: "POST",
+                    data: valdata,
+                    success: function () {
+                        location.reload();
+
+                    }
+                });
+                e.preventDefault();
+                $('#myModal').modal('hide');
+            });
+        });
+
+    </script>
 </body>
 </html>

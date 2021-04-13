@@ -3,37 +3,43 @@
     height: 70px;
     display: flex;
 }
+
 .content {
     border: 2px solid #0088c1;
-    height:calc(100% - 200px);
-    position:relative;
+    height: calc(100% - 200px);
+    position: relative;
 }
+
 .content-header {
     width: 100%;
     line-height: 34px;
     background-color: #0088c1;
     display: flex;
-    height:50px;
-    position:relative;
-    color:#fff;
-    padding:10px;
+    height: 50px;
+    position: relative;
+    color: #fff;
+    padding: 10px;
 }
+
     .content-header .content-header-text {
         color: #fff;
         font-size: 15px;
-       
-        float: left;  
+        float: left;
     }
-#col-first-name  {
+
+#col-first-name {
     color: #0088c1;
 }
+
 #title-first-name, #title-last-name {
     color: black;
 }
+
     #title-first-name a {
         color: black;
         text-decoration: none;
     }
+
     #title-last-name a {
         color: black;
         text-decoration: none;
@@ -42,23 +48,25 @@
     #title-first-name, #title-last-name :hover {
         cursor: pointer;
     }
-#col-first-name a{
-    color:#0088c1;
+
+#col-first-name a {
+    color: #0088c1;
 }
+
 .paging {
-    padding:30px;
+    padding: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 50px;
-    
-    position:relative;
+    position: relative;
 }
+
 .paging-content {
     justify-content: right;
     position: relative;
-    background-color:#e5e5e5;
+    background-color: #e5e5e5;
 }
 
 
@@ -67,67 +75,82 @@
     height: calc(100% - 101px);
     overflow: hidden;
     margin: 30px 10px 0 10px;
-   
 }
 
-.g-form-group{
-    display:block;
-    width:100%;
-    height:60px;
-  
-}
-.g-control-label{
-   
-}
-.group-input{
-    width:100%;
-    height:inherit;
- 
-}
-.g-form-control{
-    width:100%!important;
-    height:35px; 
-   
+.g-form-group {
+    display: block;
+    width: 100%;
+    height: 60px;
 }
 
-.text-danger{
-    display:none;
+.g-control-label {
 }
+
+.group-input {
+    width: 100%;
+    height: inherit;
+}
+
+.g-form-control {
+    width: 100% !important;
+    height: 35px;
+}
+
+.text-danger {
+    display: none;
+}
+
 #Note {
     width: 100%;
     height: 80px;
-   
 }
+
 #NoteQualification {
     width: 100%;
     height: 80px;
 }
-#Gender,#Institution,#QualificationId{
+
+#Gender, #Institution, #QualificationId {
     width: 100%;
     height: 35px;
-   outline:none;
-   max-width:100%;
+    outline: none;
+    max-width: 100%;
 }
 
-.container-date{
-  height:60px;
-  width:100%;
+.container-date {
+    height: 60px;
+    width: 100%;
 }
-#valid-from{
-    float:left;
-    width:200px;
-    height:35px;
+
+#valid-from {
+    float: left;
+    width: 200px;
+    height: 35px;
 }
+
 #valid-to {
     float: right;
     width: 200px;
     height: 35px;
 }
+
 .panel-heading {
     background-color: #0088c1;
-    align-items:center;
-    line-height:60px;
-    align-self:center;
-    color:#fff;
+    align-items: center;
+    display: flex;
+    align-items: center;
+    height: 46px;
+    color: #fff;
+}
 
+.panel-footer {
+    height: 50px;
+}
+
+.modal-header {
+    background-color: #0088c1;
+}
+
+.close {
+    color: black;
 }

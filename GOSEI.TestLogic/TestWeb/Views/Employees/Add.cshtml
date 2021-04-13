@@ -19,22 +19,22 @@
         <div class="content">
             <div class="panel-heading">
             </div>
-            <div class="content-body">
-                <div class="g-form-group">
+            <div class="panel-body">
+                <div class="form-group">
                     @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "g-control-label" })
                     <div class="group-input">
                         @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", required = "required", style = "max-width:100%" } })
                         @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="g-form-group">
+                <div class="form-group">
                     @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "g-control-label" })
                     <div class="group-input">
                         @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", style = "max-width:100%" } })
                         @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="g-form-group">
+                <div class="form-group">
                     @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "g-control-label" })
                     <div class="group-input">
                         @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", required = "required", style = "max-width:100%;width:100%;" } })
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="g-form-group">
+                <div class="form-group">
                     @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "g-control-label" })
                     <div class="group-input">
                         @Html.DropDownList("Gender", new List<SelectListItem>
@@ -53,37 +53,36 @@
 
                     </div>
                 </div>
-                <div class="g-form-group">
+                <div class="form-group">
                     @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "g-control-label" })
                     <div class="group-input">
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", style = "max-width:100%;width:100%;" } })
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="g-form-group">
+                <div class="form-group">
                     @Html.Label("BirthDate", htmlAttributes: new { @class = "g-control-label" })
                     <div class="group-input">
-                        <input name="BirthDate" id="BirthDate" class="form-control" type="date"  required = "required" style="max-width:100%" />
+                        <input name="BirthDate" id="BirthDate" class="form-control" type="date" required="required" style="max-width:100%" />
                     </div>
                 </div>
-                <div class="g-form-group">
+                <div class="form-group">
                     @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "g-control-label" })
                     <div class="group-input">
                         @Html.TextAreaFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" }, style = "max-width:100%" })
                         @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <hr />
-                <hr />
+
             </div>
-            <div class="paging paging-content">
-                <div class="btn-container">
-                    <button id="btn-cancel">
-                        @Html.ActionLink("Cancel", "Index")
-                    </button>
-                    <input type="submit" value="Accept" id="btn-accept" style="color:#fff; background-color:#0088c1" />
-                </div>
+            <div class="panel-footer">
+
+                <button class="btn btn-default">
+                    @Html.ActionLink("Cancel", "Index")
+                </button>
+                <input type="submit" value="Accept" class="btn btn-success" style="color:#fff; background-color:#0088c1" />
+
             </div>
         </div>
-     }
+    }
 </div>
