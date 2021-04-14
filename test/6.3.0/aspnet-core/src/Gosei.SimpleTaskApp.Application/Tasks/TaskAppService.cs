@@ -1,20 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
 using Abp.Linq.Extensions;
-using Acme.SimpleTaskApp.Tasks.Dtos;
 using Gosei.SimpleTaskApp;
 using Microsoft.EntityFrameworkCore;
+using Gosei.SimpleTaskApp.Tasks.Dto;
+using Gosei.SimpleTaskApp.Tasks;
+using System.Threading.Tasks;
 
 namespace Acme.SimpleTaskApp.Tasks
 {
     public class TaskAppService : SimpleTaskAppAppServiceBase, ITaskAppService
     {
-        private readonly IRepository<Task> _taskRepository;
+        private readonly IRepository<Gosei.SimpleTaskApp.Tasks.Task> _taskRepository;
 
-        public TaskAppService(IRepository<Task> taskRepository)
+        public TaskAppService(IRepository<Gosei.SimpleTaskApp.Tasks.Task> taskRepository)
         {
             _taskRepository = taskRepository;
         }
