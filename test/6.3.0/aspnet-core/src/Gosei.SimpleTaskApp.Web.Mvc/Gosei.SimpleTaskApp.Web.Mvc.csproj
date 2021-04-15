@@ -28,10 +28,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Gosei.SimpleTaskApp.Application\Gosei.SimpleTaskApp.Application.csproj" />
+    <ProjectReference Include="..\Gosei.SimpleTaskApp.Core\Gosei.SimpleTaskApp.Core.csproj" />
     <ProjectReference Include="..\Gosei.SimpleTaskApp.Web.Core\Gosei.SimpleTaskApp.Web.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BuildBundlerMinifier" Version="3.2.447" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>

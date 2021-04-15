@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gosei.SimpleTaskApp
+namespace Gosei.SimpleTaskApp.Tasks
 {
-    interface ITaskAppService:IApplicationService
+    public interface ITaskAppService : IApplicationService
     {
         Task<ListResultDto<TaskListDto>> GetAll(GetAllTasksInput input);
     }

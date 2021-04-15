@@ -11,6 +11,9 @@
     <RootNamespace>Gosei.SimpleTaskApp</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Gosei.SimpleTaskApp.Core\Gosei.SimpleTaskApp.Core.csproj" />
   </ItemGroup>
 </Project>

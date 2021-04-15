@@ -22,6 +22,7 @@
     <ProjectReference Include="..\Gosei.SimpleTaskApp.EntityFrameworkCore\Gosei.SimpleTaskApp.EntityFrameworkCore.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
     <PackageReference Include="Abp.AspNetCore" Version="6.3.0" />

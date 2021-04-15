@@ -1,5 +1,11 @@
 [
   {
+    "outputFileName": "wwwroot/js/views/tasks/index.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/tasks/index.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/view-resources/Views/_Bundles/account-layout.min.css",
     "inputFiles": [
       "wwwroot/libs/font-awesome/css/all.css",

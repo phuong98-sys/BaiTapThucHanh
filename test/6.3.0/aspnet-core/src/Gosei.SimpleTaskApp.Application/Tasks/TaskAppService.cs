@@ -10,7 +10,7 @@ using Gosei.SimpleTaskApp.Tasks.Dto;
 using Gosei.SimpleTaskApp.Tasks;
 using System.Threading.Tasks;
 
-namespace Acme.SimpleTaskApp.Tasks
+namespace Gosei.SimpleTaskApp.Tasks
 {
     public class TaskAppService : SimpleTaskAppAppServiceBase, ITaskAppService
     {

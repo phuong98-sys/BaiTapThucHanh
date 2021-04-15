@@ -17,6 +17,7 @@
   <ItemGroup>
     <PackageReference Include="Abp.AutoMapper" Version="6.3.0" />
     <PackageReference Include="Abp.ZeroCore.EntityFrameworkCore" Version="6.3.0" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="Castle.Windsor.MsDependencyInjection" Version="3.3.1" />
   </ItemGroup>
 </Project>

@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Abp.Castle.Log4Net" Version="6.3.0" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gosei.SimpleTaskApp.Core\Gosei.SimpleTaskApp.Core.csproj" />

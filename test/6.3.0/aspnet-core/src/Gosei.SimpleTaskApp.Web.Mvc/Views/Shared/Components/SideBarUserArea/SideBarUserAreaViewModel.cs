@@ -10,16 +10,18 @@ namespace Gosei.SimpleTaskApp.Web.Views.Shared.Components.SideBarUserArea
 
         public string GetShownLoginName()
         {
-            var userName = LoginInformations.User.UserName;
+            //    var userName = LoginInformations.User.UserName;
 
-            if (!IsMultiTenancyEnabled)
-            {
-                return userName;
-            }
+            //    if (!IsMultiTenancyEnabled)
+            //    {
+            //        return userName;
+            //    }
 
-            return LoginInformations.Tenant == null
-                ? ".\\" + userName
-                : LoginInformations.Tenant.TenancyName + "\\" + userName;
+            //    return LoginInformations.Tenant == null
+            //        ? ".\\" + userName
+            //        : LoginInformations.Tenant.TenancyName + "\\" + userName;
+            //}
+            return "a";
         }
     }
 }
