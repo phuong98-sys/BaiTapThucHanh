@@ -16,4 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Gosei.SimpleTaskApp.Core\Gosei.SimpleTaskApp.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Persons\Dto\" />
+  </ItemGroup>
 </Project>

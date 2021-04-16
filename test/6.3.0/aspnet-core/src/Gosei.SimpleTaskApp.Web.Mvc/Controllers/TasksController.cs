@@ -1,8 +1,12 @@
-﻿using Gosei.SimpleTaskApp.Controllers;
+﻿using Abp.Application.Services.Dto;
+using Gosei.SimpleTaskApp.Controllers;
+using Gosei.SimpleTaskApp.Persons;
 using Gosei.SimpleTaskApp.Tasks;
 using Gosei.SimpleTaskApp.Tasks.Dto;
+using Gosei.SimpleTaskApp.Web.Models.People;
 using Gosei.SimpleTaskApp.Web.Models.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +23,7 @@ namespace Gosei.SimpleTaskApp.Web.Controllers
         public TasksController(ITaskAppService taskAppService, ILookupAppService lookupAppService)
         {
             _taskAppService = taskAppService;
+            _lookupAppService = lookupAppService;
         }
 
         public async Task<ActionResult> Index(GetAllTasksInput input)

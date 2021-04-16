@@ -140,5 +140,11 @@
     "inputFiles": [
       "wwwroot/view-resources/Views/Shared/Components/TenantChange/_ChangeModal.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/tasks/create.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/tasks/create.js"
+    ]
   }
 ]

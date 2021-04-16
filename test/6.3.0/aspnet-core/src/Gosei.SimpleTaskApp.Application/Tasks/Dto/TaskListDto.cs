@@ -30,7 +30,7 @@ namespace Gosei.SimpleTaskApp.Tasks.Dto
         public TaskState State { get; set; }
     }
     [AutoMapTo(typeof(Task))]
-    public class CreateTaskInput
+    public class CreateTaskInput   // map voi Task entity
     {
         [Required]
         [StringLength(Task.MaxTitleLength)]

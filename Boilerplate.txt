@@ -1,0 +1,15 @@
+( nhớ restore thư viện trước khi sử dụng để có style)
+.EntityFramework: Kết nối database
+	-Migration: Tạo các bảng, refresh lại Model( cột, kiểu dư liệu) nếu có thay đổi rồi sau đó mới load vào Database
+	-Cơ chế Up, Down để đảm bảo khic có sự thay đổi Model và code chung cho toàn dự án, sẽ không cần đẩy database lên git để dùng lại
+	-Sau đó sẽ Update- Database và sử dụng
+.CORE: Tạo các Model, hàm logic thực hiện cho dự án
+.Aplication: Tạo API với dữ liệu kiểu Json, tạo service và Interface, nới chưa các DTO cho các Table( Model-> Database-> DTO)
+	- Controller của nó sẽ được(tầng Core...)  gennerate lên swagger để test, sử dụng 
+	- Cầu nối Client và tầng Domain qua DTo vs Application Service
+	- Gọi các hàm ở tầng core và trả về DTO cho tầng đó
+.Web.Mvc: Viết các controller mà .Application không làm được, như file,xml,from... hay xử lí các Request
+	 - Thường viết js tương ứng ở view-resource: chứ ko phải wwwroot/js/view/tasks/...js
+.Web.Host: chạy app project
+.Web.Core: gen api ở tầng .application(!)
+.Migrator: chuyển web->exe để hiển thị
