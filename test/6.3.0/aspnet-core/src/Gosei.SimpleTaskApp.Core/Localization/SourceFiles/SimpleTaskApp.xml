@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+    <text name="All tasks" value="All tasks" />
     <text name="TaskList" value="Task List" />
     <text name="TaskState_Open" value="Open" />
     <text name="TaskState_Completed" value="Completed" />

@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using Abp.Timing;
-using Gosei.SimpleTaskApp.Persons;
 
-namespace Gosei.SimpleTaskApp.Tasks
+namespace Test1.Tasks
 {
     [Table("AppTasks")]
     public class Task : Entity, IHasCreationTime
@@ -31,15 +30,11 @@ namespace Gosei.SimpleTaskApp.Tasks
             State = TaskState.Open;
         }
 
-        [ForeignKey(nameof(AssignedPersonId))]
-        public Person AssignedPerson { get; set; } // them tu Person table
-        public Guid? AssignedPersonId { get; set; }
-        public Task(string title, string description = null, Guid? assignedPersonId = null)
+        public Task(string title, string description = null)
             : this()
         {
             Title = title;
             Description = description;
-            AssignedPersonId = assignedPersonId;
         }
     }
 

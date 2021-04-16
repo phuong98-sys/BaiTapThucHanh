@@ -19,7 +19,7 @@ namespace Gosei.SimpleTaskApp.Web.Models.Tasks
         {
             new SelectListItem
             {
-                Text = localizationManager.GetString(SimpleTaskAppConsts.LocalizationSourceName, "AllTasks"),
+                Text = localizationManager.GetString(SimpleTaskAppConsts.LocalizationSourceName, $"AllTasks"),
                 Value = "",
                 Selected = SelectedTaskState == null
             }

@@ -14,6 +14,14 @@ namespace Test1.Web.Startup
         {
             context.Manager.MainMenu
                 .AddItem(
+                new MenuItemDefinition(
+                    "TaskList",
+                    L("TaskList"),
+                    url: "Tasks",
+                    icon: "fa fa-tasks"
+                    )
+            )
+                .AddItem(
                     new MenuItemDefinition(
                         PageNames.About,
                         L("About"),
@@ -135,6 +143,7 @@ namespace Test1.Web.Startup
                             )
                         )
                     )
+
                 );
         }
 

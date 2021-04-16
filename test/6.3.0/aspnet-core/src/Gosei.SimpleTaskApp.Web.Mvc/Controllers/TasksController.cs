@@ -13,8 +13,10 @@ namespace Gosei.SimpleTaskApp.Web.Controllers
     public class TasksController : SimpleTaskAppControllerBase
     {
         private readonly ITaskAppService _taskAppService;
+        private readonly ILookupAppService _lookupAppService;
 
-        public TasksController(ITaskAppService taskAppService)
+
+        public TasksController(ITaskAppService taskAppService, ILookupAppService lookupAppService)
         {
             _taskAppService = taskAppService;
         }
@@ -28,6 +30,16 @@ namespace Gosei.SimpleTaskApp.Web.Controllers
                 SelectedTaskState = input.State
             };
             return View(model);
+        }
+        public async Task<ActionResult> Create()
+        {
+            var peopleSelectListItems = (await _lookupAppService.GetPeopleComboboxItems()).Items
+                .Select(p => p.ToSelectListItem())
+                .ToList();
+
+            peopleSelectListItems.Insert(0, new SelectListItem { Value = string.Empty, Text = L("Unassigned"), Selected = true });
+
+            return View(new CreateTaskViewModel(peopleSelectListItems));
         }
     }
 }

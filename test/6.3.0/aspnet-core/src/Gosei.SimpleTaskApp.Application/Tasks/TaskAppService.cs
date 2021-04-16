@@ -25,6 +25,7 @@ namespace Gosei.SimpleTaskApp.Tasks
         {
             var tasks = await _taskRepository
                 .GetAll()
+                .Include(t => t.AssignedPerson) //truy van them ca bang nay de hien thi, tu dong copy vao DTO by AutoMapper
                 .WhereIf(input.State.HasValue, t => t.State == input.State.Value)
                 .OrderByDescending(t => t.CreationTime)
                 .ToListAsync();
@@ -32,6 +33,11 @@ namespace Gosei.SimpleTaskApp.Tasks
             return new ListResultDto<TaskListDto>(
                 ObjectMapper.Map<List<TaskListDto>>(tasks)
             );
+        }
+        public async System.Threading.Tasks.Task Create(CreateTaskInput input)
+        {
+            var task = ObjectMapper.Map<Task>(input);
+            await _taskRepository.InsertAsync(task);
         }
     }
 }
