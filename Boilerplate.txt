@@ -13,3 +13,14 @@
 .Web.Host: chạy app project
 .Web.Core: gen api ở tầng .application(!)
 .Migrator: chuyển web->exe để hiển thị
+
+
+Phan 1: 
+- truyen state ma controller va model nhan dc ntn 
+phan 2:
+- Mac dinh map khoa ngoia voi id bang kia
+- ko co AssignedName mà van nhan
+- Truyen state ntn
+- ko viet o outputName va inputName van chay ok
+- Loi filter
+- ham  set select cho dong dau tien
