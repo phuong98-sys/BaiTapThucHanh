@@ -5,7 +5,13 @@
     <text name="TaskList" value="Task List" />
     <text name="TaskState_Open" value="Open" />
     <text name="TaskState_Completed" value="Completed" />
-    <text name="HomePage" value="Home page" />
+    <text name="AllTasks" value="All Tasks" />
+    <text name="Unassigned" value="Unassigned" />
+    <text name="AddNew" value="Add New" />
+    <text name="Title" value="Title" />
+    <text name="NewTask" value="New Task" />
+    <text name="Description" value="Description" />
+    <text name="AssignedPerson" value="Assigned Person" />
     <text name="About" value="About" />
     <text name="WelcomeMessage" value="Welcome to SimpleTaskApp!" />
     <text name="FormIsNotValidMessage" value="Form is not valid. Please check and fix errors." />

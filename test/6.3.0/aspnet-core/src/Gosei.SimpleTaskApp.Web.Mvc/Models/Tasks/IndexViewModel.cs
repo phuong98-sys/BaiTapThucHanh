@@ -38,11 +38,28 @@ namespace Gosei.SimpleTaskApp.Web.Models.Tasks
 
             return list;
         }
+        public List<SelectListItem> GetTasksState(ILocalizationManager localizationManager)
+        {
+            var list = new List<SelectListItem>();
+            list.AddRange(Enum.GetValues(typeof(TaskState))
+                .Cast<TaskState>()
+                .Select(state =>
+                new SelectListItem
+                {
+                    Text = localizationManager.GetString(SimpleTaskAppConsts.LocalizationSourceName, $"TaskState_{state}"),
+                    Value = state.ToString(),
+                    Selected = state == SelectedTaskState
+                })
+                ); 
+            return list;
+        }
         public IReadOnlyList<TaskListDto> Tasks { get; }
+        public TaskListDto Task { get; }
 
         public IndexViewModel(IReadOnlyList<TaskListDto> tasks)
         {
             Tasks = tasks;
+            //Task = task;
         }
 
         public string GetTaskLabel(TaskListDto task)

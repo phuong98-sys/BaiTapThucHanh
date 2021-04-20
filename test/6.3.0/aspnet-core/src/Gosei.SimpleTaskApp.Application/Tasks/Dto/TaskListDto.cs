@@ -18,6 +18,11 @@ namespace Gosei.SimpleTaskApp.Tasks.Dto
     [AutoMapFrom(typeof(Task))]
     public class TaskListDto : EntityDto, IHasCreationTime
     {
+        public TaskListDto()
+        {
+
+        }
+        public int Id { get; set; }
         public Guid? AssignedPersonId { get; set; }
 
         public string AssignedPersonName { get; set; }
@@ -40,5 +45,40 @@ namespace Gosei.SimpleTaskApp.Tasks.Dto
         public string Description { get; set; }
 
         public Guid? AssignedPersonId { get; set; }
+    }
+    public class UpdateTaskInput
+    {
+        public int Id { get; set; }
+        
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        public DateTime CreationTime { get; set; }
+
+        public TaskState State { get; set; }
+        public Guid? AssignedPersonId { get; set; }
+
+        public string AssignedPersonName { get; set; }
+    }
+    [AutoMapFrom(typeof(Task))]
+    public class GetTaskInput
+    {
+        public int Id { get; set; }
+
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        public TaskState State { get; set; }
+        public Guid? AssignedPersonId { get; set; }
+
+        public string AssignedPersonName { get; set; }
+    }
+    public class DeleteTaskInput
+    {
+        public int Id { get; set; }
+
+       
     }
 }

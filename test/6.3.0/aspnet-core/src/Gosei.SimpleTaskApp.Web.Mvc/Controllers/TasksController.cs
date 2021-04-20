@@ -28,7 +28,9 @@ namespace Gosei.SimpleTaskApp.Web.Controllers
 
         public async Task<ActionResult> Index(GetAllTasksInput input)
         {
+            //var output2 = _taskAppService.GetTask(input2);
             var output = await _taskAppService.GetAll(input);
+         
 
             var model = new IndexViewModel(output.Items)
             {

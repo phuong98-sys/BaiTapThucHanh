@@ -1,8 +1,6 @@
 ﻿(function ($) {
     $(function () {
 
-        console.log("hieu");
-
         var _$taskStateCombobox = $('#TaskStateCombobox');
 
         _$taskStateCombobox.change(function () {
