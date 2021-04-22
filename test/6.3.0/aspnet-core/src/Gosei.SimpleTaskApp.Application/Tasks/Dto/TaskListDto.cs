@@ -61,19 +61,9 @@ namespace Gosei.SimpleTaskApp.Tasks.Dto
 
         public string AssignedPersonName { get; set; }
     }
-    [AutoMapFrom(typeof(Task))]
     public class GetTaskInput
     {
         public int Id { get; set; }
-
-        public string Title { get; set; }
-
-        public string Description { get; set; }
-
-        public TaskState State { get; set; }
-        public Guid? AssignedPersonId { get; set; }
-
-        public string AssignedPersonName { get; set; }
     }
     public class DeleteTaskInput
     {

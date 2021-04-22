@@ -13,7 +13,7 @@ namespace Gosei.SimpleTaskApp.Tasks
     {
         Task<ListResultDto<TaskListDto>> GetAll(GetAllTasksInput input);
         System.Threading.Tasks.Task Create(CreateTaskInput input);
-        TaskListDto GetTask(GetTaskInput input);
+        TaskListDto GetTask(int id);
         void Delete(DeleteTaskInput id);
         void Update(UpdateTaskInput input);
     }

@@ -13,7 +13,7 @@ namespace Gosei.SimpleTaskApp.Tasks
     {
         public const int MaxTitleLength = 256;
         public const int MaxDescriptionLength = 64 * 1024; //64KB
-
+        
         [Required]
         [StringLength(MaxTitleLength)]
         public string Title { get; set; }

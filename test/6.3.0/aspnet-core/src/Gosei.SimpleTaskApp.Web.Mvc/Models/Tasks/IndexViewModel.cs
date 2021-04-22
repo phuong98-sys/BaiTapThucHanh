@@ -56,11 +56,16 @@ namespace Gosei.SimpleTaskApp.Web.Models.Tasks
         public IReadOnlyList<TaskListDto> Tasks { get; }
         public TaskListDto Task { get; }
 
-        public IndexViewModel(IReadOnlyList<TaskListDto> tasks)
+        public IndexViewModel(IReadOnlyList<TaskListDto> tasks, TaskListDto task)
         {
             Tasks = tasks;
-            //Task = task;
+            Task = task;
         }
+        //public IndexViewModel(IReadOnlyList<TaskListDto> tasks)
+        //{
+        //    Tasks = tasks;
+        //    Task = task;
+        //}
 
         public string GetTaskLabel(TaskListDto task)
         {

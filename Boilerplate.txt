@@ -20,3 +20,5 @@ phan 2:s
 - ko co AssignedName mà van nhan
 - ko viet o outputFileName va inputName van chay ok
 - ham  set select cho dong dau tien
+- Có thể tham khảo ở user sử dụng partialview ở web.mvc
+- Sửa lại TaskController và hoàn thành thêm sửa xóa

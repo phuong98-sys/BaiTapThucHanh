@@ -36,9 +36,9 @@ namespace Gosei.SimpleTaskApp.Tasks
             );
         }
 
-        public TaskListDto GetTask(GetTaskInput input)
+        public TaskListDto GetTask(int id)
         {
-            var task= _taskRepository.Get(int.Parse(input.Id.ToString()));
+            var task = _taskRepository.FirstOrDefault(x => x.Id == id);
             var output = ObjectMapper.Map<TaskListDto>(task);
             return output;
         }
