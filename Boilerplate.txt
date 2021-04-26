@@ -24,5 +24,14 @@ phan 2:s
 - Sửa lại TaskController và hoàn thành thêm sửa xóa
 
 26/4
+
 - Nhớ sd Task
-- doc lai 2 file tim hieu, sua lai code cho gon, thuc hanh them, 
+- CÓ 2 cách 1 dùng Thread: 
+	+có thể truyền tên và tham số nhưng code khó hiểu, dùng lambda,
+	 và bắt đầu bằng hàm Start("truyen tham so vào đây")
+	+ Dùng async và await có thể đợi các tiền tình cùng chạy từ trên xuống dưới và đợi xong lần lượt thứ tự như đồng bộ, 
+	có thể trả về dữ liệu và truyền đc tham số cho nó, có thể cho nó chạy cùng 1 lúc sử dụng .WhenAll()
+	Ctrinh ko treo, trong lúc chờ vẫn thao tác đi nơi khác đc
+	
+27/4: hoi
+- doc lai file 2, sua lai code cho gon, hieu cho truyen state( hoac thay cach 2), thuc hanh them, hoi anh hoc gi 

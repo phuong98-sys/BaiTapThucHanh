@@ -79,22 +79,24 @@ $(document).ready(function () {
     });
 
    
-        //$(function (a) {
-        //    var _$taskStateCombobox1 = $('#TaskStateCombobox1');
-        //    _$taskStateCombobox1.change(function () {
-        //        a.preventDefault();
-        //        console.log("thay doi trang thai");
-        //        //if (_$taskStateCombobox1.text() == "Open") {
-        //        //    $('#State').val(0);
+        $(function () {
+            var StateCombobox = $('#StateCombobox');
+            
+            StateCombobox.change(function () {
+                //a.preventDefault();
+                console.log("thay doi trang thai");
+               
+                if ($("#StateCombobox option:selected").text() == "Open") {
+                    $('#State').val(0);
+                    
+                }
+                else {
+                    $('#State').val(1);
+                }
 
-        //        //}
-        //        //else {
-        //        //    $('#State').val(1);
-        //        //}
+            });
 
-        //    });
-
-        //});
+        });
    
 
 
