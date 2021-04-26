@@ -22,3 +22,7 @@ phan 2:s
 - ham  set select cho dong dau tien
 - Có thể tham khảo ở user sử dụng partialview ở web.mvc
 - Sửa lại TaskController và hoàn thành thêm sửa xóa
+
+26/4
+- Nhớ sd Task
+- doc lai 2 file tim hieu, sua lai code cho gon, thuc hanh them, 
