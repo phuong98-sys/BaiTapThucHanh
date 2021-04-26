@@ -46,6 +46,7 @@ namespace Gosei.SimpleTaskApp.Tasks.Dto
 
         public Guid? AssignedPersonId { get; set; }
     }
+    [AutoMapTo(typeof(Task))]
     public class UpdateTaskInput
     {
         public int Id { get; set; }

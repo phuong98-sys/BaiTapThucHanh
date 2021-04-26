@@ -1,28 +1,6 @@
-﻿////(function ($) {
-////    $(function () {
+﻿
 
-////        var _$form = $('#TaskCreationForm');
-
-////        _$form.find('input:first').focus();
-
-////        _$form.validate();
-
-////        _$form.find('button[type=submit]')
-////            .click(function (e) {
-////                e.preventDefault();
-
-////                if (!_$form.valid()) {
-////                    return;
-////                }
-
-////                var input = _$form.serializeFormToObject();
-////                abp.services.app.task.create(input)
-////                    .done(function () {
-////                        location.href = '/Tasks';
-////                    });
-////            });
-////    });
-////})(j
+$(document).ready(function () {
 (function ($) {
     $(function (e) {
         var taskService = abp.services.app.task;
@@ -53,10 +31,55 @@
 
             taskService.getTask(taskId).done(function(result) {
                 //location.href = '/Tasks';
-                console.log("ket qua:", result.id)
+                console.log("ket qua ngay thang:", result.creationTime);
+                console.log("ket qua id person:", result.assignedPersonId);
+                console.log("ket qua name person:", result.assignedPersonName);
+
+                $('#Id').val(result.id);
+                $('#Title').val(result.title);
+                $('#Description').val(result.description);
+                $('#CreationTime').val(result.creationTime);
+                $('#AssignedPersonId').val(result.assignedPersonId);
+               
+                if(result.state == 1) {
+                    $('#TaskStateCombobox1').val("Completed");
+                }
+                else{
+                    $('#TaskStateCombobox1').val("Open");
+                }
             });
 
         });
        
     });
-})(jQuery);
+
+    ///
+    $(function () {
+
+        var _$form = $('#saveTask');
+
+        _$form.find('input:first').focus();
+
+        //_$form.validate();
+
+        _$form.find('button[type=submit]')
+            .click(function (e) {
+                e.preventDefault();
+                console.log("vao submit r");
+                if (!_$form.valid()) {
+                    return;
+                }
+
+                var input = _$form.serializeFormToObject();
+     
+                abp.services.app.task.update(input)
+                    .done(function () {
+                        location.href = '/Tasks';
+                    });
+            });
+    });
+
+
+    })(jQuery);
+
+});

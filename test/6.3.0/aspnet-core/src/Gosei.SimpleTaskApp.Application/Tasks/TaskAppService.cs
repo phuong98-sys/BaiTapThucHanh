@@ -42,9 +42,9 @@ namespace Gosei.SimpleTaskApp.Tasks
             var output = ObjectMapper.Map<TaskListDto>(task);
             return output;
         }
-        public void Delete(DeleteTaskInput input)
+        public void Delete(int id)
         {
-            var task = _taskRepository.FirstOrDefault(x => x.Id == input.Id);
+            var task = _taskRepository.FirstOrDefault(x => x.Id == id);
             if (task == null)
             {
                 throw new UserFriendlyException("No Data Found");
@@ -56,8 +56,10 @@ namespace Gosei.SimpleTaskApp.Tasks
         }
         public async void Update(UpdateTaskInput input)
         {
-            var task = ObjectMapper.Map<Task>(input);
-            await _taskRepository.UpdateAsync(task);
+            //var task = GetTask(input.Id);
+
+            var output = ObjectMapper.Map<Task>(input);
+            await _taskRepository.UpdateAsync(output);
         }
         public async System.Threading.Tasks.Task Create(CreateTaskInput input)
         {

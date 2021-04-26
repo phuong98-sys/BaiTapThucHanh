@@ -20,6 +20,13 @@
     <environment names="Staging,Production">
         <script src="~/js/views/tasks/edit.min.js"></script>
     </environment>
+    <environment names="Development">
+        <script src="~/js/views/tasks/delete.js"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/js/views/tasks/delete.min.js"></script>
+    </environment>
 }
 <a class="btn btn-primary btn-sm" asp-action="Create">@L("AddNew")</a>
 <h2>
@@ -44,20 +51,19 @@
                 <li class="list-group-item">
                     <span class="pull-right label @Model.GetTaskLabel(task)">@L($"TaskState_{task.State}")</span>
                     <br />
-                     @*<a  id="EditTask"
-                      ><b>@task.Title</b></a>*@
+                    @*<a  id="EditTask"
+                        ><b>@task.Title</b></a>*@
                     <a data-task-id="@task.Id"
-                       class="list-group-item-heading edit-task" data-toggle="modal" data-target="#myModal" ><b>@task.Title</b></a>
+                       class="list-group-item-heading edit-task" data-toggle="modal" data-target="#myModal"><b>@task.Title</b></a>
 
                     @*<input type="text" id="TaskId" name="TaskId" value="@task.Id" />*@
                     <div class="list-group-item-text">
                         @task.CreationTime.ToString("yyyy-MM-dd HH:mm:ss") | @(task.AssignedPersonName ?? L("Unassigned"))
                     </div>
+                    <button data-task-id="@task.Id" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" name="btnDelete"><i class="fa fa-trash"></i></button>
 
                 </li>
             }
-
-
         </ul>
     </div>
     <div>
@@ -86,10 +92,13 @@
 
                                 <div class="content-body">
                                     <form method="post">
+                                        <input type="text" name="Id" id="Id" />
+                                        <input type="text" name="CreationTime" id="CreationTime" />
+                                        <input type="text" name="AssignedPersonId" id="AssignedPersonId" />
                                         <div class="form-group">
                                             Title
                                             <div class="group-input">
-                                                @Html.TextBoxFor(model => Model.Task.Title, "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                @Html.TextBox("Title", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
                                                 @Html.ValidationMessage("Title", "", new { @class = "text-danger" })
                                             </div>
                                         </div>
@@ -107,7 +116,7 @@
                                                new
                                                {
                                                    @class = "form-control",
-                                                   id = "TaskStateCombobox"
+                                                   id = "TaskStateCombobox1"
                                                })
                                         </span>
                                     </form>
@@ -115,7 +124,7 @@
                                     <hr />
                                     <div claa="panel-footer">
 
-                                        <input id="saveQualificationForm" type="submit" name="submit2" id="btnSubmit" value="Accept" class="btn btn-success" style="color:#fff; background-color:#0088c1" />
+                                        <button id="saveQualificationForm" type="submit" name="submit2" id="btnSubmit" value="Accept" class="btn btn-success" style="color:#fff; background-color:#0088c1">Accept</button>
                                         <button class="btn btn-default" data-dismiss="modal">Cancel</button>
 
                                     </div>
