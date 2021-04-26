@@ -1,5 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
+using Gosei.SimpleTaskApp.Persons.Dto;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,13 @@ namespace Gosei.SimpleTaskApp.Persons
             return new ListResultDto<ComboboxItemDto>(
                 people.Select(p => new ComboboxItemDto(p.Id.ToString("D"), p.Name)).ToList()
             );
+        }
+        public async Task<List<PersonListDto>> GetAll()
+        {
+            var employees = await _personRepository.GetAll().ToListAsync();
+            return new List<PersonListDto>(
+                ObjectMapper.Map<List<PersonListDto>>(employees)
+                );
         }
     }
 }

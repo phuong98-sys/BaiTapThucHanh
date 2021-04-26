@@ -92,9 +92,9 @@
 
                                 <div class="content-body">
                                     <form method="post">
-                                        <input type="text" name="Id" id="Id" />
-                                        <input type="text" name="CreationTime" id="CreationTime" />
-                                        <input type="text" name="AssignedPersonId" id="AssignedPersonId" />
+                                        <input type="hidden" name="Id" id="Id" />
+                                        @*<input type="hidden" name="CreationTime" id="CreationTime" />
+                                        <input type="hidden" name="AssignedPersonId" id="AssignedPersonId" />*@
                                         <div class="form-group">
                                             Title
                                             <div class="group-input">
@@ -116,9 +116,10 @@
                                                new
                                                {
                                                    @class = "form-control",
-                                                   id = "TaskStateCombobox1"
+                                                   id = "State"
                                                })
                                         </span>
+                                      
                                     </form>
 
                                     <hr />
@@ -142,3 +143,6 @@
     </div>
 
 </div>
+
+
+

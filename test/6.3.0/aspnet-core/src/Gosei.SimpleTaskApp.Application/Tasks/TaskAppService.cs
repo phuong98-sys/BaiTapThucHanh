@@ -10,6 +10,7 @@ using Gosei.SimpleTaskApp.Tasks.Dto;
 using Gosei.SimpleTaskApp.Tasks;
 using System.Threading.Tasks;
 using Abp.UI;
+using System.Threading;
 
 namespace Gosei.SimpleTaskApp.Tasks
 {
@@ -36,9 +37,15 @@ namespace Gosei.SimpleTaskApp.Tasks
             );
         }
 
-        public TaskListDto GetTask(int id)
+        //public TaskListDto GetTask(int id)
+        //{
+        //    var task = _taskRepository.FirstOrDefault(x => x.Id == id);
+        //    var output = ObjectMapper.Map<TaskListDto>(task);
+        //    return output;
+        //}
+        public TaskListDto GetTask(GetTaskInput input)
         {
-            var task = _taskRepository.FirstOrDefault(x => x.Id == id);
+            var task = _taskRepository.FirstOrDefault(x => x.Id == input.Id);
             var output = ObjectMapper.Map<TaskListDto>(task);
             return output;
         }
@@ -54,12 +61,18 @@ namespace Gosei.SimpleTaskApp.Tasks
                 _taskRepository.Delete(task);
             }
         }
-        public async void Update(UpdateTaskInput input)
+        public async System.Threading.Tasks.Task Update(UpdateTaskInput input)
         {
-            //var task = GetTask(input.Id);
+            //var a = 1 + 1;
+            //C1:
+            var task = await _taskRepository.FirstOrDefaultAsync(t => t.Id == input.Id);
 
-            var output = ObjectMapper.Map<Task>(input);
-            await _taskRepository.UpdateAsync(output);
+            ObjectMapper.Map(input, task);
+
+            //var task = GetTask(input.Id);
+            //C2:
+            //var output = ObjectMapper.Map<Task>(input); 
+            //await _taskRepository.UpdateAsync(output);
         }
         public async System.Threading.Tasks.Task Create(CreateTaskInput input)
         {

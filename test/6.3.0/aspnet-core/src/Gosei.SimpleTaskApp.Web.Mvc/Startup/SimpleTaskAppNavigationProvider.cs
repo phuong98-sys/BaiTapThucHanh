@@ -13,6 +13,14 @@ namespace Gosei.SimpleTaskApp.Web.Startup
         public override void SetNavigation(INavigationProviderContext context)
         {
             context.Manager.MainMenu
+                   .AddItem(
+                new MenuItemDefinition(
+                    "EmployeeList",
+                    L("EmployeeList"),
+                    url: "Employees",
+                    icon: "fa fa-tasks"
+                    )
+            )
                 .AddItem(
                 new MenuItemDefinition(
                     "TaskList",

@@ -13,8 +13,9 @@ namespace Gosei.SimpleTaskApp.Tasks
     {
         Task<ListResultDto<TaskListDto>> GetAll(GetAllTasksInput input);
         System.Threading.Tasks.Task Create(CreateTaskInput input);
-        TaskListDto GetTask(int id);
+        //TaskListDto GetTask(int id);
+        TaskListDto GetTask(GetTaskInput id);
         void Delete(int id);
-        void Update(UpdateTaskInput input);
+        System.Threading.Tasks.Task Update(UpdateTaskInput input);
     }
 }

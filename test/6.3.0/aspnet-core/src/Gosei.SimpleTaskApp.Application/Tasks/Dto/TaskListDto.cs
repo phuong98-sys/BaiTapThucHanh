@@ -55,12 +55,13 @@ namespace Gosei.SimpleTaskApp.Tasks.Dto
 
         public string Description { get; set; }
 
-        public DateTime CreationTime { get; set; }
+       
 
         public TaskState State { get; set; }
-        public Guid? AssignedPersonId { get; set; }
+        //public DateTime CreationTime { get; set; }
+        //public Guid? AssignedPersonId { get; set; }
 
-        public string AssignedPersonName { get; set; }
+        //public string AssignedPersonName { get; set; }
     }
     public class GetTaskInput
     {

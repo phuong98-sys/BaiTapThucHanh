@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Entities.Auditing;
+using Abp.Timing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,10 +23,12 @@ namespace Gosei.SimpleTaskApp.Persons
         {
 
         }
-
+        //public DateTime BirthDate { get; set; }
         public Person(string name)
         {
             Name = name;
+            //BirthDate = Clock.Now;
         }
+     
     }
 }

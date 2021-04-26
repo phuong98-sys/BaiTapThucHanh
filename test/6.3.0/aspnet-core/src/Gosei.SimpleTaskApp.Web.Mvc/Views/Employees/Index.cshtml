@@ -1,0 +1,25 @@
+﻿@model Gosei.SimpleTaskApp.Web.Models.Employees.IndexViewModel
+
+    @{
+        ViewBag.Title = L("EmployeeList");
+        ViewBag.ActiveMenu = "EmployeeList"; //Matches with the menu name in SimpleTaskAppNavigationProvider to highlight the menu item
+    }
+
+    <h2>@L("EmployeeList")</h2>
+
+    <div class="row">
+        <div>
+            <ul class="list-group" id="EmployeeList">
+                @foreach (var emp in Model.Employees)
+                {
+                    <li class="list-group-item">
+                        <span class="pull-right label">@L($"TaskState_{emp.Name}")</span>
+                        <h4 class="list-group-item-heading">@emp.Name</h4>
+                        <div class="list-group-item-text">
+                            @emp.BirthDate.ToString("yyyy-MM-dd HH:mm:ss")
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>

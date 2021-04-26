@@ -25,11 +25,11 @@ $(document).ready(function () {
             console.log("task", taskId);
             //e.preventDefault();
             var task = {
-                //Id:taskId
+                id:taskId
                 //Id=2
             };
 
-            taskService.getTask(taskId).done(function(result) {
+            taskService.getTask(task).done(function(result) {
                 //location.href = '/Tasks';
                 console.log("ket qua ngay thang:", result.creationTime);
                 console.log("ket qua id person:", result.assignedPersonId);
@@ -38,14 +38,13 @@ $(document).ready(function () {
                 $('#Id').val(result.id);
                 $('#Title').val(result.title);
                 $('#Description').val(result.description);
-                $('#CreationTime').val(result.creationTime);
-                $('#AssignedPersonId').val(result.assignedPersonId);
+             
                
                 if(result.state == 1) {
-                    $('#TaskStateCombobox1').val("Completed");
+                    $('#State').val("Completed");
                 }
                 else{
-                    $('#TaskStateCombobox1').val("Open");
+                    $('#State').val("Open");
                 }
             });
 
@@ -78,6 +77,26 @@ $(document).ready(function () {
                     });
             });
     });
+
+   
+        //$(function (a) {
+        //    var _$taskStateCombobox1 = $('#TaskStateCombobox1');
+        //    _$taskStateCombobox1.change(function () {
+        //        a.preventDefault();
+        //        console.log("thay doi trang thai");
+        //        //if (_$taskStateCombobox1.text() == "Open") {
+        //        //    $('#State').val(0);
+
+        //        //}
+        //        //else {
+        //        //    $('#State').val(1);
+        //        //}
+
+        //    });
+
+        //});
+   
+
 
 
     })(jQuery);
