@@ -28,5 +28,16 @@ namespace Gosei.SimpleTaskApp.Persons
             var person = ObjectMapper.Map<Person>(input);
             await _personRepository.InsertAsync(person);
         }
+        public PersonListDto GetPerson(GetPersonInput input)
+        {
+            var person =  _personRepository.FirstOrDefault(x => x.Id == input.Id);
+            var output =  ObjectMapper.Map<PersonListDto>(person);
+            return output;
+        }
+        public async System.Threading.Tasks.Task UpdatePerson(UpdatePersonInput input)
+        {
+            var person = await _personRepository.FirstOrDefaultAsync(x => x.Id == input.Id);
+            ObjectMapper.Map(input, person);
+        }
     }
 }

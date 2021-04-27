@@ -22,7 +22,7 @@ namespace Gosei.SimpleTaskApp.Tasks.Dto
         {
 
         }
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public Guid? AssignedPersonId { get; set; }
 
         public string AssignedPersonName { get; set; }

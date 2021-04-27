@@ -66,7 +66,7 @@ namespace Gosei.SimpleTaskApp.Tasks
             //C1:
             var task = await _taskRepository.FirstOrDefaultAsync(t => t.Id == input.Id);
 
-            ObjectMapper.Map(input, task);
+             ObjectMapper.Map(input, task);
 
             //var task = GetTask(input.Id);
             //C2:

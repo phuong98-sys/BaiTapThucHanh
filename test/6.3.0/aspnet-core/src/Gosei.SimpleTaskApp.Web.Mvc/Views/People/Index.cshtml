@@ -5,21 +5,83 @@
     ViewBag.ActiveMenu = "PersonList"; //Matches with the menu name in SimpleTaskAppNavigationProvider to highlight the menu item
 }
 
-<h2>@L("EmployeeList")</h2>
+<h2>@L("PersonList")</h2>
 <a class="btn btn-primary btn-sm" asp-action="Create">@L("AddNew")</a>
 <div class="row">
     <div>
-        <ul class="list-group" id="EmployeeList">
+        <ul class="list-group" id="PersonList">
             @foreach (var person in Model.People)
             {
-                <li class="list-group-item">
-                    <span class="pull-right label">@L($"TaskState_{person.Name}")</span>
-                    <h4 class="list-group-item-heading">@person.Name</h4>
-                    <div class="list-group-item-text">
-                        @person.BirthDate.ToString("yyyy-MM-dd HH:mm:ss")
-                    </div>
-                </li>
+            <li class="list-group-item">
+                <span class="pull-right label">@L($"TaskState_{person.Name}")</span>
+                <a data-person-id="@person.Id"
+                   class="list-group-item-heading edit-person" data-toggle="modal" data-target="#myModal"><b>@person.Name</b></a>
+               
+
+                <div class="list-group-item-text">
+                    @person.BirthDate.ToString("dd-MM-yyyy")
+                </div>
+            </li>
             }
         </ul>
     </div>
 </div>
+
+<!--Modal Edit Task-->
+<div class="panel-heading">
+
+    <div>
+        <!--Model to Add Qualification-->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "savePerson" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="content" style="color:black;">
+
+                                <div class="content-body">
+                                    <form method="post">
+                                        <input type="hidden" name="Id" id="Id" />
+                                      
+                                        <div class="form-group">
+                                            Name
+                                            <div class="group-input">
+                                                @Html.TextBox("Name", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                @Html.ValidationMessage("Name", "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            BirthDate
+                                            <div class="group-input">
+                                                @Html.TextBox("BirthDate", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;", type="date" })
+                                                @Html.ValidationMessage("BirthDate", "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                    </form>
+
+                                    <hr />
+                                    <div claa="panel-footer">
+
+                                        <button id="savePerson" type="submit" name="submit2" id="btnSubmit" value="Accept" class="btn btn-success" style="color:#fff; background-color:#0088c1">Accept</button>
+                                        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>    <!--Model to Add Qualification-->
