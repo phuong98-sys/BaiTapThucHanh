@@ -21,6 +21,14 @@ namespace Gosei.SimpleTaskApp.Web.Startup
                     icon: "fa fa-tasks"
                     )
             )
+                      .AddItem(
+                new MenuItemDefinition(
+                    "PersonList",
+                    L("PersonList"),
+                    url: "People",
+                    icon: "fa fa-tasks"
+                    )
+            )
                 .AddItem(
                 new MenuItemDefinition(
                     "TaskList",

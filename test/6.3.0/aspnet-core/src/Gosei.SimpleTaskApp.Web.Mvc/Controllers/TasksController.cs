@@ -26,29 +26,18 @@ namespace Gosei.SimpleTaskApp.Web.Controllers
             _lookupAppService = lookupAppService;
         }
 
-        public async Task<ActionResult> Index(GetAllTasksInput input,GetTaskInput input2)
+        public async Task<ActionResult> Index(GetAllTasksInput input)
         {
            
-            var output2 = _taskAppService.GetTask(input2);
+            //var output2 = _taskAppService.GetTask(input2);
             var output = await _taskAppService.GetAll(input);
-            var model = new IndexViewModel(output.Items, output2)
+            var model = new IndexViewModel(output.Items)
             {
-                SelectedTaskState = input.State
+                //SelectedTaskState = input.State
             };
             return View(model);
         }
-        //public async Task<ActionResult> Index(GetAllTasksInput input)
-        //{
-        //    //var output2 = _taskAppService.GetTask(input2);
-        //    var output = await _taskAppService.GetAll(input);
-
-
-        //    var model = new IndexViewModel(output.Items)
-        //    {
-        //        SelectedTaskState = input.State
-        //    };
-        //    return View(model);
-        //}
+       
         public async Task<ActionResult> Create()
         {
             var peopleSelectListItems = (await _lookupAppService.GetPeopleComboboxItems()).Items

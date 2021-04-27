@@ -11,24 +11,29 @@ using System.Threading.Tasks;
 namespace Gosei.SimpleTaskApp.Persons
 {
     [Table("AppPersons")]
-    public class Person : AuditedEntity<Guid>
+    public class Person : AuditedEntity<Guid>, IHasCreationTime
     {
         public const int MaxNameLength = 32;
 
+      
+   
+        //public DateTime BirthDate { get; set; }
+        public Person(string name, Guid? assignedPersonId = null)
+        {
+            Name = name;
+            Id = Guid.NewGuid(); 
+            //BirthDate = Clock.Now;
+        }
+        public Person()
+        {
+            CreationTime = Clock.Now;
+            Id = Guid.NewGuid();
+            //BirthDate = Clock.Now;
+        }
         [Required]
         [StringLength(MaxNameLength)]
         public string Name { get; set; }
-
-        public Person()
-        {
-
-        }
-        //public DateTime BirthDate { get; set; }
-        public Person(string name)
-        {
-            Name = name;
-            //BirthDate = Clock.Now;
-        }
-     
+        public DateTime BirthDate { get; set; }
+        public DateTime CreationTime { get; set; }
     }
 }

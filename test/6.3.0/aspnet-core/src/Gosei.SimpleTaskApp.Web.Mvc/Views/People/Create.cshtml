@@ -1,0 +1,37 @@
+﻿@using Gosei.SimpleTaskApp.Web.Models.People
+@model CreateTaskViewModel
+
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/js/views/people/create.js"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/js/views/people/create.min.js"></script>
+    </environment>
+}
+
+<h2>
+    @L("NewPerson")
+</h2>
+
+<form id="PersonCreationForm">
+    <input type="text" name="Id" class="form-control" placeholder="@L("Id")" value="9dde2db5-712c-4da2-9e0d-e16d0d50391u">
+    <div class="form-group">
+        <label for="Name">@L("Name")</label>
+        <input type="text" name="Name" class="form-control" placeholder="@L("Name")" required maxlength="@Gosei.SimpleTaskApp.Tasks.Task.MaxTitleLength">
+    </div>
+
+    <div class="form-group">
+        <label for="BirthDate">@L("BirthDate")</label>
+        <input type="text" name="BirthDate" class="form-control" placeholder="@L("BirthDate")">
+    </div>
+    <div class="form-group">
+        <label for="CreationTime">@L("CreationTime")</label>
+        <input type="text" name="CreationTime" class="form-control" placeholder="@L("CreationTime")">
+    </div>
+
+    <button type="submit" class="btn btn-default">@L("Save")</button>
+
+</form>

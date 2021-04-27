@@ -1,0 +1,25 @@
+﻿@model Gosei.SimpleTaskApp.Web.Models.People.PersonViewModel
+
+@{
+    ViewBag.Title = L("PersonList");
+    ViewBag.ActiveMenu = "PersonList"; //Matches with the menu name in SimpleTaskAppNavigationProvider to highlight the menu item
+}
+
+<h2>@L("EmployeeList")</h2>
+<a class="btn btn-primary btn-sm" asp-action="Create">@L("AddNew")</a>
+<div class="row">
+    <div>
+        <ul class="list-group" id="EmployeeList">
+            @foreach (var person in Model.People)
+            {
+                <li class="list-group-item">
+                    <span class="pull-right label">@L($"TaskState_{person.Name}")</span>
+                    <h4 class="list-group-item-heading">@person.Name</h4>
+                    <div class="list-group-item-text">
+                        @person.BirthDate.ToString("yyyy-MM-dd HH:mm:ss")
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

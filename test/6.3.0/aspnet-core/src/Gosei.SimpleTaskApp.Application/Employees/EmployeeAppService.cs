@@ -12,16 +12,19 @@ namespace Gosei.SimpleTaskApp.Employees
     public class EmployeeAppService:SimpleTaskAppAppServiceBase,IEmployeeAppService
     {
         private readonly IRepository<Employee> _employeeRepository;
-        public EmployeeAppService(IRepository<Employee> employeeRepository) 
+        private readonly AutoMapper.IMapper _mapper;
+        public EmployeeAppService(IRepository<Employee> employeeRepository, AutoMapper.IMapper mapper) 
         {
-            _employeeRepository = employeeRepository;        
+            _employeeRepository = employeeRepository;
+            _mapper = mapper;
         }
         public async Task<List<EmployeeListDto>> GetAll()
         {
             var employees = await _employeeRepository.GetAll().ToListAsync();
-            return new List<EmployeeListDto>(
-                ObjectMapper.Map<List<EmployeeListDto>>(employees)
-                ); 
+          var emp= new List<EmployeeListDto>(
+                _mapper.Map<List<EmployeeListDto>>(employees)
+                );
+            return emp;
         }
     }
 }

@@ -158,5 +158,11 @@
     "inputFiles": [
       "wwwroot/js/views/tasks/delete.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/people/create.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/people/create.js"
+    ]
   }
 ]

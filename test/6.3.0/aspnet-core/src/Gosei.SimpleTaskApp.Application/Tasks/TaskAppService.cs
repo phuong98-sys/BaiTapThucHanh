@@ -63,7 +63,6 @@ namespace Gosei.SimpleTaskApp.Tasks
         }
         public async System.Threading.Tasks.Task Update(UpdateTaskInput input)
         {
-            //var a = 1 + 1;
             //C1:
             var task = await _taskRepository.FirstOrDefaultAsync(t => t.Id == input.Id);
 
@@ -77,7 +76,7 @@ namespace Gosei.SimpleTaskApp.Tasks
         public async System.Threading.Tasks.Task Create(CreateTaskInput input)
         {
             var task = ObjectMapper.Map<Task>(input);
-            await _taskRepository.InsertAsync(task);
+            await _taskRepository.InsertAsync(task); // ko trả ve thi thuong dung cach nay
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Gosei.SimpleTaskApp.Persons
 {
     public class LookupAppService : SimpleTaskAppAppServiceBase, ILookupAppService
     {
-        private readonly IRepository<Person, Guid> _personRepository;
+        private readonly IRepository<Person, Guid> _personRepository; // nhớ Guid
 
         public LookupAppService(IRepository<Person, Guid> personRepository)
         {
@@ -26,12 +26,12 @@ namespace Gosei.SimpleTaskApp.Persons
                 people.Select(p => new ComboboxItemDto(p.Id.ToString("D"), p.Name)).ToList()
             );
         }
-        public async Task<List<PersonListDto>> GetAll()
-        {
-            var employees = await _personRepository.GetAll().ToListAsync();
-            return new List<PersonListDto>(
-                ObjectMapper.Map<List<PersonListDto>>(employees)
-                );
-        }
+        //public async Task<List<PersonListDto>> GetAll()
+        //{
+        //    var employees = await _personRepository.GetAll().ToListAsync();
+        //    return new List<PersonListDto>(
+        //        ObjectMapper.Map<List<PersonListDto>>(employees)
+        //        );
+        //}
     }
 }

@@ -14,5 +14,6 @@ namespace Gosei.SimpleTaskApp.Web.Models.People
         {
             People = people;
         }
+        
     }
 }

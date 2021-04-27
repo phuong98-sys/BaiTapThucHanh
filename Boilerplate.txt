@@ -13,7 +13,9 @@
 .Web.Host: chạy app project
 .Web.Core: gen api ở tầng .application(!)
 .Migrator: chuyển web->exe để hiển thị
-
+- DTO: chuyển từ DB-> DTO để trả về cho ng dùng
+	+ Tận dụng những trường cần thiết và không bị lộ các trường ko mong muốn
+	+ Không cần thay đổi code ở client để hiển thị cho ng dùng hạn chế coupling
 
 phan 2:s
 - Mac dinh map khoa ngoia voi id bang kia
@@ -34,4 +36,4 @@ phan 2:s
 	Ctrinh ko treo, trong lúc chờ vẫn thao tác đi nơi khác đc
 	
 27/4: hoi
-- doc lai file 2, sua lai code cho gon, hieu cho truyen state( hoac thay cach 2), thuc hanh them, hoi anh hoc gi 
+- thuc hanh them, hoi anh hoc gi, xem lại mapper readonly

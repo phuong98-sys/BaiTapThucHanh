@@ -1,10 +1,10 @@
 ﻿(function ($) {
-    $(function (e) {
+    $(function () {
 
         var _$taskStateCombobox = $('#TaskStateCombobox');
 
         _$taskStateCombobox.change(function () {
-            e.preventDefault();
+            //e.preventDefault();
             location.href = '/Tasks?state=' + _$taskStateCombobox.val();
 
         });

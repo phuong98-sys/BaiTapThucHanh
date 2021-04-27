@@ -11,5 +11,6 @@ namespace Gosei.SimpleTaskApp.Employees
     public interface IEmployeeAppService : IApplicationService
     {
         public Task<List<EmployeeListDto>> GetAll();
+       
     }
 }
