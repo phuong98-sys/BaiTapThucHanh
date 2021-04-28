@@ -1,4 +1,7 @@
-﻿using Abp.AutoMapper;
+﻿
+using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
+using Abp.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +10,7 @@ using System.Text;
 namespace Gosei.SimpleTaskApp.Persons.Dto
 {
     [AutoMapFrom(typeof(Person))]
-    public class PersonListDto
+    public class PersonListDto : AuditedEntityDto
     {
         public PersonListDto()
         {
@@ -42,6 +45,10 @@ namespace Gosei.SimpleTaskApp.Persons.Dto
 
     }
     public class GetPersonInput
+    {
+        public Guid Id { get; set; }
+    }
+    public class DeletePersonInput
     {
         public Guid Id { get; set; }
     }

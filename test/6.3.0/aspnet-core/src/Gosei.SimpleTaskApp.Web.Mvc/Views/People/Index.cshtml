@@ -4,7 +4,24 @@
     ViewBag.Title = L("PersonList");
     ViewBag.ActiveMenu = "PersonList"; //Matches with the menu name in SimpleTaskAppNavigationProvider to highlight the menu item
 }
+@section scripts
+{
 
+    <environment names="Development">
+        <script src="~/js/views/people/edit.js"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/js/views/people/edit.min.js"></script>
+    </environment>
+    <environment names="Development">
+        <script src="~/js/views/people/delete.js"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/js/views/people/delete.min.js"></script>
+    </environment>
+}
 <h2>@L("PersonList")</h2>
 <a class="btn btn-primary btn-sm" asp-action="Create">@L("AddNew")</a>
 <div class="row">
@@ -16,11 +33,11 @@
                 <span class="pull-right label">@L($"TaskState_{person.Name}")</span>
                 <a data-person-id="@person.Id"
                    class="list-group-item-heading edit-person" data-toggle="modal" data-target="#myModal"><b>@person.Name</b></a>
-               
 
                 <div class="list-group-item-text">
-                    @person.BirthDate.ToString("dd-MM-yyyy")
+                    @person.BirthDate.ToString("MM-dd-yyyy")
                 </div>
+                <button data-person-id="@person.Id" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" name="btnDelete"><i class="fa fa-trash"></i></button>
             </li>
             }
         </ul>
@@ -48,8 +65,8 @@
 
                                 <div class="content-body">
                                     <form method="post">
-                                        <input type="hidden" name="Id" id="Id" />
-                                      
+                                        <input type="text" name="Id" id="Id" />
+
                                         <div class="form-group">
                                             Name
                                             <div class="group-input">
@@ -60,12 +77,12 @@
                                         <div class="form-group">
                                             BirthDate
                                             <div class="group-input">
-                                                @Html.TextBox("BirthDate", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;", type="date" })
+                                                @Html.TextBox("BirthDate", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;", type = "date" })
                                                 @Html.ValidationMessage("BirthDate", "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-                                        
-                                        
+
+
                                     </form>
 
                                     <hr />
@@ -85,3 +102,5 @@
                 </div>
             </div>
         </div>    <!--Model to Add Qualification-->
+    </div>
+</div>

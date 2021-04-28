@@ -8,7 +8,6 @@ using System.Text;
 
 namespace Gosei.SimpleTaskApp.Employees.Dto
 {
-    [DependsOn(typeof(AbpAutoMapperModule))]
     public class MyModule : AutoMapper.Profile
     {
         //public override void PreInitialize()
@@ -21,13 +20,13 @@ namespace Gosei.SimpleTaskApp.Employees.Dto
         //              .ForMember(u => u.BirthDate, options => options.MapFrom(input => input.BirthDate));
         //    });
         //}
-        public MyModule()
-        {
-           CreateMap<EmployeeListDto, Employee>()
-                      //.ForMember(u => u.Password, options => options.Ignore())
-                      .ForMember(u => u.Name, options => options.MapFrom(input => input.Name))
-                      .ForMember(u => u.BirthDate, options => options.MapFrom(input => input.BirthDate));
-        }
+        //public MyModule()
+        //{
+        //   CreateMap<EmployeeListDto, Employee>()
+        //              //.ForMember(u => u.Password, options => options.Ignore())
+        //              .ForMember(u => u.Name, options => options.MapFrom(input => input.FirstName))
+        //              .ForMember(u => u.BirthDate, options => options.MapFrom(input => input.BirthDate));
+        //}
     }
 }
 

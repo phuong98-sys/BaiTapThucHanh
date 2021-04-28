@@ -14,5 +14,6 @@ namespace Gosei.SimpleTaskApp.Persons
         Task CreatePerson(CreatePersonInput input);
         public PersonListDto GetPerson(GetPersonInput input);
         public System.Threading.Tasks.Task UpdatePerson(UpdatePersonInput input);
+        public System.Threading.Tasks.Task DeletePerson(DeletePersonInput input);
     }
 }

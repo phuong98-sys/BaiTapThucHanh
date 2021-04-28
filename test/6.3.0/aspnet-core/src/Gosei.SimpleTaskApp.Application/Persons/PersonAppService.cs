@@ -39,5 +39,10 @@ namespace Gosei.SimpleTaskApp.Persons
             var person = await _personRepository.FirstOrDefaultAsync(x => x.Id == input.Id);
             ObjectMapper.Map(input, person);
         }
+        public async System.Threading.Tasks.Task DeletePerson(DeletePersonInput input)
+        {
+            var person = await _personRepository.FirstOrDefaultAsync(x => x.Id == input.Id);
+            await _personRepository.DeleteAsync(person);
+        }
     }
 }

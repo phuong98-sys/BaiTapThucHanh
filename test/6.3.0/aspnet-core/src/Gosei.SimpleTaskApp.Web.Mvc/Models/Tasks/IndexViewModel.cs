@@ -54,7 +54,7 @@ namespace Gosei.SimpleTaskApp.Web.Models.Tasks
             return list;
         }
         public IReadOnlyList<TaskListDto> Tasks { get; }
-        public TaskListDto Task { get; }
+
 
         public IndexViewModel(IReadOnlyList<TaskListDto> tasks)
         {

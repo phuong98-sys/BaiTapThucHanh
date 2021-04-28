@@ -1,4 +1,5 @@
-﻿using Abp.Domain.Repositories;
+﻿using Abp.Application.Services.Dto;
+using Abp.Domain.Repositories;
 using Gosei.SimpleTaskApp.Employees.Dto;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,19 +13,17 @@ namespace Gosei.SimpleTaskApp.Employees
     public class EmployeeAppService:SimpleTaskAppAppServiceBase,IEmployeeAppService
     {
         private readonly IRepository<Employee> _employeeRepository;
-        private readonly AutoMapper.IMapper _mapper;
-        public EmployeeAppService(IRepository<Employee> employeeRepository, AutoMapper.IMapper mapper) 
+   
+        public EmployeeAppService(IRepository<Employee> employeeRepository) 
         {
             _employeeRepository = employeeRepository;
-            _mapper = mapper;
         }
-        public async Task<List<EmployeeListDto>> GetAll()
+        public async Task<ListResultDto<EmployeeListDto>> GetAll()
         {
-            var employees = await _employeeRepository.GetAll().ToListAsync();
-          var emp= new List<EmployeeListDto>(
-                _mapper.Map<List<EmployeeListDto>>(employees)
-                );
-            return emp;
+          var employees = await _employeeRepository.GetAll().ToListAsync();
+
+            return new ListResultDto<EmployeeListDto>(
+                ObjectMapper.Map<List<EmployeeListDto>>(employees));
         }
     }
 }

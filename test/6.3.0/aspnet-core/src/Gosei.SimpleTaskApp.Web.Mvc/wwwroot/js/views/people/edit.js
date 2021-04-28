@@ -3,49 +3,34 @@
 $(document).ready(function () {
 (function ($) {
     $(function (e) {
-        var taskService = abp.services.app.person;
-        //var _$editTask = $('#EditTask');
-        //var _$taskId = $('#TaskId');
-        //_$editTask.click(function () {
-        //    location.href = '/Tasks?id=' + _$taskId.val();
-        //});
-
-        //$(".edit-task").on("click", function () {
-        //    var taskId = $(this).data("task-id");
-
-        //    console.log("task", taskId);
-        //});
-
-
-        $.ajax()
-
+        var personService = abp.services.app.person;
         $("#PersonList").on("click", "a", function (e) {
             var personId = $(this).data("person-id");
 
-            console.log("task", personId);
-            //e.preventDefault();
+        
             var person = {
                 id: personId
-                //Id=2
+               
             };
 
-            taskService.getPerson(person).done(function(result) {
-                //location.href = '/Tasks';
-                console.log("ket qua ngay thang:", result.creationTime);
-                console.log("ket qua id person:", result.assignedPersonId);
-                console.log("ket qua name person:", result.assignedPersonName);
-
+            personService.getPerson(person).done(function(result) {
+              
+                var date = new Date(result.birthDate);
+                var year = date.getFullYear();
+                var dt = date.getDate();
+                var month = date.getMonth() + 1;
+                if (dt < 10) {
+                    dt = "0" + dt;
+                }
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                date = year + '-' + month + '-' + dt ;
                 $('#Id').val(result.id);
                 $('#Name').val(result.name);
-                $('#BirthDate').val(result.birthDate);
-             
-               
-                //if(result.state == 1) {
-                //    $('#State').val("Completed");
-                //}
-                //else{
-                //    $('#State').val("Open");
-                //}
+                $('#BirthDate').val(date); /*result.birthDate.toString("yyyy-dd-MM")*/
+                document.getElementById("BirthDate").innerHTML = result.birthDate.toString("yyyy-MM-dd");
+                console.log("date", date);
             });
 
         });
@@ -55,7 +40,7 @@ $(document).ready(function () {
     ///
     $(function () {
 
-        var _$form = $('#saveTask');
+        var _$form = $('#savePerson');
 
         _$form.find('input:first').focus();
 
@@ -64,42 +49,19 @@ $(document).ready(function () {
         _$form.find('button[type=submit]')
             .click(function (e) {
                 e.preventDefault();
-                console.log("vao submit r");
+                console.log("vao submit person r");
                 if (!_$form.valid()) {
                     return;
                 }
 
                 var input = _$form.serializeFormToObject();
      
-                abp.services.app.task.update(input)
+                abp.services.app.person.updatePerson(input)
                     .done(function () {
-                        location.href = '/Tasks';
+                        location.href = '/People';
                     });
             });
     });
-
-   
-        $(function () {
-            var StateCombobox = $('#StateCombobox');
-            
-            StateCombobox.change(function () {
-                //a.preventDefault();
-                console.log("thay doi trang thai");
-               
-                if ($("#StateCombobox option:selected").text() == "Open") {
-                    $('#State').val(0);
-                    
-                }
-                else {
-                    $('#State').val(1);
-                }
-
-            });
-
-        });
-   
-
-
 
     })(jQuery);
 

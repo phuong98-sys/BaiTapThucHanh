@@ -20,8 +20,8 @@ namespace Gosei.SimpleTaskApp.Web.Controllers
         public async Task<ActionResult> Index()
         {
             var employees = await _employeeAppService.GetAll();
-            var output = new IndexViewModel(employees);
-            return View(output);
+            var model = new IndexViewModel(employees.Items);
+            return View(model);
         }
     }
 }

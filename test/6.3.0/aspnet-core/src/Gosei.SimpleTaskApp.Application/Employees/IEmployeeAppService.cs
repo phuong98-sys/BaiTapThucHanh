@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services;
+using Abp.Application.Services.Dto;
 using Gosei.SimpleTaskApp.Employees.Dto;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,9 @@ namespace Gosei.SimpleTaskApp.Employees
 {
     public interface IEmployeeAppService : IApplicationService
     {
-        public Task<List<EmployeeListDto>> GetAll();
-       
+        public Task<ListResultDto<EmployeeListDto>> GetAll();
+
+
+
     }
 }
