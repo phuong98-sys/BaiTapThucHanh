@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<button type="button" id="btnGoogleLogin">Login</button>
+<script>
+
+    $(document).ready(function () {
+        $('#btnGoogleLogin').click(function () {
+            window.location.href = '/Home/IndexAsync';
+        })
+    });
+</script>
+@*<div>@ViewBag.Message</div>*@
