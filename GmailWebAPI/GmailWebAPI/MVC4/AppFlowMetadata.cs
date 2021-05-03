@@ -5,6 +5,7 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Auth.OAuth2.Mvc;
 using Google.Apis.Drive.v2;
+using Google.Apis.Gmail.v1;
 using Google.Apis.Util.Store;
 
 namespace GmailWebAPI.MVC4
@@ -21,8 +22,10 @@ namespace GmailWebAPI.MVC4
                    
 
                 },
-                Scopes = new[] { DriveService.Scope.Drive },
-                DataStore = new FileDataStore("Drive.Api.Auth.Store")
+                Scopes = new[] { GmailService.Scope.GmailReadonly },
+                DataStore = new FileDataStore("Google.Apis.Gmail.v1")
+                 //DataStore = new FileDataStore("https://www.googleapis.com/auth/gmail.modify")
+                //https://www.googleapis.com/auth/gmail.modify
             });
 
         public override string GetUserId(Controller controller)

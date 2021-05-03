@@ -43,3 +43,28 @@ phan 2:s
 - remove-migration trên đó
 - Up: nhữn thứ sửa đổi
 - Down: để có thể restore về trạng thái lúc chưa Up
+
+
+1. Id và secret cả Google cả ứng dụng đều biết, được cấp lúc đầu
+2. Gửi yêu cầu nhận mã truy cập API
+	+ 1 mã có thể truy cập nhiều APIs
+	+ Trong mỗi mã, có tham số Scope để đặt các giá trị trong mã cho phép
+	+ Trong lúc yêu cầu mã truy cập, ta có thể gửi lên nhiều Scope
+	+ Có thể request mã bằng cách trực tiếp điều hướng trình duyệt đến google
+	+ Một số yêu cầu xác thực, sau khi đăng nhập tk google sẽ được hỏi có  cấp 
+	quyền cho ư d đó không, => sự đồng ý của người dùng
+		- Nếu đồng ý thì ng  phát triển được gửi mã truy cập đến, hoặc mã ủy quyền
+		cùng với các Scopes cho phép, nếu không thì server trả về lỗi
+3. Kiểm tra phạm vi được truy cập được cấp bởi ng dùng
+- So sánh Scopes yêu cầu và Scopes trả về để truy cập tính năng, chức năng ứng dụng
+- Có thể scope trả về sẽ ít hơn yêu cầu mà Ư d cho phép
+  + Nhiều Giá trị Scope được ánh xạ vào 1 Scope, trả về 1 chuỗi phạm vi cho tất cả các giá trị
+4. Gửi mã truy cập đến API
+- Gửi đến API cần truy cập trong tiêu đề của HTtp ủy quyền
+- Có thể gửi trên URI nhưng không khuyến khích
+- API chỉ gửi các tà nguyên trong Scope đã yêu cầu từ mã
+5. Làm mới mã truy cập nếu cần
+- Mã truy cập có thể hết hạn 
+- Muốn cấp lại phải cấp bằng mã làm mới( cho phép nhận mã truy cập mới)
+
+* LÀM MỚI MÃ
