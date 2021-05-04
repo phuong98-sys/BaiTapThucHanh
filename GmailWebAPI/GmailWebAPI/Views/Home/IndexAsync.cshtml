@@ -2,22 +2,141 @@
     ViewBag.Title = "Home Page";
 }
 @model IEnumerable<GmailWebAPI.Models.EmailContent>
-<div>@ViewBag.Message</div>
-<table>
-    <tr>
-        <th>Date</th>
-        <th>Subject</th>
-        <th>Body</th>
-    </tr>
-    @foreach (var item in Model)
-    {
 
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
-<tr>
-    <td class="col-lg-2">@Html.DisplayFor(model => item.date)</td>
-    <td class="col-lg-1">@Html.DisplayFor(model => item.subject)</td>
-    <td class="col-lg-1">@Html.DisplayFor(model => item.body)</td>
-</tr>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<button type="button" id="btnGoogleLogin">Login</button>
+<script>
+    if ('@ViewBag.Success' == 1) {
+        $('#btnGoogleLogin').hide();
+        $('.container').show();
+
     }
+</script>
+<div class="container">
 
-</table>
+    <button id="btnCompose" data-toggle="modal" data-target="#myModal">Compose</button>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Subject</th>
+            <th>Body</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+
+
+            <tr>
+                <td class="col-lg-2">@Html.DisplayFor(model => item.date)</td>
+                <td class="col-lg-1">@Html.DisplayFor(model => item.subject)</td>
+                <td class="col-lg-1">@Html.DisplayFor(model => item.body)</td>
+            </tr>
+        }
+
+    </table>
+
+
+    <!--Modal Edit Task-->
+    <div class="panel-heading">
+
+        <div>
+            <!--Model to Add Qualification-->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        </div>
+                        <div class="modal-body">
+                            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "sendEmailAPI" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="content" style="color:black;">
+
+                                    <div class="content-body">
+                                        <form method="post">
+
+                                            <div class="form-group">
+                                                Title
+                                                <div class="group-input">
+                                                    @Html.TextBox("subject", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                    @Html.ValidationMessage("subject", "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                To
+                                                <div class="group-input">
+                                                    @Html.TextBox("to", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                    @Html.ValidationMessage("to", "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                Body Content
+                                                <div class="group-input">
+                                                    @Html.TextArea("body", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                    @Html.ValidationMessage("body", "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+
+                                        </form>
+
+                                        <hr />
+                                        <div claa="panel-footer">
+
+                                            <button type="submit" name="submit" id="btnSendEmail" value="Accept" class="btn btn-success" style="color:#fff; background-color:#0088c1">Send</button>
+                                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>    <!--Model to Add Qualification-->
+
+            <script>
+
+                $(document).ready(function () {
+                    $('#sendEmailAPI').submit(function (e) {
+
+                        var valdata = $("form").serialize();
+
+                        $.ajax({
+                            url: "/Home/SendEmail",
+                            type: "POST",
+                            data: valdata,
+                            success: function () {
+                                location.reload();
+                                alert("Gửi mail thành công");
+                            }
+                            ,
+                            error: function () {
+                                alert("Gửi mail không thành công");
+                            },
+                        });
+                        e.preventDefault();
+                        $('#myModal').modal('hide');
+                    });
+
+                    // send
+                    //$('#btnCompose').click(function () {
+
+                    //})
+                });
+
+
+
+            </script>
+
+        </div>
+    </div>
+</div>

@@ -22,7 +22,7 @@ namespace GmailWebAPI.MVC4
                    
 
                 },
-                Scopes = new[] { GmailService.Scope.GmailReadonly },
+                Scopes = new[] { "https://mail.google.com/" },
                 DataStore = new FileDataStore("Google.Apis.Gmail.v1")
                  //DataStore = new FileDataStore("https://www.googleapis.com/auth/gmail.modify")
                 //https://www.googleapis.com/auth/gmail.modify
