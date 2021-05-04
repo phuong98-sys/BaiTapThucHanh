@@ -1,5 +1,23 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@model IEnumerable<GmailWebAPI.Models.EmailContent>
 <div>@ViewBag.Message</div>
-<div>a</div>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Subject</th>
+        <th>Body</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+
+
+<tr>
+    <td class="col-lg-2">@Html.DisplayFor(model => item.date)</td>
+    <td class="col-lg-1">@Html.DisplayFor(model => item.subject)</td>
+    <td class="col-lg-1">@Html.DisplayFor(model => item.body)</td>
+</tr>
+    }
+
+</table>

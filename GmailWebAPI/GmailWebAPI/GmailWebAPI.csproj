@@ -155,6 +155,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmailContent.cs" />
     <Compile Include="MVC4\AppFlowMetadata.cs" />
     <Compile Include="MVC4\Controllers\AuthCallbackController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -199,7 +200,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
