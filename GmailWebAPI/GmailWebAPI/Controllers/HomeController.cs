@@ -19,30 +19,57 @@ using iTextSharp.text.html;
 using iText.StyledXmlParser.Jsoup;
 using System.Net.Mail;
 using System.IO;
+using System.Web.Security;
 
 namespace Google.Apis.Sample.MVC4.Controllers
 {
     public class HomeController : Controller
     {
-
-        public async Task<ActionResult> IndexAsync(CancellationToken cancellationToken)
+        public static CancellationToken cancellationToken;
+        public static GmailService service;
+        public static Auth.OAuth2.Web.AuthorizationCodeWebApp.AuthResult result;
+        public static string emailAddress;
+        public async Task<Boolean> checkCredential()
         {
-            var app = new AppFlowMetadata();
-            var result = await new AuthorizationCodeMvcApp(this, app).
-                AuthorizeAsync(cancellationToken);
-            List<EmailContent> mails = new List<EmailContent>();
 
+            var app = new AppFlowMetadata();
+             result = await new AuthorizationCodeMvcApp(this, app).
+                AuthorizeAsync(cancellationToken);
+            //var accessToken =  result.Credential.Token.AccessToken;
+            //string a = accessToken.Value;
             if (result.Credential != null)
             {
                 ViewBag.Success = 1;
-                var service = new GmailService(new BaseClientService.Initializer
+                service = new GmailService(new BaseClientService.Initializer
                 {
                     HttpClientInitializer = result.Credential,
                     ApplicationName = "ASP.NET MVC Sample"
                 });
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<ActionResult> IndexAsync()
+        {
+           
+            List<EmailContent> mails = new List<EmailContent>();
+            //var app = new AppFlowMetadata();
+            //var result = await new AuthorizationCodeMvcApp(this, app).
+            //    AuthorizeAsync(cancellationToken);
+
+            if (await checkCredential())
+            {
+                ViewBag.Success = 1;
 
                 // mới
+               
                 var request = service.Users.Messages.List("me");
+                
                 request.LabelIds = "INBOX";
                 request.IncludeSpamTrash = false;
                 // request.Q = "is:unread"; // This was added because I only wanted unread emails...
@@ -57,14 +84,14 @@ namespace Google.Apis.Sample.MVC4.Controllers
                     foreach (var email in emailListResponse.Messages)
                     {
                         EmailContent mail = new EmailContent();
-                        ViewBag.Message = email.Id;
-                        var emailInfoRequest = service.Users.Messages.Get("phuongred98@gmail.com", email.Id);
+              
+                        var emailInfoRequest = service.Users.Messages.Get("me", email.Id);
                         // Make another request for that email id...
                         var emailInfoResponse = emailInfoRequest.Execute();
-
+                       
                         if (emailInfoResponse != null)
                         {
-                            String body;
+                       
                             // Loop through the headers and get the fields we need...
                             foreach (var mParts in emailInfoResponse.Payload.Headers)
                             {
@@ -73,6 +100,10 @@ namespace Google.Apis.Sample.MVC4.Controllers
                                 {
                                     mail.date = mParts.Value;
 
+                                }
+                                else if (mParts.Name == "Delivered-To")
+                                {
+                                    emailAddress = mParts.Value;
                                 }
                                 else if (mParts.Name == "From")
                                 {
@@ -87,6 +118,15 @@ namespace Google.Apis.Sample.MVC4.Controllers
 
                                 if (mail.date != "" && mail.from != "")
                                 {
+                                    if (emailInfoResponse.Payload.Parts == null)
+                                    {   
+                                            byte[] data = FromBase64ForUrlString(emailInfoResponse.Payload.Body.Data);
+                                            string decodedString = Encoding.UTF8.GetString(data);
+                                            mail.body = Jsoup.Parse(decodedString).Text();
+                                        
+                                        continue;
+                                    }
+
                                     foreach (MessagePart p in emailInfoResponse.Payload.Parts)
                                     {
                                         if (p.MimeType == "text/html")
@@ -97,10 +137,7 @@ namespace Google.Apis.Sample.MVC4.Controllers
                                         }
                                     }
                                 }
-                                else
-                                {
-                                    continue;
-                                }
+                               
                             }
 
                         }
@@ -113,8 +150,54 @@ namespace Google.Apis.Sample.MVC4.Controllers
             else
             {
                 ViewBag.Success = 0;
+               
                 return new RedirectResult(result.RedirectUri);
+                //return View(mails);
             }
+        }
+
+        public async Task SendEmail(EmailContent model, CancellationToken cancellationToken)
+        {
+           
+
+            if (await checkCredential())
+            {
+              
+                //send email
+                var msg = new AE.Net.Mail.MailMessage
+                {
+                    Subject = model.subject,
+                    Body = model.body,
+
+                    From = new MailAddress(emailAddress),
+
+                };
+                string Mails = model.to;
+                var recipients = Mails.Split(' ');
+                //var recipients = new[] { model.to};
+                foreach (var recipient in recipients)
+                {
+                    msg.To.Add(new MailAddress(recipient));
+                    msg.ReplyTo.Add(msg.From);
+                    var msgStr = new StringWriter();
+                    msg.Save(msgStr);
+                    await service.Users.Messages.Send(new Message()
+                    {
+                        Raw = Base64UrlEncode(msgStr.ToString())
+                    }, "me").ExecuteAsync();
+                }
+
+
+
+
+            }
+
+        }
+  
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return Redirect("/Home/Index");
         }
         private static string Base64UrlEncode(string input)
         {
@@ -166,46 +249,7 @@ namespace Google.Apis.Sample.MVC4.Controllers
         {
             return View();
         }
-        public async Task SendEmail(EmailContent model, CancellationToken cancellationToken)
-        {
-            var app = new AppFlowMetadata();
-            var result = await new AuthorizationCodeMvcApp(this, app).AuthorizeAsync(cancellationToken);
-            List<EmailContent> mails = new List<EmailContent>();
-
-            if (result.Credential != null)
-            {
-                var service = new GmailService(new BaseClientService.Initializer
-                {
-                    HttpClientInitializer = result.Credential,
-                    ApplicationName = "ASP.NET MVC Sample"
-                });
-                //send email
-                var msg = new AE.Net.Mail.MailMessage
-                {
-                    Subject = model.subject,
-                    Body = model.body,
-
-                    From = new MailAddress("phuongred98@gmail.com"),
-                    Date = DateTime.Now
-                };
-                string Mails = model.to;
-                var recipients = Mails.Split(' ');
-                //var recipients = new[] { model.to};
-                foreach (var recipient in recipients)
-                {
-                    msg.To.Add(new MailAddress(recipient));
-                }
-                var msgStr = new StringWriter();
-                msg.Save(msgStr);
-
-                await service.Users.Messages.Send(new Message()
-                {
-                    Raw = Base64UrlEncode(msgStr.ToString())
-                }, "me").ExecuteAsync();
-                
-            }
-
-        }
+       
 
 
     }

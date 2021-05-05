@@ -12,6 +12,7 @@ namespace GmailWebAPI.MVC4
 {
     public class AppFlowMetadata : FlowMetadata
     {
+        public static Object user;
         private static readonly IAuthorizationCodeFlow flow =
             new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer
             {
@@ -24,21 +25,17 @@ namespace GmailWebAPI.MVC4
                 },
                 Scopes = new[] { "https://mail.google.com/" },
                 DataStore = new FileDataStore("Google.Apis.Gmail.v1")
-                 //DataStore = new FileDataStore("https://www.googleapis.com/auth/gmail.modify")
-                //https://www.googleapis.com/auth/gmail.modify
+               
             });
 
         public override string GetUserId(Controller controller)
         {
-            // In this sample we use the session to store the user identifiers.
-            // That's not the best practice, because you should have a logic to identify
-            // a user. You might want to use "OpenID Connect".
-            // You can read more about the protocol in the following link:
-            // https://developers.google.com/accounts/docs/OAuth2Login.
-            var user = controller.Session["user"];
+           
+             user = controller.Session["user"];
             if (user == null)
             {
                 user = Guid.NewGuid();
+           
                 controller.Session["user"] = user;
             }
             return user.ToString();

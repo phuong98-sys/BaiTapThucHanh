@@ -14,10 +14,12 @@
         $('.container').show();
 
     }
+
 </script>
 <div class="container">
-
+   
     <button id="btnCompose" data-toggle="modal" data-target="#myModal">Compose</button>
+    <button id="btnLogout">Logout</button>
     <table>
         <tr>
             <th>Date</th>
@@ -126,11 +128,12 @@
                         e.preventDefault();
                         $('#myModal').modal('hide');
                     });
-
-                    // send
-                    //$('#btnCompose').click(function () {
-
-                    //})
+                    $('#btnLogout').click(function () {
+                        alert("Logout");
+                        //Session["user"].Abandon();
+                        window.location = "https://www.google.com/accounts/Logout";
+                        //window.location = "https://accounts.google.com/o/oauth2/revoke?token=ya29.a0AfH6SMCn75zxRZ4SxTQAjSyEIP2URVnt8lJ6BJLrihSRCa1cjM6Vfemdaqqld263HnD2Q2ahB8WgdbtFG_6o3t-80oxYA2w-CuYq4HkUxdaGhVSDYHnKKrjCIxRJKBiFn78MHgpYJhAnymoFxNDtseHuu6Ia";
+                    })
                 });
 
 
