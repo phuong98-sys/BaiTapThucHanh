@@ -20,6 +20,7 @@ using iText.StyledXmlParser.Jsoup;
 using System.Net.Mail;
 using System.IO;
 using System.Web.Security;
+using WebMatrix.WebData;
 
 namespace Google.Apis.Sample.MVC4.Controllers
 {
@@ -39,7 +40,7 @@ namespace Google.Apis.Sample.MVC4.Controllers
             //string a = accessToken.Value;
             if (result.Credential != null)
             {
-                ViewBag.Success = 1;
+                
                 service = new GmailService(new BaseClientService.Initializer
                 {
                     HttpClientInitializer = result.Credential,
@@ -57,11 +58,7 @@ namespace Google.Apis.Sample.MVC4.Controllers
         public async Task<ActionResult> IndexAsync()
         {
            
-            List<EmailContent> mails = new List<EmailContent>();
-            //var app = new AppFlowMetadata();
-            //var result = await new AuthorizationCodeMvcApp(this, app).
-            //    AuthorizeAsync(cancellationToken);
-
+            List<EmailContent> mails = new List<EmailContent>();     
             if (await checkCredential())
             {
                 ViewBag.Success = 1;
@@ -194,10 +191,11 @@ namespace Google.Apis.Sample.MVC4.Controllers
 
         }
   
-        public ActionResult Logout()
+        public async Task<ActionResult> Logout()
         {
-            FormsAuthentication.SignOut();
-            return Redirect("/Home/Index");
+            //FormsAuthentication.SignOut();
+             WebSecurity.Logout();
+            return new RedirectResult("/Home/Index");
         }
         private static string Base64UrlEncode(string input)
         {

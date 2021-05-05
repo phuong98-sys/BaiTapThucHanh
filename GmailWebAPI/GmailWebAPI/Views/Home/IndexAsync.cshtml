@@ -17,7 +17,7 @@
 
 </script>
 <div class="container">
-   
+
     <button id="btnCompose" data-toggle="modal" data-target="#myModal">Compose</button>
     <button id="btnLogout">Logout</button>
     <table>
@@ -128,12 +128,67 @@
                         e.preventDefault();
                         $('#myModal').modal('hide');
                     });
-                    $('#btnLogout').click(function () {
-                        alert("Logout");
-                        //Session["user"].Abandon();
-                        window.location = "https://www.google.com/accounts/Logout";
-                        //window.location = "https://accounts.google.com/o/oauth2/revoke?token=ya29.a0AfH6SMCn75zxRZ4SxTQAjSyEIP2URVnt8lJ6BJLrihSRCa1cjM6Vfemdaqqld263HnD2Q2ahB8WgdbtFG_6o3t-80oxYA2w-CuYq4HkUxdaGhVSDYHnKKrjCIxRJKBiFn78MHgpYJhAnymoFxNDtseHuu6Ia";
+                  
+                    //$('#btnLogout').click(function () {
+                    //    alert("Logout");
+
+                    //    //Session["user"].Abandon();
+
+                    //    //window.location = "https://www.google.com/accounts/Logout";
+                    //    //window.location = "https://accounts.google.com/o/oauth2/revoke?token=ya29.a0AfH6SMCn75zxRZ4SxTQAjSyEIP2URVnt8lJ6BJLrihSRCa1cjM6Vfemdaqqld263HnD2Q2ahB8WgdbtFG_6o3t-80oxYA2w-CuYq4HkUxdaGhVSDYHnKKrjCIxRJKBiFn78MHgpYJhAnymoFxNDtseHuu6Ia";
+                    //})
+
+
+                    //get accountType, accessToken, redirectUrl and clientID
+                    var accountType = "google";
+                    var accessToken = "ya29.a0AfH6SMCn75zxRZ4SxTQAjSyEIP2URVnt8lJ6BJLrihSRCa1cjM6Vfemdaqqld263HnD2Q2ahB8WgdbtFG_6o3t-80oxYA2w-CuYq4HkUxdaGhVSDYHnKKrjCIxRJKBiFn78MHgpYJhAnymoFxNDtseHuu6Ia";
+                    console.log("ma truy cap=", accessToken);
+                    var redirectUrl = "https://www.google.com/search?q=google+d%E1%BB%8Bch&oq=goo&aqs=chrome.1.69i57j69i59j69i60l3j69i65l3.2461j0j15&sourceid=chrome&ie=UTF-8";
+                    var clientID = "369518912260-5g5delg9bh600r6amuqsvmc0n995f2b7.apps.googleusercontent.com";
+                    $('#btnGoogleLogin').click(function () {
+                        localStorage.setItem("accessToken", accessToken);
                     })
+                    $('#btnLogout').on('click', function () {
+                        //externalLogout();
+                        alert("logout");
+                        localStorage.removeItem('accessToken');
+                        window.location = "/Home/Index";
+                    });
+
+                    function externalLogout() {
+                        var url, params;
+                        if (accountType == "facebook") {
+                            url = "https://www.facebook.com/logout.php";
+                            params = {
+                                next: redirectUrl,
+                                access_token: encodeURIComponent(accessToken)
+                            };
+                            performCallLogout(url, params, accountType);
+                        } else if (accountType == "google") {
+                            url = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout";
+                            params = {
+                                next: redirectUrl
+                            }
+                            performCallLogout(url, params, accountType);
+                        } else if (accountType == "microsoft") {
+                            url = "https://login.live.com/oauth20_logout.srf";
+                            params = {
+                                clientId: clientID,
+                                redirectUrl: redirectUrl
+                            }
+                            performCallLogout(url, params, accountType);
+                        }
+                    }
+
+                    function performCallLogout(url, params, accountType) {
+                        if (accountType == "facebook") {
+                            window.location.href = url + "?next=" + params.next + "&access_token=" + params.access_token;
+                        } else if (accountType == "google") {
+                            window.location.href = url + "?continue=" + params.next;
+                        } else if (accountType == "microsoft") {
+                            window.location.href = url + "?client_id=" + params.clientId + "&redirect_url=" + params.redirectUrl;
+                        }
+                    }
                 });
 
 
@@ -143,3 +198,4 @@
         </div>
     </div>
 </div>
+
