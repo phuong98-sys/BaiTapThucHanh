@@ -3,11 +3,13 @@
 }
 @model IEnumerable<GmailWebAPI.Models.EmailContent>
 
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <button type="button" id="btnGoogleLogin">Login</button>
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 <script>
     if ('@ViewBag.Success' == 1) {
         $('#btnGoogleLogin').hide();
@@ -16,186 +18,238 @@
     }
 
 </script>
-<div class="container">
+<html>
+<head>
+    <meta name="google-signin-client_id" content="369518912260-5g5delg9bh600r6amuqsvmc0n995f2b7.apps.googleusercontent.com">
+</head>
+<body>
+    <div class="container">
 
-    <button id="btnCompose" data-toggle="modal" data-target="#myModal">Compose</button>
-    <button id="btnLogout">Logout</button>
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Subject</th>
-            <th>Body</th>
-        </tr>
-        @foreach (var item in Model)
-        {
-
-
+        <button id="btnCompose" data-toggle="modal" data-target="#myModal">Compose</button>
+        <button id="btnLogout">Logout</button>
+        <a href="#" onclick="signOut();">Sign out</a>
+        <table>
             <tr>
-                <td class="col-lg-2">@Html.DisplayFor(model => item.date)</td>
-                <td class="col-lg-1">@Html.DisplayFor(model => item.subject)</td>
-                <td class="col-lg-1">@Html.DisplayFor(model => item.body)</td>
+                <th>Date</th>
+                <th>Subject</th>
+                <th>Body</th>
             </tr>
-        }
+            @foreach (var item in Model)
+            {
 
-    </table>
+
+                <tr>
+                    <td class="col-lg-2">@Html.DisplayFor(model => item.date)</td>
+                    <td class="col-lg-1">@Html.DisplayFor(model => item.subject)</td>
+                    <td class="col-lg-1">@Html.DisplayFor(model => item.body)</td>
+                </tr>
+            }
+
+        </table>
 
 
-    <!--Modal Edit Task-->
-    <div class="panel-heading">
+        <!--Modal Edit Task-->
+        <div class="panel-heading">
 
-        <div>
-            <!--Model to Add Qualification-->
-            <div class="modal fade" id="myModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
+            <div>
+                <!--Model to Add Qualification-->
+                <div class="modal fade" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
 
-                            <a href="#" class="close" data-dismiss="modal">&times;</a>
-                        </div>
-                        <div class="modal-body">
-                            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "sendEmailAPI" }))
-                            {
-                                @Html.AntiForgeryToken()
+                                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                            </div>
+                            <div class="modal-body">
+                                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "sendEmailAPI" }))
+                                {
+                                    @Html.AntiForgeryToken()
 
-                                <div class="content" style="color:black;">
+                                    <div class="content" style="color:black;">
 
-                                    <div class="content-body">
-                                        <form method="post">
+                                        <div class="content-body">
+                                            <form method="post">
 
-                                            <div class="form-group">
-                                                Title
-                                                <div class="group-input">
-                                                    @Html.TextBox("subject", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
-                                                    @Html.ValidationMessage("subject", "", new { @class = "text-danger" })
+                                                <div class="form-group">
+                                                    Title
+                                                    <div class="group-input">
+                                                        @Html.TextBox("subject", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                        @Html.ValidationMessage("subject", "", new { @class = "text-danger" })
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                To
-                                                <div class="group-input">
-                                                    @Html.TextBox("to", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
-                                                    @Html.ValidationMessage("to", "", new { @class = "text-danger" })
+                                                <div class="form-group">
+                                                    To
+                                                    <div class="group-input">
+                                                        @Html.TextBox("to", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                        @Html.ValidationMessage("to", "", new { @class = "text-danger" })
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                Body Content
-                                                <div class="group-input">
-                                                    @Html.TextArea("body", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
-                                                    @Html.ValidationMessage("body", "", new { @class = "text-danger" })
+                                                <div class="form-group">
+                                                    Body Content
+                                                    <div class="group-input">
+                                                        @Html.TextArea("body", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                        @Html.ValidationMessage("body", "", new { @class = "text-danger" })
+                                                    </div>
                                                 </div>
+
+
+                                            </form>
+
+                                            <hr />
+                                            <div claa="panel-footer">
+
+                                                <button type="submit" name="submit" id="btnSendEmail" value="Accept" class="btn btn-success" style="color:#fff; background-color:#0088c1">Send</button>
+                                                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+
                                             </div>
-
-
-                                        </form>
-
-                                        <hr />
-                                        <div claa="panel-footer">
-
-                                            <button type="submit" name="submit" id="btnSendEmail" value="Accept" class="btn btn-success" style="color:#fff; background-color:#0088c1">Send</button>
-                                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-
                                         </div>
+
                                     </div>
 
-                                </div>
+                                }
+                            </div>
 
-                            }
                         </div>
-
                     </div>
-                </div>
-            </div>    <!--Model to Add Qualification-->
+                </div>    <!--Model to Add Qualification-->
 
-            <script>
+                <script>
 
-                $(document).ready(function () {
-                    $('#sendEmailAPI').submit(function (e) {
+                    $(document).ready(function () {
+                        $('#btnLogout').on('click', function () {
+                            //externalLogout();
+                            onLoad();
+                            signOut();
 
-                        var valdata = $("form").serialize();
+                            //alert("logout");
+                            //sessionStorage.removeItem('accessToken1');
+                            //document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/application-name/logoutUser";
 
-                        $.ajax({
-                            url: "/Home/SendEmail",
-                            type: "POST",
-                            data: valdata,
-                            success: function () {
-                                location.reload();
-                                alert("Gửi mail thành công");
-                            }
-                            ,
-                            error: function () {
-                                alert("Gửi mail không thành công");
-                            },
                         });
-                        e.preventDefault();
-                        $('#myModal').modal('hide');
-                    });
-                  
-                    //$('#btnLogout').click(function () {
-                    //    alert("Logout");
-
-                    //    //Session["user"].Abandon();
-
-                    //    //window.location = "https://www.google.com/accounts/Logout";
-                    //    //window.location = "https://accounts.google.com/o/oauth2/revoke?token=ya29.a0AfH6SMCn75zxRZ4SxTQAjSyEIP2URVnt8lJ6BJLrihSRCa1cjM6Vfemdaqqld263HnD2Q2ahB8WgdbtFG_6o3t-80oxYA2w-CuYq4HkUxdaGhVSDYHnKKrjCIxRJKBiFn78MHgpYJhAnymoFxNDtseHuu6Ia";
-                    //})
-
-
-                    //get accountType, accessToken, redirectUrl and clientID
-                    var accountType = "google";
-                    var accessToken = "ya29.a0AfH6SMCn75zxRZ4SxTQAjSyEIP2URVnt8lJ6BJLrihSRCa1cjM6Vfemdaqqld263HnD2Q2ahB8WgdbtFG_6o3t-80oxYA2w-CuYq4HkUxdaGhVSDYHnKKrjCIxRJKBiFn78MHgpYJhAnymoFxNDtseHuu6Ia";
-                    console.log("ma truy cap=", accessToken);
-                    var redirectUrl = "https://www.google.com/search?q=google+d%E1%BB%8Bch&oq=goo&aqs=chrome.1.69i57j69i59j69i60l3j69i65l3.2461j0j15&sourceid=chrome&ie=UTF-8";
-                    var clientID = "369518912260-5g5delg9bh600r6amuqsvmc0n995f2b7.apps.googleusercontent.com";
-                    $('#btnGoogleLogin').click(function () {
-                        localStorage.setItem("accessToken", accessToken);
-                    })
-                    $('#btnLogout').on('click', function () {
-                        //externalLogout();
-                        alert("logout");
-                        localStorage.removeItem('accessToken');
-                        window.location = "/Home/Index";
-                    });
-
-                    function externalLogout() {
-                        var url, params;
-                        if (accountType == "facebook") {
-                            url = "https://www.facebook.com/logout.php";
-                            params = {
-                                next: redirectUrl,
-                                access_token: encodeURIComponent(accessToken)
-                            };
-                            performCallLogout(url, params, accountType);
-                        } else if (accountType == "google") {
-                            url = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout";
-                            params = {
-                                next: redirectUrl
-                            }
-                            performCallLogout(url, params, accountType);
-                        } else if (accountType == "microsoft") {
-                            url = "https://login.live.com/oauth20_logout.srf";
-                            params = {
-                                clientId: clientID,
-                                redirectUrl: redirectUrl
-                            }
-                            performCallLogout(url, params, accountType);
+                        function signOut() {
+                            gapi.load('auth2', function () {
+                                gapi.auth2.init();
+                            });
+                            //var auth2 = gapi.auth2.getAuthInstance();
+                            //console.log("thanh cong");
+                            //auth2.signOut().then(function () {
+                            //    console.log('User signed out.');
+                            //});
+                            
                         }
-                    }
-
-                    function performCallLogout(url, params, accountType) {
-                        if (accountType == "facebook") {
-                            window.location.href = url + "?next=" + params.next + "&access_token=" + params.access_token;
-                        } else if (accountType == "google") {
-                            window.location.href = url + "?continue=" + params.next;
-                        } else if (accountType == "microsoft") {
-                            window.location.href = url + "?client_id=" + params.clientId + "&redirect_url=" + params.redirectUrl;
+                        function onLoad() {
+                            console.log("ok khoi tao");
+                            gapi.load('auth2', function () {
+                                gapi.auth2.init();
+                            });
                         }
-                    }
-                });
+                        $('#sendEmailAPI').submit(function (e) {
+
+                            var valdata = $("form").serialize();
+
+                            $.ajax({
+                                url: "/Home/SendEmail",
+                                type: "POST",
+                                data: valdata,
+                                success: function () {
+                                    location.reload();
+                                    alert("Gửi mail thành công");
+                                }
+                                ,
+                                error: function () {
+                                    alert("Gửi mail không thành công");
+                                },
+                            });
+                            e.preventDefault();
+                            $('#myModal').modal('hide');
+                        });
+
+                        //$('#btnLogout').click(function () {
+                        //    alert("Logout");
+
+                        //    //Session["user"].Abandon();
+
+                        //    //window.location = "https://www.google.com/accounts/Logout";
+                        //    //window.location = "https://accounts.google.com/o/oauth2/revoke?token=ya29.a0AfH6SMCn75zxRZ4SxTQAjSyEIP2URVnt8lJ6BJLrihSRCa1cjM6Vfemdaqqld263HnD2Q2ahB8WgdbtFG_6o3t-80oxYA2w-CuYq4HkUxdaGhVSDYHnKKrjCIxRJKBiFn78MHgpYJhAnymoFxNDtseHuu6Ia";
+                        //})
+
+
+                        //get accountType, accessToken, redirectUrl and clientID
+                        var accountType = "microsoft";
+
+                        var accessToken = "ya29.a0AfH6SMCn75zxRZ4SxTQAjSyEIP2URVnt8lJ6BJLrihSRCa1cjM6Vfemdaqqld263HnD2Q2ahB8WgdbtFG_6o3t-80oxYA2w-CuYq4HkUxdaGhVSDYHnKKrjCIxRJKBiFn78MHgpYJhAnymoFxNDtseHuu6Ia";
+
+
+                        sessionStorage.setItem("accessToken1", accessToken);
+                        console.log("ma truy cap=", accessToken);
+
+                        var redirectUrl = "https://console.cloud.google.com/apis/credentials/oauthclient/369518912260-5g5delg9bh600r6amuqsvmc0n995f2b7.apps.googleusercontent.com?project=myproject-312109";
+                        var clientID = "369518912260-5g5delg9bh600r6amuqsvmc0n995f2b7.apps.googleusercontent.com";
+                        $('#btnGoogleLogin').click(function () {
+                            window.location = "/Home/IndexAsync";
+                        })
+
+                        function externalLogout() {
+                            var url, params;
+                            if (accountType == "facebook") {
+                                url = "https://www.facebook.com/logout.php";
+                                params = {
+                                    next: redirectUrl,
+                                    access_token: encodeURIComponent(accessToken)
+                                };
+                                performCallLogout(url, params, accountType);
+                            } else if (accountType == "google") {
+                                url = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout";
+                                params = {
+                                    next: redirectUrl
+                                }
+                                performCallLogout(url, params, accountType);
+                            } else if (accountType == "microsoft") {
+                                url = "https://login.live.com/oauth20_logout.srf";
+                                params = {
+                                    clientId: clientID,
+                                    redirectUrl: redirectUrl
+                                }
+                                performCallLogout(url, params, accountType);
+                            }
+                        }
+
+                        function performCallLogout(url, params, accountType) {
+                            if (accountType == "facebook") {
+                                window.location.href = url + "?next=" + params.next + "&access_token=" + params.access_token;
+                            } else if (accountType == "google") {
+                                window.location.href = url + "?continue=" + params.next;
+                            } else if (accountType == "microsoft") {
+                                window.location.href = url + "?client_id=" + params.clientId + "&redirect_url=" + params.redirectUrl;
+                            }
+                        }
+                    });
 
 
 
-            </script>
+                </script>
 
+            </div>
         </div>
     </div>
-</div>
+    <script>
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+                auth2.disconnect();
+            });
+            auth2.disconnect();
+        }
 
+        function onLoad() {
+            gapi.load('auth2', function () {
+                gapi.auth2.init();
+            });
+        }
+    </script>
+
+
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+</body>
+</html>

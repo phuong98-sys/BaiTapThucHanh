@@ -20,7 +20,8 @@ using iText.StyledXmlParser.Jsoup;
 using System.Net.Mail;
 using System.IO;
 using System.Web.Security;
-using WebMatrix.WebData;
+using RestSharp;
+using System.Net.Http;
 
 namespace Google.Apis.Sample.MVC4.Controllers
 {
@@ -30,10 +31,11 @@ namespace Google.Apis.Sample.MVC4.Controllers
         public static GmailService service;
         public static Auth.OAuth2.Web.AuthorizationCodeWebApp.AuthResult result;
         public static string emailAddress;
+        public static AppFlowMetadata app;
         public async Task<Boolean> checkCredential()
         {
 
-            var app = new AppFlowMetadata();
+             app = new AppFlowMetadata();
              result = await new AuthorizationCodeMvcApp(this, app).
                 AuthorizeAsync(cancellationToken);
             //var accessToken =  result.Credential.Token.AccessToken;
@@ -41,11 +43,13 @@ namespace Google.Apis.Sample.MVC4.Controllers
             if (result.Credential != null)
             {
                 
-                service = new GmailService(new BaseClientService.Initializer
+               service = new GmailService(new BaseClientService.Initializer
                 {
                     HttpClientInitializer = result.Credential,
                     ApplicationName = "ASP.NET MVC Sample"
                 });
+               
+                
                 return true;
             }
             else
@@ -190,11 +194,41 @@ namespace Google.Apis.Sample.MVC4.Controllers
             }
 
         }
-  
+
+        //void RevokeAcess()
+        //{
+        //    try
+        //    {
+        //        HttpClient client = new DefaultHttpClient();
+        //        HttpPost post = new HttpPost("https://accounts.google.com/o/oauth2/revoke?token=" + ACCESS_TOKEN);
+        //        org.apache.http.HttpResponse response = client.execute(post);
+        //    }
+        //    catch (IOException e)
+        //    {
+        //    }
+        //    CookieManager.getInstance().removeAllCookie(); // this is clear the cookies which tends to same user in android web view
+        //}
         public async Task<ActionResult> Logout()
         {
-            //FormsAuthentication.SignOut();
-             WebSecurity.Logout();
+            CancellationToken taskCancellationToken;
+            app.DeleteTokenAsync("1", cancellationToken);
+            //var client = new RestClient("https://localhost:44335/oauth/revoke");
+            //var request = new RestRequest(Method.POST);
+            //request.AddHeader("content-type", "application/json");
+            //request.AddParameter("application/json", "{ \"client_id\": \"369518912260-5g5delg9bh600r6amuqsvmc0n995f2b7.apps.googleusercontent.com\", \"client_secret\": \"XA4yC-8Oj6pMWhdJS5CS7ZZH\", \"token\": \"ya29.a0AfH6SMCn75zxRZ4SxTQAjSyEIP2URVnt8lJ6BJLrihSRCa1cjM6Vfemdaqqld263HnD2Q2ahB8WgdbtFG_6o3t-80oxYA2w-CuYq4HkUxdaGhVSDYHnKKrjCIxRJKBiFn78MHgpYJhAnymoFxNDtseHuu6Ia\" }", ParameterType.RequestBody);
+            //IRestResponse response = client.Execute(request);
+
+            //String _accessToken = (String)session.getAttribute("ACCESS_TOKEN");
+        //    if (_accessToken != null)
+        //    {
+        //        StringBuffer path = httpRequest.getRequestURL();
+        //        reDirectPage = "https://www.google.com/accounts/Logout?
+        //        continue= https://appengine.google.com/_ah/logout?
+        //continue= "+path;
+        //    }
+        //    response.sendRedirect(reDirectPage);
+            FormsAuthentication.SignOut();
+            //WebSecurity.Logout();
             return new RedirectResult("/Home/Index");
         }
         private static string Base64UrlEncode(string input)
