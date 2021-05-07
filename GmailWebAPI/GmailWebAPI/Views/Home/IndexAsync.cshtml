@@ -48,83 +48,19 @@
         </table>
 
 
-        <!--Modal Edit Task-->
-        <div class="panel-heading">
-
-            <div>
-                <!--Model to Add Qualification-->
-                <div class="modal fade" id="myModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-
-                                <a href="#" class="close" data-dismiss="modal">&times;</a>
-                            </div>
-                            <div class="modal-body">
-                                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "sendEmailAPI" }))
-                                {
-                                    @Html.AntiForgeryToken()
-
-                                    <div class="content" style="color:black;">
-
-                                        <div class="content-body">
-                                            <form method="post">
-
-                                                <div class="form-group">
-                                                    Title
-                                                    <div class="group-input">
-                                                        @Html.TextBox("subject", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
-                                                        @Html.ValidationMessage("subject", "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    To
-                                                    <div class="group-input">
-                                                        @Html.TextBox("to", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
-                                                        @Html.ValidationMessage("to", "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    Body Content
-                                                    <div class="group-input">
-                                                        @Html.TextArea("body", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
-                                                        @Html.ValidationMessage("body", "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-
-
-                                            </form>
-
-                                            <hr />
-                                            <div claa="panel-footer">
-
-                                                <button type="submit" name="submit" id="btnSendEmail" value="Accept" class="btn btn-success" style="color:#fff; background-color:#0088c1">Send</button>
-                                                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                }
-                            </div>
-
-                        </div>
-                    </div>
-                </div>    <!--Model to Add Qualification-->
 
                 <script>
 
                     $(document).ready(function () {
                         $('#btnLogout').on('click', function () {
                             //externalLogout();
-                            onLoad();
-                            signOut();
+                            //onLoad();
+                            //signOut();
 
                             //alert("logout");
                             //sessionStorage.removeItem('accessToken1');
                             //document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/application-name/logoutUser";
-
+                            window.location = "/Home/Logout";
                         });
                         function signOut() {
                             gapi.load('auth2', function () {
@@ -135,7 +71,7 @@
                             //auth2.signOut().then(function () {
                             //    console.log('User signed out.');
                             //});
-                            
+
                         }
                         function onLoad() {
                             console.log("ok khoi tao");

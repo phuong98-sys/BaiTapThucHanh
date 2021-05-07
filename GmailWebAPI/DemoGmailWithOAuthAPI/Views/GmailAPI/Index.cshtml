@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<button id="btnLogin">Login</button>
+<h2>Index</h2>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+    //gui request de lay code
+    $(document).ready(function () {
+        $('#btnLogin').click(function () {
+            window.location.href = "http://accounts.google.com/o/oauth2/v2/auth?scope=https://mail.google.com&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=https://localhost:44334/GmailAPI/Code&client_id=369518912260-5g5delg9bh600r6amuqsvmc0n995f2b7.apps.googleusercontent.com";
+        })
+      
+    });
+</script>
+

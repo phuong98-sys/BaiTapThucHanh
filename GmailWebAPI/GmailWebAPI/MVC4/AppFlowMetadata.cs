@@ -21,8 +21,8 @@ namespace GmailWebAPI.MVC4
             {
                 ClientSecrets = new ClientSecrets
                 {
-                    ClientId = "369518912260-5g5delg9bh600r6amuqsvmc0n995f2b7.apps.googleusercontent.com",
-                    ClientSecret = "XA4yC-8Oj6pMWhdJS5CS7ZZH",
+                    //ClientId = "369518912260-5g5delg9bh600r6amuqsvmc0n995f2b7.apps.googleusercontent.com",
+                    //ClientSecret = "XA4yC-8Oj6pMWhdJS5CS7ZZH",
 
 
                 },

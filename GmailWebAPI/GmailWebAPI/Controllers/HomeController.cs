@@ -29,20 +29,24 @@ namespace Google.Apis.Sample.MVC4.Controllers
     {
         public static CancellationToken cancellationToken;
         public static GmailService service;
-        public static Auth.OAuth2.Web.AuthorizationCodeWebApp.AuthResult result;
+        //public static Auth.OAuth2.Web.AuthorizationCodeWebApp.AuthResult result;
         public static string emailAddress;
-        public static AppFlowMetadata app;
+        //public static AppFlowMetadata app;
+        public static int i = 0;
         public async Task<Boolean> checkCredential()
         {
+            
+           var app = new AppFlowMetadata();
 
-             app = new AppFlowMetadata();
-             result = await new AuthorizationCodeMvcApp(this, app).
+            var result = await new AuthorizationCodeMvcApp(this, app).
                 AuthorizeAsync(cancellationToken);
             //var accessToken =  result.Credential.Token.AccessToken;
             //string a = accessToken.Value;
+        
+            
             if (result.Credential != null)
             {
-                
+                //result.Credential.Token.AccessToken = null;
                service = new GmailService(new BaseClientService.Initializer
                 {
                     HttpClientInitializer = result.Credential,
@@ -151,8 +155,8 @@ namespace Google.Apis.Sample.MVC4.Controllers
             else
             {
                 ViewBag.Success = 0;
-               
-                return new RedirectResult(result.RedirectUri);
+
+                return View("/Home/IndexAsync");
                 //return View(mails);
             }
         }
@@ -211,7 +215,7 @@ namespace Google.Apis.Sample.MVC4.Controllers
         public async Task<ActionResult> Logout()
         {
             CancellationToken taskCancellationToken;
-            app.DeleteTokenAsync("1", cancellationToken);
+            //app.DeleteTokenAsync("1", cancellationToken);
             //var client = new RestClient("https://localhost:44335/oauth/revoke");
             //var request = new RestRequest(Method.POST);
             //request.AddHeader("content-type", "application/json");
