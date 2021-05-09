@@ -6,9 +6,13 @@
 <h2>DisplayEmail</h2>
 <button id="btnCompose" data-toggle="modal" data-target="#myModal">Compose</button>
 <button id="btnLogout">Logout</button>
-
+<div>@ViewBag.s</div>
 <script>
     $(document).ready(function () {
+        //$('#btnCompose').click(function () {
+            
+        //    window.location.href = "/GmailAPI/SendEmail";
+        //})
         $('#btnLogout').click(function () {
             externalLogout();
           
@@ -90,7 +94,7 @@
                         <a href="#" class="close" data-dismiss="modal">&times;</a>
                     </div>
                     <div class="modal-body">
-                        @using (Html.BeginForm("Index", "GmailSend", FormMethod.Post, new { id = "sendEmailAPI" }))
+                        @using (Html.BeginForm("SendEmail", "GmailAPI", FormMethod.Post, new { id = "sendEmailAPI" }))
                         {
                             @Html.AntiForgeryToken()
 
