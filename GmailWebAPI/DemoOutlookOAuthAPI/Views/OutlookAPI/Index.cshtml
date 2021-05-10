@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    ViewBag.Title = "Index";
+}
+<button id="btnLogin">LoginOutlook</button>
+<h2>Index</h2>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+    //gui request de lay code
+    $(document).ready(function () {
+        $('#btnLogin').click(function () {
+            //https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1620639682&rver=7.0.6738.0&wp=MBI_SSL&wreply=https%3A%2F%2Faccount.microsoft.com%2Fauth%2Fcomplete-signin%3Fru%3Dhttps%253A%252F%252Faccount.microsoft.com%252F%253Frefd%253Daccount.microsoft.com%2526ru%253Dhttps%25253A%25252F%25252Faccount.microsoft.com%25252F%25253Frefd%25253Dlogin.live.com%2526destrt%253Dhome-index%2526refp%253Dsignedout-index&lc=1033&id=292666&lw=1&fl=easi2&ru=https%3A%2F%2Faccount.microsoft.com%2Faccount%2FAccount%3Frefd%3Dlogin.live.com%26ru%3Dhttps%253A%252F%252Faccount.microsoft.com%252F%253Frefd%253Dlogin.live.com%26destrt%3Dhome-index
+            window.location.href = "https://login.live.com/login.srf?scope=https://outlook.microsoft.com&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=https://localhost:44333/OutlookAPI/Code&client_id=369518912260-5g5delg9bh600r6amuqsvmc0n995f2b7.apps.googleusercontent.com";
+        })
+
+    });
+</script>

@@ -68,3 +68,32 @@ phan 2:s
 - Muốn cấp lại phải cấp bằng mã làm mới( cho phép nhận mã truy cập mới)
 
 * LÀM MỚI MÃ
+
+
+Outlook API
+- Sử dụng OAuth2 để xác thực: cần access token
+- Gọi Mail API: Sau khi có được access token, nó sẽ gửi request đến địa chỉ https://graph.microsoft.com/v1.0/me/mailfolders/inbox/messages để lấy thông tin inbox
+- Tinh chỉnh yêu cầu: có thể sử dụng OData để giới hạn các kết quả, các trường trả về
+	+$select: lấy các trường subject, from, receivedDateTime fields
+	+$stop: nhiều nhất 25 item
+	+$orderBy: sx kết quả ngày nhận gần nhất lên đầu
+-Ví dụ lấy lịch:
+	- Tạo ứng dụng bằm cmd
+		+ Thêm một vài thư viện: để đọc ứng dụng cấu hình, xác thực và lấy mã truy cập, gọi Microsoft Graph
+	- Đăng kí app trên cổng thông tin của nó:
+		+Nhập tài khoản -> Chọn Azure Active Diẻctory -> App Regisrations ( đăng kí ứng dụng, nhớ ID)
+		( Application (client) ID
+		d497bc9f-95a2-4806-b8de-58e5e7330d5c
+		Directory (tenant) ID
+		86797743-5a99-4f12-92bb-03f64ec3af41
+		Object ID
+		a05ad475-2ade-4ad1-b52c-4b598c4a1960)
+	- Thêm xác thực Azure AD
+		- Yêu cầu cần có để có được Mã truy cập OAuth để gọi đến Microsoft Graph
+		1. Khởi tạo .NET development secret store : trong folder chứa GraphTutorial.csproj chạy lệnh : dotnet user-secrets init
+		2. Thay APP_ ID, Tạo Scope cho ư d
+			User.Read: đọc thông tin tên và email của người dùng
+			MailBox.Read: đọc múi giờ, định dạng ngày, thời gian ưa thích của ng dùng
+			Calendars.ReadWrite : Đọc các sự kiện hiện có trên lịch và thêm các sự kiện mới
+
+		- Triển khai đăng nhập: Tạo Nhà cung cấp xác thực có thể dùng với Graph SDK và cũng thường dùng để yêu cầu mã truy cập sử dụng devide code flow( luồng mã thiết bị *)

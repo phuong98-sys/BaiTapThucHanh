@@ -6,7 +6,7 @@
 <h2>DisplayEmail</h2>
 <button id="btnCompose" data-toggle="modal" data-target="#myModal">Compose</button>
 <button id="btnLogout">Logout</button>
-<div>@ViewBag.s</div>
+
 <script>
     $(document).ready(function () {
         //$('#btnCompose').click(function () {
@@ -32,26 +32,7 @@
         function performCallLogout(url, params) {
             window.location.href = url + "?continue=" + params.next;
         }
-        //$('#sendEmailAPI').submit(function (e) {
-
-        //    var valdata = $("form").serialize();
-
-        //    $.ajax({
-        //        url: "/GmailSend/Index",
-        //        type: "POST",
-        //        data: valdata,
-        //        success: function () {
-        //            location.reload();
-        //            alert("Gửi mail thành công");
-        //        }
-        //        ,
-        //        error: function () {
-        //            alert("Gửi mail không thành công");
-        //        },
-        //    });
-        //    e.preventDefault();
-        //    $('#myModal').modal('hide');
-        //});
+       
     });
 
 </script>
@@ -94,7 +75,7 @@
                         <a href="#" class="close" data-dismiss="modal">&times;</a>
                     </div>
                     <div class="modal-body">
-                        @using (Html.BeginForm("SendEmail", "GmailAPI", FormMethod.Post, new { id = "sendEmailAPI" }))
+                        @using (Html.BeginForm("SendGmail", "GmailAPI", FormMethod.Post, new { id = "sendEmailAPI" }))
                         {
                             @Html.AntiForgeryToken()
 
