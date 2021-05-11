@@ -78,7 +78,7 @@ Outlook API
 	+$stop: nhiều nhất 25 item
 	+$orderBy: sx kết quả ngày nhận gần nhất lên đầu
 -Ví dụ lấy lịch:
-	- Tạo ứng dụng bằm cmd
+	- Tạo ứng dụng bằng cmd
 		+ Thêm một vài thư viện: để đọc ứng dụng cấu hình, xác thực và lấy mã truy cập, gọi Microsoft Graph
 	- Đăng kí app trên cổng thông tin của nó:
 		+Nhập tài khoản -> Chọn Azure Active Diẻctory -> App Regisrations ( đăng kí ứng dụng, nhớ ID)
@@ -97,3 +97,53 @@ Outlook API
 			Calendars.ReadWrite : Đọc các sự kiện hiện có trên lịch và thêm các sự kiện mới
 
 		- Triển khai đăng nhập: Tạo Nhà cung cấp xác thực có thể dùng với Graph SDK và cũng thường dùng để yêu cầu mã truy cập sử dụng devide code flow( luồng mã thiết bị *)
+			+ SỬ dụng MSAL để request và quản lí mã
+			+  Sử dụng flow khi tài khoản chưa lưu tài khoản- chưa đăng nhập, nếu đã lưu thì lấy token trong bộ nhớ cache hoặc làm mới nó
+			+ Vì triển khai interface IAuthenticationProvider  Graph SDK Có thể sử dụng class này để gọi đến  xác thực Graph
+		- Đăng nhập và hiển thị mã truy cập:
+		
+			
+XÁC THỰC
+- Sử dụng các giao thức của OAuth 2.0(*) và MSAL để xác thực user và truy cập APIs(*)
+- Sd Azure để kích hoạt ứng dụng 
+1. Đăng kí ứng dụng với Azure:để được cung cấp dịch vụ xác thực và ủy quyền cho ứng dụng và ng dùng nó
+	DemoOutlook
+	Application (client) ID
+	:
+	a8f83bd5-dd71-4f7b-a56b-295a5a1a0334
+	Object ID
+	:
+	970739bc-59c1-4180-a88a-ad22b7047c0b
+	Directory (tenant) ID
+	:
+	86797743-5a99-4f12-92bb-03f64ec3af41
+ 	+ RedirectURI: Điều hướng đến và gửi mã bảo vệ sau khi xác thực xong( sửa tùy ư d *)
+		+ Thêm URIs
+		+ Add Credentials cho ứ d: Cho phép ư d tự xác thực nó ko bắt buộc có sự tương tác của user trong thời gian chạy này: 
+			+Add Certificate : như 1 credential dùng cho production, đảm bảo bảo mật hơn
+			+client Secret: như 1 password của ư d, ít đảm bảo hơn, dùng cho quá trình phát triển
+				Value: .Xm4NgH873~rGMoMvCz.21pNsSEp0~.QnD
+				SecretID: 3735557b-0eef-47c1-a25f-4282131e06d3 ( chỉ cấp 1 lần)
+
+
+2. Cấu hình ứng dụng: Thêm các scopes, chọn scopes tương ứng giao thức đc sd(IMAP, POP, SMTP) để có quyền truy cập Web API
+	3: Thêm Quyền-> Microsoft Graph -> Chọn quyền được ủy quyền, tìm các phạm vi mà nó được liệt kê, dựa vào nó mà truy cập cũng tương ứng Scopes đó
+	  + Thêm quyền truy cập Web API: 
+	  + Thêm quyền truy cập Microsoft Graph:(skip) dành cho ư d ko quan tâm sự tương tác  của user
+	  + Quyền được ủy quyền đến Microsoft Graph: được hỏi khi muốn truy xuất vào mail - sửa- xóa sau khi đăng nhập
+	  + Quyền của ư d đv Microsoft Graph:(skip)
+	  + Cấu hình thông tin xác thực của client:
+	2: Configure ư d để hiển thị Web API:- Tùy thuộc vào scopes này mà ta sẽ nhận được mã truy cập tương ứng dể truy cập tài nguyên API phù hợp với scopes đó
+	- Đăng kí Web API: Để cung cấp Scope truy cập tài nguyên trong web API của bạn thì cần đăng kí API với micosoft
+	- Bỏ qua redirect URI và Add Credential ở trên
+	- Gửi request lên lấy mã 
+	  + Add Scopes: có thể cố định cho các ứng dụng đáng tin để không phải hỏi lại
+	1: Thiết lập tenant: Tạo mối quan hệ vs Microsoft, tiên quyết cho các buwosc sau này thực hiện
+	  + Xác định kiểu môi trường: Azure AD
+	  + TenantID: 86797743-5a99-4f12-92bb-03f64ec3af41
+
+3. Lấy 1 mã truy cập
+4. Xác thực yêu cầu kết nối với mã truy cập
+
+how to get data inbox of mail in outlook after login google account using OAuth 2.0 Authentication in asp.net mvc 2.0
+- Tiếp tục 2 phần trên
