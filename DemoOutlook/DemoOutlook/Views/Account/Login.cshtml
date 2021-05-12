@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<button id="btnLogin">Login</button>
+<script>
+   
+
+    $(document).ready(function () {
+        $('#btnLogin').click(function () {
+            alert("ok");
+            window.location = "/Account/RedirectToMicrosoft";
+        })
+
+    });
+</script>
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+

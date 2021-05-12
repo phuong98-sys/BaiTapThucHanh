@@ -138,12 +138,19 @@ XÁC THỰC
 	- Bỏ qua redirect URI và Add Credential ở trên
 	- Gửi request lên lấy mã 
 	  + Add Scopes: có thể cố định cho các ứng dụng đáng tin để không phải hỏi lại
-	1: Thiết lập tenant: Tạo mối quan hệ vs Microsoft, tiên quyết cho các buwosc sau này thực hiện
+	1: Thiết lập tenant: Tạo mối quan hệ vs Microsoft, tiên quyết cho các bưowsc  sau này thực hiện
 	  + Xác định kiểu môi trường: Azure AD
 	  + TenantID: 86797743-5a99-4f12-92bb-03f64ec3af41
 
-3. Lấy 1 mã truy cập
-4. Xác thực yêu cầu kết nối với mã truy cập
+3. Lấy 1 mã truy cập: 
+ - Sd thư viện MSAL hoặc dùng flow để gọi các  REST API nền tảng định danh cơ bản và lấy mã truy cập
+ - OAuth truy cập các giao thức IMAP, POP,... thông qua OAuth2 client credentials grant flow là không đc hỗ trợ,
+   ta nên dùng Microsoft Graph APIs nó chấp nhận truy cập mà ko có 1 user, bật quyền chi tiết và để cho phạm vi quản trị viên như là truy cập vào một nhóm thư mail đặc biệt
+ - Đảm bảo chỉ định phạm vi đầy đủ, bao gồm URLs tài nguyên Outlook khi ủy quyền ư d của b và yêu cầu mã
+	IMAP	https://outlook.office.com/IMAP.AccessAsUser.All
+	POP	https://outlook.office.com/POP.AccessAsUser.All
+	SMTP AUTH	https://outlook.office.com/SMTP.Send
+4. Xác thực yêu cầu kết nối với mã truy cập: có thể sử dụng IMAP và POP email
+ - SASL XOAUTH2: Mã hóa username và accesstoken trên quá trình truyền tải -> thành chuỗi
 
-how to get data inbox of mail in outlook after login google account using OAuth 2.0 Authentication in asp.net mvc 2.0
-- Tiếp tục 2 phần trên
+How to authenticaion to login microsoft account read mail inbox of outlook using Microsoft Graph in asp.net mvc c#
