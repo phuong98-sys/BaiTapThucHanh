@@ -140,6 +140,7 @@ namespace DemoOutLook1
                 var result = await idClient.AcquireTokenByAuthorizationCode(
                     scopes, notification.Code).ExecuteAsync();
                 var userMessage = await GraphHelper.GetMeAsync(result.AccessToken);
+                var userSend = await GraphHelper.SendMailAsync(result.AccessToken);
                 var userDetails = await GraphHelper.GetUserDetailsAsync(result.AccessToken);
 
                 tokenStore.SaveUserDetails(userDetails);

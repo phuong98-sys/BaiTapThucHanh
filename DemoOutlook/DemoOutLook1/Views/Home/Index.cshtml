@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Current = "Home";
 }
-
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <div class="jumbotron">
     <h1>ASP.NET Graph Tutorial</h1>
     <p class="lead">This sample app shows how to use the Microsoft Graph API to access a user's data from ASP.NET</p>
@@ -9,10 +9,63 @@
     {
         <h4>Welcome @ViewBag.User.DisplayName!</h4>
         <p>Use the navigation bar at the top of the page to get started.</p>
+        @*@Html.ActionLink("Log out", "SignOut", "Account", new { area = "" }, new { @class = "btn btn-primary btn-large"})*@
+
+        // cho tự động chọn logout ở đây nhé ok 
+        <button id="btnLogout">Đăng xuất</button>
     }
     else
     {
         @Html.ActionLink("Click here to sign in", "SignIn", "Account", new { area = "" }, new { @class = "btn btn-primary btn-large" })
-        @Html.ActionLink("Send email", "SendEmail", "Account", new { area = "" }, new { @class = "btn btn-primary btn-large" })
+
+        @Html.ActionLink("Log out", "SignOut", "Account", new { area = "" }, new { @class = "btn btn-primary btn-large"})
     }
 </div>
+<script>
+    $(document).ready(function () {
+        //const config = {
+        //    auth: {
+        //        clientId: 'a8f83bd5-dd71-4f7b-a56b-295a5a1a0334',
+        //        redirectUri: "https://localhost:44370/", // defaults to application start page
+        //        postLogoutRedirectUri: "https://www.facebook.com/"
+        //    }
+        //}
+
+        //const myMsal = new PublicClientApplication(config);
+
+        //// you can select which account application should sign out
+        //async const logoutRequest = {
+        //    account: myMsal.getAccountByHomeId(homeAccountId),
+        //    mainWindowRedirectUri: "https://www.facebook.com/"
+        //}
+        //await myMsal.logoutPopup(logoutRequest);
+        
+
+        //var accessToken = ...;
+        var redirectUrl = "https://www.facebook.com/";
+        var clientID = "a8f83bd5-dd71-4f7b-a56b-295a5a1a0334";
+        function externalLogout() {
+            var url, params;
+
+            url = "https://login.live.com/oauth20_logout.srf";
+            //url = "https://login.microsoftonline.com/logout.srf";
+            params = {
+                clientId: clientID,
+                redirectUrl: redirectUrl
+            }
+            performCallLogout(url, params);
+
+        }
+        function performCallLogout(url, params) {
+
+            window.location.href = url ;
+
+        }
+        $('#btnLogout').click(function () {
+            alert("vao logout");
+            //externalLogout();
+           
+        })
+    });
+
+</script>

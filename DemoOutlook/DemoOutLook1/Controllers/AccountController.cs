@@ -124,12 +124,17 @@ namespace DemoOutLook1.Controllers
                     System.Web.HttpContext.Current, ClaimsPrincipal.Current);
 
                 tokenStore.Clear();
-
+                var a= Request.IsAuthenticated;
                 Request.GetOwinContext().Authentication.SignOut(
                     CookieAuthenticationDefaults.AuthenticationType);
             }
 
+
+            Request.GetOwinContext().Authentication.SignOut();
             return RedirectToAction("Index", "Home");
+
+
+            //return Redirect("https://login.microsoftonline.com/common/oauth2/v2.0/logout");
         }
       
     }

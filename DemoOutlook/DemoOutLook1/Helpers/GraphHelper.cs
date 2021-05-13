@@ -51,7 +51,7 @@ namespace DemoOutLook1.Helpers
                 return null;
             }
         }
-        public static async void SendMailAsync( string accessToken)
+        public static async Task<string> SendMailAsync( string accessToken)
         {
             var graphClient = new GraphServiceClient(
                 new DelegateAuthenticationProvider(
@@ -76,7 +76,7 @@ namespace DemoOutLook1.Helpers
                         {
                             EmailAddress = new EmailAddress
                             {
-                                Address = "YOUR_EMAIL@outlook.com"
+                                Address = "phuongred98@gmail.com"
                             }
                         }
                     }
@@ -90,6 +90,7 @@ namespace DemoOutLook1.Helpers
             {
                // Console.WriteLine($"Error getting signed-in user: {ex.Message}");
             }
+            return "ok";
         }
         public static async Task<CachedUser> GetUserDetailsAsync(string accessToken)
         {
