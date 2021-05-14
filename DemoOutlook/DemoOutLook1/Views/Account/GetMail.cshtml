@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Current = "GetMail";
+}
+@model IList<DemoOutLook1.Model.Mail>
+
+<h2>Get Mail</h2>
+<table class="table">
+    <tr>
+        <th>from</th>
+        <th>name</th>
+
+        <th>Subject</th>
+        <th>body</th>
+        <th>date</th>
+        
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td> @item.from</td>
+            <td>@item.name</td>
+            <td>@item.subject</td>
+            <td>@item.body</td>
+            <td>@item.date</td>
+         
+        </tr>
+    }
+</table>

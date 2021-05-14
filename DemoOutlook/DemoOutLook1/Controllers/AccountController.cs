@@ -13,6 +13,7 @@ using DemoOutLook1.TokenStorage;
 using System.Linq;
 using DemoOutLook1.Helpers;
 using System.Configuration;
+using DemoOutLook1.Model;
 
 namespace DemoOutLook1.Controllers
 {
@@ -30,111 +31,33 @@ namespace DemoOutLook1.Controllers
                     OpenIdConnectAuthenticationDefaults.AuthenticationType);
             }
         }
-        
-        //private static GraphServiceClient graphClient;
-        //public static void Initialize(IAuthenticationProvider authProvider)
-        //{
-        //    var authProvider = new DemoOutLook1.App.DeviceCodeAuthProvider(appId, scopes);
-        //    graphClient = new GraphServiceClient(authProvider);
-        //}
-        //public static async Task<User> GetMeAsync()
-        //{
-        //    try
-        //    {
-        //        // GET /me
-        //        return await graphClient.Me.Request().GetAsync();
-        //    }
-        //    catch (ServiceException ex)
-        //    {
-        //      //  Console.WriteLine($"Error getting signed-in user: {ex.Message}");
-        //        return null;
-        //    }
-        //}
-        public async Task SendEmail()
+        public async Task<ActionResult> GetMail()
         {
-            //var authProvider = new DemoOutLook1.Startup.DeviceCodeAuthProvider(appId, graphScopes);
-            //GraphHelper.Initialize(authProvider);
-
-            //var message = new Message
-            //{
-            //    Subject = "Your subject here",
-            //    Body = new ItemBody
-            //    {
-            //        ContentType = BodyType.Html,
-            //        Content = "Email Content"
-            //    },
-            //    ToRecipients = new List<Recipient>()
-            //    {
-            //        new Recipient
-            //        {
-            //            EmailAddress = new EmailAddress
-            //            {
-            //                Address = "phuongred98@gmail.com"
-            //            }
-            //        }
-            //    },
-            //    CcRecipients = new List<Recipient>()
-            //    {
-            //        new Recipient
-            //        {
-            //            EmailAddress = new EmailAddress
-            //            {
-            //                Address = "phuongred98@gmail.com"
-            //            }
-            //        }
-            //    }
-            //};
-            //var token = DemoOutLook1.Startup.accessToken;
-            //// Build the Microsoft Graph client. As the authentication provider, set an async lambda
-            //// which uses the MSAL client to obtain an app-only access token to Microsoft Graph,
-            //// and inserts this access token in the Authorization header of each API request. 
-            //GraphServiceClient graphServiceClient =
-            //    new GraphServiceClient(new DelegateAuthenticationProvider(async (requestMessage) =>
-            //    {
-            //        // Add the access token in the Authorization header of the API request.
-            //        requestMessage.Headers.Authorization =
-            //                new AuthenticationHeaderValue("Bearer", token);
-            //    })
-            //    );
-
-
-            //await graphServiceClient.Users["phuongred98@gmail.com"]
-            //      .SendMail(message, false)
-            //      .Request()
-            //      .PostAsync();
-            //return View();
-
-
+            var listMail = await GraphHelper.GetMeAsync(DemoOutLook1.Startup.accessToken1);
+            return View(listMail);
+        }
+        public async Task<ActionResult> SendMail(Mail model)
+        {
+            try
+            {
+                await GraphHelper.SendMailAsync(DemoOutLook1.Startup.accessToken1,model.subject, model.to, model.body);
+               
+            }
+            catch(ServiceException ex)
+            {
+                
+            }
+            return RedirectToAction("Index", "Home");
         }
         public ActionResult SignOut()
         {
-            //FormsAuthentication.SignOut();
-
-            //return Redirect(Url.Action("Index", "Home"));
-            //if (Request.IsAuthenticated)
-            //{
-            //    Request.GetOwinContext().Authentication.SignOut(
-            //        CookieAuthenticationDefaults.AuthenticationType);
-            //}
-
-            //return RedirectToAction("Index", "Home");
-            if (Request.IsAuthenticated)
-            {
-                var tokenStore = new SessionTokenStore(null,
-                    System.Web.HttpContext.Current, ClaimsPrincipal.Current);
-
-                tokenStore.Clear();
-                var a= Request.IsAuthenticated;
-                Request.GetOwinContext().Authentication.SignOut(
-                    CookieAuthenticationDefaults.AuthenticationType);
-            }
-
-
+           
+           
             Request.GetOwinContext().Authentication.SignOut();
             return RedirectToAction("Index", "Home");
 
 
-            //return Redirect("https://login.microsoftonline.com/common/oauth2/v2.0/logout");
+           
         }
       
     }

@@ -1,71 +1,122 @@
 ﻿@{
     ViewBag.Current = "Home";
 }
+@model  DemoOutLook1.Model.Mail
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
 <div class="jumbotron">
-    <h1>ASP.NET Graph Tutorial</h1>
-    <p class="lead">This sample app shows how to use the Microsoft Graph API to access a user's data from ASP.NET</p>
+
     @if (Request.IsAuthenticated)
     {
-        <h4>Welcome @ViewBag.User.DisplayName!</h4>
-        <p>Use the navigation bar at the top of the page to get started.</p>
-        @*@Html.ActionLink("Log out", "SignOut", "Account", new { area = "" }, new { @class = "btn btn-primary btn-large"})*@
 
-        // cho tự động chọn logout ở đây nhé ok 
-        <button id="btnLogout">Đăng xuất</button>
+        @*<button id="btnCompose" data-toggle="modal" data-target="#myModal">Compose</button>*@
+        <h4>Welcome @ViewBag.User.DisplayName!</h4>
+        <li class="nav-item" data-turbolinks="false">
+            @Html.ActionLink("Read Mail", "GetMail", "Account")
+        </li>
+        <li class="nav-item" data-turbolinks="false">
+            <a class="nav-item" id="btnCompose" data-toggle="modal" data-target="#myModal">
+                Click to send Email
+            </a>
+        </li>
+
+
+        @Html.ActionLink("Sign Out", "SignOut", "Account", new { area = "" }, new { @class = "btn btn-primary btn-large" })
     }
     else
     {
-        @Html.ActionLink("Click here to sign in", "SignIn", "Account", new { area = "" }, new { @class = "btn btn-primary btn-large" })
-
-        @Html.ActionLink("Log out", "SignOut", "Account", new { area = "" }, new { @class = "btn btn-primary btn-large"})
+        @Html.ActionLink("Sign in", "SignIn", "Account", new { area = "" }, new { @class = "btn btn-primary btn-large" })
     }
-</div>
-<script>
-    $(document).ready(function () {
-        //const config = {
-        //    auth: {
-        //        clientId: 'a8f83bd5-dd71-4f7b-a56b-295a5a1a0334',
-        //        redirectUri: "https://localhost:44370/", // defaults to application start page
-        //        postLogoutRedirectUri: "https://www.facebook.com/"
-        //    }
-        //}
+    <!--Modal Send Email-->
+    <div class="panel-heading">
 
-        //const myMsal = new PublicClientApplication(config);
+        <div>
+            <!--Modal Send Email-->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
 
-        //// you can select which account application should sign out
-        //async const logoutRequest = {
-        //    account: myMsal.getAccountByHomeId(homeAccountId),
-        //    mainWindowRedirectUri: "https://www.facebook.com/"
-        //}
-        //await myMsal.logoutPopup(logoutRequest);
-        
+                            <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        </div>
+                        <div class="modal-body">
+                            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "sendEmailAPI" }))
+                            {
+                                @*@Html.AntiForgeryToken()*@
 
-        //var accessToken = ...;
-        var redirectUrl = "https://www.facebook.com/";
-        var clientID = "a8f83bd5-dd71-4f7b-a56b-295a5a1a0334";
-        function externalLogout() {
-            var url, params;
+                                <div class="content" style="color:black;">
 
-            url = "https://login.live.com/oauth20_logout.srf";
-            //url = "https://login.microsoftonline.com/logout.srf";
-            params = {
-                clientId: clientID,
-                redirectUrl: redirectUrl
-            }
-            performCallLogout(url, params);
+                                    <div class="content-body">
+                                        <form method="post">
 
-        }
-        function performCallLogout(url, params) {
+                                            <div class="form-group">
+                                                Title
+                                                <div class="group-input">
+                                                    @Html.TextBox("subject", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                    @Html.ValidationMessage("subject", "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                To
+                                                <div class="group-input">
+                                                    @Html.TextBox("to", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                    @Html.ValidationMessage("to", "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                Body Content
+                                                <div class="group-input">
+                                                    @Html.TextArea("body", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                    @Html.ValidationMessage("body", "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
 
-            window.location.href = url ;
 
-        }
-        $('#btnLogout').click(function () {
-            alert("vao logout");
-            //externalLogout();
-           
-        })
-    });
+                                        </form>
 
-</script>
+                                        <hr />
+                                        <div claa="panel-footer">
+
+                                            <button type="submit" name="submit" id="btnSendEmail" value="Accept" class="btn btn-success" style="color:#fff; background-color:#0088c1">Send</button>
+                                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>    <!--Model dend Email-->
+
+        </div>
+
+
+        <script>
+            $(document).ready(function () {
+                $('#sendEmailAPI').submit(function (e) {
+
+                    var valdata = $("form").serialize();
+
+                    $.ajax({
+                        url: "/Account/SendMail",
+                        type: "POST",
+                        data: valdata,
+                        success: function () {
+                            /*  location.reload();*/
+                            alert("Gửi mail thành công");
+                        }
+                        ,
+                        error: function () {
+                            alert("Gửi mail không thành công");
+                        },
+                    });
+                    e.preventDefault();
+                    $('#myModal').modal('hide');
+                });
+            });
+
+        </script>

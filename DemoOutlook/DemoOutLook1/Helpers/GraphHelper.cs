@@ -1,7 +1,10 @@
 ﻿using DemoOutLook1.Model;
+using iText.StyledXmlParser.Jsoup;
 using Microsoft.Graph;
+using System;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using Message = Microsoft.Graph.Message;
 
@@ -9,49 +12,44 @@ namespace DemoOutLook1.Helpers
 {
     public static class GraphHelper
     {
-        //private static GraphServiceClient graphClient;
-        //public static void Initialize(IAuthenticationProvider authProvider)
-        //{
-        //    graphClient = new GraphServiceClient(authProvider);
-        //}
-        public static async Task<User> GetMeAsync(string accessToken)
+        
+        public static async Task<List<Mail>> GetMeAsync(string accessToken)
         {
             var graphClient = new GraphServiceClient(
                 new DelegateAuthenticationProvider(
                     async (requestMessage) =>
                     {
                         requestMessage.Headers.Authorization =
-                            new AuthenticationHeaderValue("Bearer", accessToken);
+                        new AuthenticationHeaderValue("Bearer", accessToken);
                     }));
             try
             {
-                // GET /me
-                //var userMessage = await graphClient.Me.Messages
-                //            .Request()
-                //            .Select(m => new {
-                //                m.Subject,
-                //                m.Sender
-                //            })
-                //            .GetAsync();
+                List<Mail> listMail = new List<Mail>();
+               
+                var mailBox = await graphClient.Me.MailFolders.Inbox.Messages.Request()
+                   .Select("sender,from,toRecipients,receivedDateTime, subject,body")
+                   .GetAsync();
 
-                var user = await graphClient.Me.Messages.Request()
-                    .Select("sender,from,subject")
-                    .GetAsync();
-                foreach( var message in user)
+                foreach (var message in mailBox)
                 {
-                    var sender = message.Sender;
-                    var from = message.From;
-                    var subject = message.Subject;
+                    Mail mail = new Mail();
+                    mail.name = message.From.EmailAddress.Name;
+                    mail.from = message.From.EmailAddress.Address;
+                    mail.date = message.ReceivedDateTime.ToString();
+                    mail.body = message.Body.Content.ToString();
+                   
+                    mail.subject = message.Subject.ToString();
+                    listMail.Add(mail);
                 }
-                return await graphClient.Me.Request().GetAsync();
+                return listMail;
             }
             catch (ServiceException ex)
             {
-               // Console.WriteLine($"Error getting signed-in user: {ex.Message}");
                 return null;
             }
         }
-        public static async Task<string> SendMailAsync( string accessToken)
+      
+        public static async Task SendMailAsync(string accessToken, string subject, string to, string body)
         {
             var graphClient = new GraphServiceClient(
                 new DelegateAuthenticationProvider(
@@ -62,35 +60,48 @@ namespace DemoOutLook1.Helpers
                     }));
             try
             {
+                string Mails = to;
+                var toRecipients = Mails.Split(' ');
+                List<Recipient> a = new List<Recipient>();
+                foreach (var address in toRecipients)
+                {
+
+                    Recipient b = new Recipient
+                    {
+
+                        EmailAddress = new EmailAddress
+                        {
+                            Address = address,
+
+                        }
+                    };
+                    a.Add(b);
+                }
                 var message = new Message
                 {
-                    Subject = "Testing from .NET SDK",
+                    Subject = subject,
                     Body = new ItemBody
                     {
                         ContentType = BodyType.Text,
-                        Content = "The SDK is working fine!"
+                        Content = body
                     },
-                    ToRecipients = new List<Recipient>()
-                    {
-                        new Recipient
-                        {
-                            EmailAddress = new EmailAddress
-                            {
-                                Address = "phuongred98@gmail.com"
-                            }
-                        }
-                    }
+                    ToRecipients = a,
+               
+
                 };
+
+
                 await graphClient.Me
                     .SendMail(message, null)
-                    .Request()
-                    .PostAsync();
+                            .Request()
+                            .PostAsync();
+
             }
             catch (ServiceException ex)
             {
-               // Console.WriteLine($"Error getting signed-in user: {ex.Message}");
+               
             }
-            return "ok";
+          
         }
         public static async Task<CachedUser> GetUserDetailsAsync(string accessToken)
         {
@@ -103,7 +114,8 @@ namespace DemoOutLook1.Helpers
                     }));
 
             var user = await graphClient.Me.Request()
-                .Select(u => new {
+                .Select(u => new
+                {
                     u.DisplayName,
                     u.Mail,
                     u.UserPrincipalName

@@ -7,5 +7,6 @@ namespace DemoOutLook1.Model
 {
     public class Message
     {
+       
     }
 }

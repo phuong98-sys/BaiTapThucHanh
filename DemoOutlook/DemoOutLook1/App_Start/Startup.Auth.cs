@@ -25,45 +25,10 @@ namespace DemoOutLook1
         private static string appSecret = ConfigurationManager.AppSettings["ida:AppSecret"];
         private static string redirectUri = ConfigurationManager.AppSettings["ida:RedirectUri"];
         private static string graphScopes = ConfigurationManager.AppSettings["ida:AppScopes"];
-        public static string accessToken;
+        public static string accessToken1;
  
         
-        //private static GraphServiceClient GetAuthenticatedClient()
-        //{
-        //    return new GraphServiceClient(
-        //        new DelegateAuthenticationProvider(
-        //            async (requestMessage) =>
-        //            {
-        //                // Get the signed in user's id and create a token cache
-        //                string signedInUserId = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
-        //                HttpContextWrapper httpContext = new HttpContextWrapper(HttpContext.Current);
-        //                TokenCache tokenStore = new SessionTokenStore(signedInUserId, httpContext).GetMsalCacheInstance();
-
-        //                var idClient = new ConfidentialClientApplication(
-        //                    appId, redirectUri, new ClientCredential(appSecret),
-        //                    tokenStore, null);
-
-        //                var accounts = await idClient.GetAccountsAsync();
-
-        //                // By calling this here, the token can be refreshed
-        //                // if it's expired right before the Graph call is made
-        //                var result = await idClient.AcquireTokenSilentAsync(
-        //                            graphScopes.Split(' '), accounts.FirstOrDefault());
-
-        //                requestMessage.Headers.Authorization =
-        //                    new AuthenticationHeaderValue("Bearer", result.AccessToken);
-        //            }));
-        //}
-        //public static async Task<IEnumerable<Message>> GetMailAsync()
-        //{
-        //    var graphClient = new GetAuthenticatedClient();
-
-
-        //    var mail = await graphClient.Users["usersemail@somewhere.com"].MailFolders.Inbox.Messages.Request()
-        //        .GetAsync();
-
-        //    return mail;
-        //}
+        
         public void ConfigureAuth(IAppBuilder app)
         {
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
@@ -83,20 +48,7 @@ namespace DemoOutLook1
                         // For demo purposes only, see below
                         ValidateIssuer = false
 
-                        // In a real multi-tenant app, you would add logic to determine whether the
-                        // issuer was from an authorized tenant
-                        //ValidateIssuer = true,
-                        //IssuerValidator = (issuer, token, tvp) =>
-                        //{
-                        //  if (MyCustomTenantValidation(issuer))
-                        //  {
-                        //    return issuer;
-                        //  }
-                        //  else
-                        //  {
-                        //    throw new SecurityTokenInvalidIssuerException("Invalid issuer");
-                        //  }
-                        //}
+                        
                     },
                     Notifications = new OpenIdConnectAuthenticationNotifications
                     {
@@ -139,10 +91,10 @@ namespace DemoOutLook1
 
                 var result = await idClient.AcquireTokenByAuthorizationCode(
                     scopes, notification.Code).ExecuteAsync();
-                var userMessage = await GraphHelper.GetMeAsync(result.AccessToken);
-                var userSend = await GraphHelper.SendMailAsync(result.AccessToken);
+                //var userMessage = await GraphHelper.GetMeAsync(result.AccessToken);
+                //var userSend = await GraphHelper.SendMailAsync(result.AccessToken);
                 var userDetails = await GraphHelper.GetUserDetailsAsync(result.AccessToken);
-
+                accessToken1 = result.AccessToken;
                 tokenStore.SaveUserDetails(userDetails);
                 notification.HandleCodeRedemption(null, result.IdToken);
             }
