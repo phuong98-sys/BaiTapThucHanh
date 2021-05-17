@@ -1,0 +1,48 @@
+﻿@model OutlookFW.Web.Models.Mails.IndexViewMail
+@{
+    ViewBag.Title = L("MailBox");
+    //ViewBag.ActiveMenu = "MailBox"; //Matches with the menu name in SimpleTaskAppNavigationProvider to highlight the menu item
+}
+
+
+<h2>@L("MailBox")</h2>
+<table class="table">
+    <tr>
+        <th>from</th>
+        <th>name</th>
+
+        <th>Subject</th>
+        <th>body</th>
+        <th>date</th>
+
+    </tr>
+    @foreach (var item in Model.Mails)
+    {
+        <tr>
+            <td> @item.from</td>
+            <td>@item.name</td>
+            <td>@item.subject</td>
+            <td>@item.body</td>
+            <td>@item.date</td>
+
+        </tr>
+    }
+</table>
+
+
+@*<div class="row">
+    <div>
+        <ul class="list-group" id="TaskList">
+            @foreach (var task in Model.Tasks)
+            {
+                <li class="list-group-item">
+                    <span class="pull-right label @Model.GetTaskLabel(task)">@L($"TaskState_{task.State}")</span>
+                    <h4 class="list-group-item-heading">@task.Title</h4>
+                    <div class="list-group-item-text">
+                        @task.CreationTime.ToString("yyyy-MM-dd HH:mm:ss")
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>*@

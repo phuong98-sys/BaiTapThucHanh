@@ -19,8 +19,7 @@ namespace DemoOutLook1.Controllers
 {
     public class AccountController : Controller
     {
-        private static string appId = ConfigurationManager.AppSettings["ida:AppId"];
-        private static string graphScopes = ConfigurationManager.AppSettings["ida:AppScopes"];
+       
         public void SignIn()
         {
             if (!Request.IsAuthenticated)
