@@ -11,7 +11,7 @@ using Owin;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(OutlookFW.Web.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 
 namespace OutlookFW.Web
 {
@@ -20,11 +20,12 @@ namespace OutlookFW.Web
         
         public void Configuration(IAppBuilder app)
         {
-
+            // OutlookFW.Web.App_Start.Startup.ConfigureAuth(app);
+ OutlookFW.Web.App_Start.Startup.ConfigureAuth(app);
             app.UseAbp();
-           
-            app.UseOAuthBearerAuthentication(AccountController.OAuthBearerOptions);
-            
+
+            //app.UseOAuthBearerAuthentication(AccountController.OAuthBearerOptions);
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
@@ -32,13 +33,14 @@ namespace OutlookFW.Web
                 // by setting following values, the auth cookie will expire after the configured amount of time (default 14 days) when user set the (IsPermanent == true) on the login
                 ExpireTimeSpan = new TimeSpan(int.Parse(ConfigurationManager.AppSettings["AuthSession.ExpireTimeInDays.WhenPersistent"] ?? "14"), 0, 0, 0),
                 SlidingExpiration = bool.Parse(ConfigurationManager.AppSettings["AuthSession.SlidingExpirationEnabled"] ?? bool.FalseString)
- 
+
             });
-           
+
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             app.MapSignalR();
-            OutlookFW.Web.App_Start.Startup.ConfigureAuth(app);
+
+
             //ENABLE TO USE HANGFIRE dashboard (Requires enabling Hangfire in OutlookFWWebModule)
             //app.UseHangfireDashboard("/hangfire", new DashboardOptions
             //{

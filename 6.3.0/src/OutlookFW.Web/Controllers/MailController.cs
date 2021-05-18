@@ -20,6 +20,7 @@ using System.Linq;
 using System.Configuration;
 using OutlookFW.Mails;
 using OutlookFW.Web.Models.Mails;
+using OutlookFW.Web.TokenStorage;
 //using DemoOutLook1.Model;
 namespace OutlookFW.Web.Controllers
 {
@@ -39,13 +40,14 @@ namespace OutlookFW.Web.Controllers
         }
         public void SignIn()
         {
-            if (!Request.IsAuthenticated)
-            {
+            //if (!Request.IsAuthenticated)
+            //{
                 // Signal OWIN to send an authorization request to Azure
                 Request.GetOwinContext().Authentication.Challenge(
                     new AuthenticationProperties { RedirectUri = "/" },
                     OpenIdConnectAuthenticationDefaults.AuthenticationType);
-            }
+            //return RedirectToAction("GetMail", "Mail");
+            // }
         }
         public async Task<ActionResult> GetMail()
         {
@@ -71,9 +73,20 @@ namespace OutlookFW.Web.Controllers
         public ActionResult SignOut()
         {
 
+            //if (Request.IsAuthenticated)
+            //{
+            //    var tokenStore = new SessionTokenStore(null,
+            //        System.Web.HttpContext.Current, ClaimsPrincipal.Current);
+
+            //    tokenStore.Clear();
+
+            //    Request.GetOwinContext().Authentication.SignOut(
+            //        CookieAuthenticationDefaults.AuthenticationType);
+            //}
+
 
             Request.GetOwinContext().Authentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Outlook");
 
 
 

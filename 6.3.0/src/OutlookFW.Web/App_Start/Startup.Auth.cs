@@ -20,6 +20,11 @@ using Owin;
 
 using System.Threading.Tasks;
 using System.Web;
+using OutlookFW.Web.TokenStorage;
+using Abp.Owin;
+using OutlookFW.Api.Controllers;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
 
 namespace OutlookFW.Web.App_Start
 {
@@ -38,8 +43,7 @@ namespace OutlookFW.Web.App_Start
         {
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
-
+        app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseOpenIdConnectAuthentication(
                 new OpenIdConnectAuthenticationOptions
                 {
@@ -62,6 +66,9 @@ namespace OutlookFW.Web.App_Start
                     }
                 }
             );
+
+
+          
         }
 
         private static Task OnAuthenticationFailedAsync(AuthenticationFailedNotification<OpenIdConnectMessage,
@@ -88,7 +95,7 @@ namespace OutlookFW.Web.App_Start
                 .Build();
 
             var signedInUser = new ClaimsPrincipal(notification.AuthenticationTicket.Identity);
-            //var tokenStore = new SessionTokenStore(idClient.UserTokenCache, HttpContext.Current, signedInUser);
+            var tokenStore = new SessionTokenStore(idClient.UserTokenCache, HttpContext.Current, signedInUser);
 
             try
             {
@@ -98,9 +105,9 @@ namespace OutlookFW.Web.App_Start
                     scopes, notification.Code).ExecuteAsync();
                 //var userMessage = await GraphHelper.GetMeAsync(result.AccessToken);
                 //var userSend = await GraphHelper.SendMailAsync(result.AccessToken);
-                //var userDetails = await GetUserDetailsAsync(result.AccessToken);
+                var userDetails = await GraphHelper.GetUserDetailsAsync(result.AccessToken);
                 accessToken1 = result.AccessToken;
-                //tokenStore.SaveUserDetails(userDetails);
+                tokenStore.SaveUserDetails(userDetails);
                 notification.HandleCodeRedemption(null, result.IdToken);
             }
             catch (MsalException ex)

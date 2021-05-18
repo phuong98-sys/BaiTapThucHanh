@@ -30,6 +30,7 @@ using OutlookFW.Web.Models.Account;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System.Web;
 
 namespace OutlookFW.Web.Controllers
 {
@@ -184,6 +185,7 @@ namespace OutlookFW.Web.Controllers
         public ActionResult Logout()
         {
             _authenticationManager.SignOut();
+         
             return RedirectToAction("Login");
         }
 

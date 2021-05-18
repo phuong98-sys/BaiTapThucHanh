@@ -21,7 +21,7 @@ namespace OutlookFW.Web
                     "MailBox",
                     L("MailBox"),
                     url: "Outlook",
-                    icon: "fa fa-mails"
+                    icon: "fa fa-mail"
                     )
             )
                 .AddItem(

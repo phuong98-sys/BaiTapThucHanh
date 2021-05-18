@@ -3,31 +3,12 @@
     ViewBag.ActiveMenu = "MailBox"; //Matches with the menu name in SimpleTaskAppNavigationProvider to highlight the menu item
 }
 @model  OutlookFW.Web.Models.Mails.IndexViewMail
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
 
 <div class="jumbotron">
 
-    @if (Request.IsAuthenticated)
-    {
-
-        @*<button id="btnCompose" data-toggle="modal" data-target="#myModal">Compose</button>*@
-        @*<h4>Welcome @ViewBag.User.DisplayName!</h4>*@
-        <li class="nav-item" data-turbolinks="false">
-            @Html.ActionLink("Read Mail", "GetMail", "Mail")
-        </li>
-        <li class="nav-item" data-turbolinks="false">
-            <a class="nav-item" id="btnCompose" data-toggle="modal" data-target="#myModal">
-                Click to send Email
-            </a>
-        </li>
-
-
-        @Html.ActionLink("Sign Out", "SignOut", "Mail", new { area = "" }, new { @class = "btn btn-primary btn-large" })
-    }
-    else
-    {
-        @Html.ActionLink("Sign in", "SignIn", "Mail", new { area = "" }, new { @class = "btn btn-primary btn-large" })
-    }
+ @Html.ActionLink("Sign in", "SignIn", "Mail", new { area = "" }, new { @class = "btn btn-primary btn-large" })
+    @Html.ActionLink("Sign Out", "SignOut", "Mail", new { area = "" }, new { @class = "btn btn-primary btn-large" })
     <!--Modal Send Email-->
     <div class="panel-heading">
 
@@ -96,28 +77,28 @@
         </div>
 
 
-        <script>
-            $(document).ready(function () {
-                $('#sendEmailAPI').submit(function (e) {
+        @*<script>
+                $(document).ready(function () {
+                    $('#sendEmailAPI').submit(function (e) {
 
-                    var valdata = $("form").serialize();
+                        var valdata = $("form").serialize();
 
-                    $.ajax({
-                        url: "/Account/SendMail",
-                        type: "POST",
-                        data: valdata,
-                        success: function () {
-                            /*  location.reload();*/
-                            alert("Gửi mail thành công");
-                        }
-                        ,
-                        error: function () {
-                            alert("Gửi mail không thành công");
-                        },
+                        $.ajax({
+                            url: "/Account/SendMail",
+                            type: "POST",
+                            data: valdata,
+                            success: function () {
+                                /*  location.reload();*/
+                                alert("Gửi mail thành công");
+                            }
+                            ,
+                            error: function () {
+                                alert("Gửi mail không thành công");
+                            },
+                        });
+                        e.preventDefault();
+                        $('#myModal').modal('hide');
                     });
-                    e.preventDefault();
-                    $('#myModal').modal('hide');
                 });
-            });
 
-        </script>
+            </script>*@
