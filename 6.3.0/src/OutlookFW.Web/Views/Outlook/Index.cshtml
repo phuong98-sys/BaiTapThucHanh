@@ -6,9 +6,18 @@
 @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
 
 <div class="jumbotron">
+    @if (OutlookFW.Web.App_Start.Startup.email!= null)
+    {
+        <h1>You are signed in</h1>
+       
+        @Html.ActionLink("Sign Out", "SignOut", "Mail", new { area = "" }, new { @class = "btn btn-primary btn-large" })
+    }
+    else
+    {
+        @Html.ActionLink("Sign in", "SignIn", "Mail", new { area = "" }, new { @class = "btn btn-primary btn-large" })
+    }
+  @*  @Html.ActionLink("Sign in", "SignIn", "Mail", new { area = "" }, new { @class = "btn btn-primary btn-large" })*@
 
- @Html.ActionLink("Sign in", "SignIn", "Mail", new { area = "" }, new { @class = "btn btn-primary btn-large" })
-    @Html.ActionLink("Sign Out", "SignOut", "Mail", new { area = "" }, new { @class = "btn btn-primary btn-large" })
     <!--Modal Send Email-->
     <div class="panel-heading">
 

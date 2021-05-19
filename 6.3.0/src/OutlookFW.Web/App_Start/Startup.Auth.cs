@@ -25,6 +25,7 @@ using Abp.Owin;
 using OutlookFW.Api.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
+using OutlookFW.Mails;
 
 namespace OutlookFW.Web.App_Start
 {
@@ -35,15 +36,36 @@ namespace OutlookFW.Web.App_Start
         private static string appSecret = ConfigurationManager.AppSettings["ida:AppSecret"];
         private static string redirectUri = ConfigurationManager.AppSettings["ida:RedirectUri"];
         private static string graphScopes = ConfigurationManager.AppSettings["ida:AppScopes"];
-        public static string accessToken1;
+        public static string accessToken;
+        public static string email = null;
+
+        ////private readonly ILookupAppService _lookupAppService;
+        //public Startup(IMailAppService mailAppService)
+        //{
+        //    _mailAppService = mailAppService;
+        //    //_mailAppService = mailAppService;
+        //}
 
 
-
-        public static void ConfigureAuth(IAppBuilder app)
+        public static async Task ConfigureAuth(IAppBuilder app)
         {
+            app.UseAbp();
+          //  app.UseOAuthBearerAuthentication(AccountController.OAuthBearerOptions);
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/Account/Login"),
+                // by setting following values, the auth cookie will expire after the configured amount of time (default 14 days) when user set the (IsPermanent == true) on the login
+                ExpireTimeSpan = new TimeSpan(int.Parse(ConfigurationManager.AppSettings["AuthSession.ExpireTimeInDays.WhenPersistent"] ?? "14"), 0, 0, 0),
+                SlidingExpiration = bool.Parse(ConfigurationManager.AppSettings["AuthSession.SlidingExpirationEnabled"] ?? bool.FalseString)
 
-        app.UseCookieAuthentication(new CookieAuthenticationOptions());
+            });
+
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+            app.MapSignalR();
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
             app.UseOpenIdConnectAuthentication(
                 new OpenIdConnectAuthenticationOptions
                 {
@@ -67,8 +89,10 @@ namespace OutlookFW.Web.App_Start
                 }
             );
 
+            //Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
 
-          
+
+
         }
 
         private static Task OnAuthenticationFailedAsync(AuthenticationFailedNotification<OpenIdConnectMessage,
@@ -105,9 +129,10 @@ namespace OutlookFW.Web.App_Start
                     scopes, notification.Code).ExecuteAsync();
                 //var userMessage = await GraphHelper.GetMeAsync(result.AccessToken);
                 //var userSend = await GraphHelper.SendMailAsync(result.AccessToken);
-                var userDetails = await GraphHelper.GetUserDetailsAsync(result.AccessToken);
-                accessToken1 = result.AccessToken;
-                tokenStore.SaveUserDetails(userDetails);
+                //var userDetails = await OutlookFW.Web.Controllers.MailController._mailAppService.GetUserDetailsAsync(result.AccessToken);
+                 //email= userDetails.Email.ToString();
+                accessToken = result.AccessToken;
+                //tokenStore.SaveUserDetails(userDetails);
                 notification.HandleCodeRedemption(null, result.IdToken);
             }
             catch (MsalException ex)

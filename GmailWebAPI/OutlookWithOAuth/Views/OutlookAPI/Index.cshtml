@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<button id="btnLogin">Login Outlook</button>
+<h2>Index</h2>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+    //gui request de lay code
+    $(document).ready(function () {
+        $('#btnLogin').click(function () {
+            window.location.href = "https://login.microsoftonline.com/common/v2.0/oauth2/token?openid+email+profile+offline_access+User.Read+Files.Read+Mail.Read+Mail.Read.Shared+Mail.Send&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=https://localhost:44371/OutlookAPI/Code&client_id=a8f83bd5-dd71-4f7b-a56b-295a5a1a0334";
+        })
+
+    });
+</script>
+

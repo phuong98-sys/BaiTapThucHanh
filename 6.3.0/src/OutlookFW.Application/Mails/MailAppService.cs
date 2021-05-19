@@ -126,7 +126,7 @@ namespace OutlookFW.Mails
         //    }
 
         //}
-        public static async Task<SenderListDto> GetUserDetailsAsync(string accessToken)
+        public async Task<SenderListDto> GetUserDetailsAsync(string accessToken)
         {
             var graphClient = new GraphServiceClient(
                 new DelegateAuthenticationProvider(

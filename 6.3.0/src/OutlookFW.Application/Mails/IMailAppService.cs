@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services;
 using OutlookFW.Mails.Dto;
 using OutlookFW.Senders;
+using OutlookFW.Senders.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace OutlookFW.Mails
     {
         Task<List<MailListDto>> GetMeAsync(string accessToken);
         //Task SendMailAsync(string accessToken, string subject, string to, string body);
-        //Task<Sender> GetUserDetailsAsync(string accessToken);
+          Task<SenderListDto> GetUserDetailsAsync(string accessToken);
 
     }
 }

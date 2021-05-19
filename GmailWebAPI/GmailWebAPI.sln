@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoGmailWithOAuthAPI", "De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoOutlookOAuthAPI", "DemoOutlookOAuthAPI\DemoOutlookOAuthAPI.csproj", "{8C04F635-ADFD-499B-B759-A1BFDD756FF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestOutlook", "TestOutlook\TestOutlook.csproj", "{0DEDF8B4-2689-4868-884F-E50072361101}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8C04F635-ADFD-499B-B759-A1BFDD756FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C04F635-ADFD-499B-B759-A1BFDD756FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C04F635-ADFD-499B-B759-A1BFDD756FF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DEDF8B4-2689-4868-884F-E50072361101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DEDF8B4-2689-4868-884F-E50072361101}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DEDF8B4-2689-4868-884F-E50072361101}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DEDF8B4-2689-4868-884F-E50072361101}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

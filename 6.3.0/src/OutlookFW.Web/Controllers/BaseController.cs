@@ -44,7 +44,7 @@ namespace OutlookFW.Web.Controllers
                     // The session has lost data. This happens often
                     // when debugging. Log out so the user can log back in
                     Request.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
-                    filterContext.Result = RedirectToAction("Index", "Outlook");
+                    filterContext.Result = RedirectToAction("Index", "Home");
                 }
             }
 

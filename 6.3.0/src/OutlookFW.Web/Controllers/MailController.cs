@@ -24,10 +24,12 @@ using OutlookFW.Web.TokenStorage;
 //using DemoOutLook1.Model;
 namespace OutlookFW.Web.Controllers
 {
+    
     public class MailController : OutlookFWControllerBase
     {
         // GET: Mail
-        private readonly IMailAppService _mailAppService;
+        public static IMailAppService _mailAppService;
+
         //private readonly ILookupAppService _lookupAppService;
         public MailController(IMailAppService mailAppService)
         {
@@ -38,20 +40,22 @@ namespace OutlookFW.Web.Controllers
         {
             return View();
         }
-        public void SignIn()
+        public async Task SignIn()
         {
             //if (!Request.IsAuthenticated)
             //{
-                // Signal OWIN to send an authorization request to Azure
-                Request.GetOwinContext().Authentication.Challenge(
+            // Signal OWIN to send an authorization request to Azure
+          Request.GetOwinContext().Authentication.Challenge(
                     new AuthenticationProperties { RedirectUri = "/" },
                     OpenIdConnectAuthenticationDefaults.AuthenticationType);
-            //return RedirectToAction("GetMail", "Mail");
+             
+            //var userDetails = await _mailAppService.GetUserDetailsAsync(OutlookFW.Web.App_Start.Startup.accessToken1);
+            //    return  RedirectToAction("GetMail", "Mail");
             // }
         }
         public async Task<ActionResult> GetMail()
         {
-            var listMail = await _mailAppService.GetMeAsync(OutlookFW.Web.App_Start.Startup.accessToken1);
+            var listMail = await _mailAppService.GetMeAsync(OutlookFW.Web.App_Start.Startup.accessToken);
             var model = new IndexViewMail(listMail);
             return View(model);
         }
@@ -73,7 +77,7 @@ namespace OutlookFW.Web.Controllers
         public ActionResult SignOut()
         {
 
-            //if (Request.IsAuthenticated)
+            //if (OutlookFW.Web.App_Start.Startup.email!=null)
             //{
             //    var tokenStore = new SessionTokenStore(null,
             //        System.Web.HttpContext.Current, ClaimsPrincipal.Current);
@@ -86,7 +90,8 @@ namespace OutlookFW.Web.Controllers
 
 
             Request.GetOwinContext().Authentication.SignOut();
-            return RedirectToAction("Index", "Outlook");
+            OutlookFW.Web.App_Start.Startup.email = null;
+            return RedirectToAction("Index", "Home");
 
 
 

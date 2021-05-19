@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<button id="btnLogin">Login Outlook</button>
+<h2>Index</h2>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+    //gui request de lay code
+    $(document).ready(function () {
+        $('#btnLogin').click(function () {
+            window.location.href = "https://login.live.com/oauth20_authorize.srf?scope=https://graph.microsoft.com/Email.Read&access_type=offline&response_type=code+id_token&state=state_parameter_passthrough_value&redirect_uri=https://localhost:44377/OutlookAPI/About&client_id=a8f83bd5-dd71-4f7b-a56b-295a5a1a0334";
+            //window.location.href = "https://login.live.com/oauth20_authorize.srf?client_id=a8f83bd5-dd71-4f7b-a56b-295a5a1a0334&scope=openid+email+profile+offline_access+User.Read+Files.Read+Mail.Read+Mail.Read.Shared+Mail.Send&redirect_uri=https%3a%2f%2flocalhost%3a44370%2f&response_type=code+id_token&state=OpenIdConnect.AuthenticationProperties%3dgod-MOWjWvSdG1h2ZW-b4RdvKZOED11l__eCT03INh3XWooWqnBLqNU1PWWDM2hssnOjvWhvZU9eVbNuQV8AzbX0FunoupcBHhYxC9GwdBEGDyWP9Yr1kPSh0nQU0JF3yMGtK8vtbuUP1O2bxHBlSltNW0aiW9gWrNJgBNMxtG6GbV1sl3O43YvIVA9xb1lRg3mEn7RbrG18Rj9G0kAeodePiopaACtJIEk3uR3TjNsHdGtrDoNYEnQmWO912KslTTdgYkLYRBtdAsO4SxtbiJxow0pgSyfjRZUJd7LvMF1R8UAcPEGPbdAncRhB_Y4H&response_mode=form_post&nonce=637570130491429510.ZGMxYTNkM2ItOWU2MS00Nzg0LWJhNTktNDA2YTZhYTRmNTNjODczNGJlM2ItM2Y2NC00ZGM4LWFmMGMtNjQ4YWJjYjljYjc4&x-client-SKU=ID_NET461&x-client-Ver=5.3.0.0&uaid=17944bd7f66d4af79dcc04a74866b5b9&msproxy=1&issuer=mso&tenant=common&ui_locales=en-US";
+        })
+
+    });
+</script>
+
