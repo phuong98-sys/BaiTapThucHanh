@@ -7,6 +7,7 @@ namespace TestOutlook.Models
 {
     public class RequestParameters
     {
+        public String authority { get; set; }
         public String scope { get; set; }
         public String access_type { get; set; }
         public String include_granted_scopes { get; set; }

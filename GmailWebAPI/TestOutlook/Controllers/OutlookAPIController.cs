@@ -1,4 +1,6 @@
-﻿using DemoGmailWithOAuthAPI.Models;
+﻿
+using Microsoft.Graph;
+using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Xml;
+using TestOutlook.Models;
 
 namespace TestOutlook.Controllers
 {
@@ -31,11 +34,22 @@ namespace TestOutlook.Controllers
         public static string token1;
         public static string token2;
 
-    
+
         public ActionResult Logout()
         {
             return View();
         }
+        // [Authorize]
+        //public readonly ITokenAcquisition tokenAcquisition;
+
+        //     public OutlookAPIController(ITokenAcquisition tokenAcquisition)
+        //     {
+        //         this.tokenAcquisition = tokenAcquisition;
+        //     }
+
+        // Code for the controller actions (see code below)
+
+
         //public void SendEmail(EmailContent ec)
         //{
 
@@ -58,113 +72,176 @@ namespace TestOutlook.Controllers
         //}
 
 
-        #region to Fetch Response from Gmail API 
+        #region to Fetch Response from mail API 
         // lay ma uy quyen
-        public ActionResult Code(string state, string code, string scope)
+        public static string accessToken;
+        public async Task Code(string state, string code, string scope)
         {
-            string GoogleWebAppClientID = WebConfigurationManager.AppSettings["GoogleWebAppClientID"];
-            string GoogleWebAppClientSecret = WebConfigurationManager.AppSettings["GoogleWebAppClientSecret"];
+            string MicrosoftWebAppClientID = WebConfigurationManager.AppSettings["MicrosoftWebAppClientID"];
+            string MicrosoftWebAppClientSecret = WebConfigurationManager.AppSettings["MicrosoftWebAppClientSecret"];
             string RedirectUrl = WebConfigurationManager.AppSettings["RedirectUrl"];
+            string Authority = "https://login.microsoftonline.com/86797743-5a99-4f12-92bb-03f64ec3af41/v2.0";
             // AccessToken:
-            string Token = CreateOauthTokenForGmail(code, GoogleWebAppClientID, GoogleWebAppClientSecret, RedirectUrl);
+            string Token = CreateOauthTokenForGmail(code, MicrosoftWebAppClientID, MicrosoftWebAppClientSecret, RedirectUrl);
             token1 = Token;
             Session["Token"] = Token;
-            return RedirectToAction("DisplayEmail");
+            //return RedirectToAction("About");
+
+           
         }
 
 
         #endregion
         #region to Create AccessToken by using this Parameters
         // Lay ma truy cap
-        public string CreateOauthTokenForGmail(string code, string GoogleWebAppClientID, string GoogleWebAppClientSecret, string RedirectUrl)
+        public string CreateOauthTokenForGmail(string code, string MicrosoftWebAppClientID, string MicrosoftWebAppClientSecret, string RedirectUrl)
         {
-            RequestParameters requestParameters = new RequestParameters()
+            var data = new Dictionary<string, string>
             {
-                code = code,
-                client_id = WebConfigurationManager.AppSettings["GoogleWebAppClientID"],
-                client_secret = WebConfigurationManager.AppSettings["GoogleWebAppClientSecret"],
-                redirect_uri = RedirectUrl,
-                grant_type = "authorization_code"
+                {"client_id", MicrosoftWebAppClientID},
+                {"scope", "https://graph.microsoft.com/mail.read"},
+                {"code", code},
+                {"redirect_uri", RedirectUrl},
+                {"grant_type", "authorization_code"},
+                {"client_secret", MicrosoftWebAppClientSecret}
             };
-            string inputJson = JsonConvert.SerializeObject(requestParameters);
-            string requestURI = "token";
+            RequestParameters requestParameters = new RequestParameters()
+            {   
+                code = code,
+                client_id = MicrosoftWebAppClientID,
+                client_secret = MicrosoftWebAppClientSecret,
+                redirect_uri = RedirectUrl,
+                grant_type = "authorization_code",
+                scope = "https://graph.microsoft.com/mail.read"
+            };
+
+            //string inputJson = JsonConvert.SerializeObject(requestParameters);
+            //string requestURI = "token";
             string ResponseString = "";
             HttpResponseMessage respone;
-            using (var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri("https://oauth2.googleapis.com");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-
-                StringContent content = new StringContent(inputJson, Encoding.UTF8, "application/json");
-                respone = client.PostAsync(requestURI, content).Result;
-
-                if (respone.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    // chuyen doi chuoi tra ve
-                    ResponseString = JsonConvert.DeserializeObject(respone.Content.ReadAsStringAsync().Result).ToString();
-                    var result = JsonConvert.DeserializeObject<OAuthTokenViewModel>(ResponseString); // gan cho OAuthTokenViewModel
-                    ResponseString = result.Access_token.ToString(); // access Token
-                    // Lay thông tin user
-                    try
+                  
+
+                    var request = new HttpRequestMessage(HttpMethod.Post, "https://login.microsoftonline.com/common/oauth2/v2.0/token")
                     {
+                        Content = new FormUrlEncodedContent(data)
+                    };
 
-                        //HttpClient client2 = new HttpClient();
+                    respone = client.SendAsync(request).Result;
 
-                        var url = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + ResponseString;
-
-                        HttpResponseMessage output = client.GetAsync(url).Result;
-                        GoogleUserOutputData serStatus = new GoogleUserOutputData();
-
-                        if (output.IsSuccessStatusCode)
-
-                        {
-
-                            string outputData = output.Content.ReadAsStringAsync().Result;
-
-                            serStatus = JsonConvert.DeserializeObject<GoogleUserOutputData>(outputData);
-                            name = serStatus.email;
-
-                        }
-                        else
-                        {
-                            ViewBag.test = "no";
-                        }
-
-                    }
-
-                    catch (Exception ex)
+                    if (respone.IsSuccessStatusCode)
                     {
+                        // chuyen doi chuoi tra ve
+                        ResponseString = JsonConvert.DeserializeObject(respone.Content.ReadAsStringAsync().Result).ToString();
+                        var result = JsonConvert.DeserializeObject<OAuthTokenViewModel>(ResponseString); // gan cho OAuthTokenViewModel
+                        ResponseString = result.Access_token.ToString(); // access Token
+
+
+
+                        // Lay thông tin user
+                        //try
+                        //{
+
+                        //    //HttpClient client2 = new HttpClient();
+
+                        //    var url = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + ResponseString;
+
+                        //    HttpResponseMessage output = client.GetAsync(url).Result;
+                        //    GoogleUserOutputData serStatus = new GoogleUserOutputData();
+
+                        //    if (output.IsSuccessStatusCode)
+
+                        //    {
+
+                        //        string outputData = output.Content.ReadAsStringAsync().Result;
+
+                        //        serStatus = JsonConvert.DeserializeObject<GoogleUserOutputData>(outputData);
+                        //        name = serStatus.email;
+
+                        //    }
+                        //    else
+                        //    {
+                        //        ViewBag.test = "no";
+                        //    }
+
+                        //}
+
+                        //catch (Exception ex)
+                        //{
+                        //}
                     }
                 }
-                return ResponseString;
             }
-        }
-        #endregion
-
-        #region to Display Emails
-        // get inboxes of gmail
-        public async Task<ActionResult> DisplayEmail()
-        {
-            HttpClient client = new HttpClient();
-            Root rootObj = new Root();
-            // Gui ma truy cap cho gmail api
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme: "Bearer",
-                parameter: Session["Token"].ToString());
-            HttpResponseMessage responseMessage = await client.GetAsync("https://mail.google.com/mail/feed/atom");
-            if (responseMessage.IsSuccessStatusCode)
+            catch (Exception ex)
             {
-                var data = responseMessage.Content; // du lieu tu gmail tra ve
-                var responseData = responseMessage.Content.ReadAsStringAsync().Result;// doc noi dung du lieu
-                XmlDocument doc = new XmlDocument();
-                doc.LoadXml(@responseData);//
-                string json = JsonConvert.SerializeXmlNode(doc);//chuyen du lieu xml thanh json
-                rootObj = JsonConvert.DeserializeObject<Root>(json); // gan du lieu gmail cho doi tuong nay
+
             }
-            return View(rootObj);
+
+            return ResponseString;
+
         }
         #endregion
+        public async Task<List<EmailContent>> GetMeAsync(string accessToken)
+        {
+            var graphClient = new GraphServiceClient(
+                new DelegateAuthenticationProvider(
+                    async (requestMessage) =>
+                    {
+                        requestMessage.Headers.Authorization =
+                        new AuthenticationHeaderValue("Bearer", accessToken);
+                    }));
+            try
+            {
+                List<EmailContent> listMail = new List<EmailContent>();
+
+                var mailBox = await graphClient.Me.MailFolders.Inbox.Messages.Request()
+                   .Select("sender,from,toRecipients,receivedDateTime, subject,body")
+                   .GetAsync();
+
+                foreach (var message in mailBox)
+                {
+                    EmailContent mail = new EmailContent();
+                    //mail.name = message.From.EmailAddress.Name;
+                    mail.from = message.From.EmailAddress.Address;
+                    mail.date = message.ReceivedDateTime.ToString();
+                    mail.body = message.Body.Content.ToString();
+
+                    mail.subject = message.Subject.ToString();
+                    listMail.Add(mail);
+                }
+                return listMail;
+            }
+            catch (ServiceException ex)
+            {
+                return null;
+            }
+        }
+
+        //#region to Display Emails
+        //// get inboxes of gmail
+        //public async Task<ActionResult> DisplayEmail()
+        //{
+        //    HttpClient client = new HttpClient();
+        //    Root rootObj = new Root();
+        //    // Gui ma truy cap cho gmail api
+        //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme: "Bearer",
+        //        parameter: Session["Token"].ToString());
+        //    HttpResponseMessage responseMessage = await client.GetAsync("https://mail.google.com/mail/feed/atom");
+        //    if (responseMessage.IsSuccessStatusCode)
+        //    {
+        //        var data = responseMessage.Content; // du lieu tu gmail tra ve
+        //        var responseData = responseMessage.Content.ReadAsStringAsync().Result;// doc noi dung du lieu
+        //        XmlDocument doc = new XmlDocument();
+        //        doc.LoadXml(@responseData);//
+        //        string json = JsonConvert.SerializeXmlNode(doc);//chuyen du lieu xml thanh json
+        //        rootObj = JsonConvert.DeserializeObject<Root>(json); // gan du lieu gmail cho doi tuong nay
+        //    }
+        //    return View(rootObj);
+        //}
+        //#endregion
         //public async Task SendGmail(EmailContent model)
         //{
 

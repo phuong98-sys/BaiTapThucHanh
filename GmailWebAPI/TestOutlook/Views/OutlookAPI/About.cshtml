@@ -2,6 +2,37 @@
 @{
     ViewBag.Title = "About";
 }
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<h2>Display Email</h2>
 
-<h2>About</h2>
+<button id="btnLogout">Logout</button>
 
+<script>
+    $(document).ready(function () {
+        //$('#btnCompose').click(function () {
+
+        //    window.location.href = "/GmailAPI/SendEmail";
+        //})
+        $('#btnLogout').click(function () {
+            externalLogout();
+
+        })
+        var redirectUrl = "https://localhost:44377/OutlookAPI/Index";
+        function externalLogout() {
+            var url, params;
+
+            url = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout";
+            params = {
+                next: redirectUrl
+            }
+            performCallLogout(url, params);
+
+        }
+
+        function performCallLogout(url, params) {
+            window.location.href = url + "?continue=" + params.next;
+        }
+
+    });
+
+</script>
