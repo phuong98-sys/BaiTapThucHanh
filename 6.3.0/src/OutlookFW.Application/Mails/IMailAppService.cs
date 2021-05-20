@@ -14,7 +14,7 @@ namespace OutlookFW.Mails
     public interface  IMailAppService : IApplicationService
     {
         Task<List<MailListDto>> GetMeAsync(string accessToken);
-        //Task SendMailAsync(string accessToken, string subject, string to, string body);
+        Task SendMailAsync(string accessToken, string subject, string to, string body);
           Task<SenderListDto> GetUserDetailsAsync(string accessToken);
 
     }

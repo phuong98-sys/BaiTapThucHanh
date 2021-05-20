@@ -72,60 +72,60 @@ namespace OutlookFW.Mails
 
 
 
-        //public static async Task SendMailAsync(string accessToken, string subject, string to, string body)
-        //{
-        //    var graphClient = new GraphServiceClient(
-        //        new DelegateAuthenticationProvider(
-        //            async (requestMessage) =>
-        //            {
-        //                requestMessage.Headers.Authorization =
-        //                    new AuthenticationHeaderValue("Bearer", accessToken);
-        //            }));
-        //    try
-        //    {
-        //        string Mails = to;
-        //        var toRecipients = Mails.Split(' ');
-        //        List<Recipient> a = new List<Recipient>();
-        //        foreach (var address in toRecipients)
-        //        {
+        public static async Task SendMailAsync(string accessToken, string subject, string to, string body)
+        {
+            var graphClient = new GraphServiceClient(
+                new DelegateAuthenticationProvider(
+                    async (requestMessage) =>
+                    {
+                        requestMessage.Headers.Authorization =
+                            new AuthenticationHeaderValue("Bearer", accessToken);
+                    }));
+            try
+            {
+                string Mails = to;
+                var toRecipients = Mails.Split(' ');
+                List<Recipient> a = new List<Recipient>();
+                foreach (var address in toRecipients)
+                {
 
-        //            Recipient b = new Recipient
-        //            {
+                    Recipient b = new Recipient
+                    {
 
-        //                EmailAddress = new EmailAddress
-        //                {
-        //                    Address = address,
+                        EmailAddress = new EmailAddress
+                        {
+                            Address = address,
 
-        //                }
-        //            };
-        //            a.Add(b);
-        //        }
-        //        var message = new Message
-        //        {
-        //            Subject = subject,
-        //            Body = new ItemBody
-        //            {
-        //                ContentType = BodyType.Text,
-        //                Content = body
-        //            },
-        //            ToRecipients = a,
-
-
-        //        };
+                        }
+                    };
+                    a.Add(b);
+                }
+                var message = new Message
+                {
+                    Subject = subject,
+                    Body = new ItemBody
+                    {
+                        ContentType = BodyType.Text,
+                        Content = body
+                    },
+                    ToRecipients = a,
 
 
-        //        await graphClient.Me
-        //            .SendMail(message, null)
-        //                    .Request()
-        //                    .PostAsync();
+                };
 
-        //    }
-        //    catch (ServiceException ex)
-        //    {
 
-        //    }
+                await graphClient.Me
+                    .SendMail(message, null)
+                            .Request()
+                            .PostAsync();
 
-        //}
+            }
+            catch (ServiceException ex)
+            {
+
+            }
+
+        }
         public async Task<SenderListDto> GetUserDetailsAsync(string accessToken)
         {
             var graphClient = new GraphServiceClient(

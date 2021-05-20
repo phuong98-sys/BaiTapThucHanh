@@ -205,6 +205,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Author.cs" />
+    <Compile Include="Models\CachedUser.cs" />
     <Compile Include="Models\EmailContent.cs" />
     <Compile Include="Models\Entry.cs" />
     <Compile Include="Models\Feed.cs" />
