@@ -51,9 +51,9 @@ namespace OutlookFW.Web
 
             });
 
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            //app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
-            app.MapSignalR();
+            //app.MapSignalR();
         }
     }
 }

@@ -2882,6 +2882,11 @@
     <Content Include="Views\Account\_TenantChange.js" />
     <Content Include="Views\Account\_TenantChangeModal.js" />
     <Content Include="Views\Home\Index.js" />
+    <Content Include="Views\Outlook\Index.css" />
+    <Content Include="Views\Outlook\Index.js" />
+    <Content Include="Views\Outlook\Index.min.js">
+      <DependentUpon>Index.js</DependentUpon>
+    </Content>
     <Content Include="Views\Roles\Index.js" />
     <Content Include="Views\Roles\_EditRoleModal.js" />
     <Content Include="Views\Shared\_Layout.css" />

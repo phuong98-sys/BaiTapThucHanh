@@ -4,5 +4,11 @@
     "inputFiles": [
       "css/style.css"
     ]
+  },
+  {
+    "outputFileName": "Views/Outlook/Index.min.js",
+    "inputFiles": [
+      "Views/Outlook/Index.js"
+    ]
   }
 ]

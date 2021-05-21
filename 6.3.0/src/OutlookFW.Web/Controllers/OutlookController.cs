@@ -1,13 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Owin.Security.Cookies;
+using Newtonsoft.Json;
 using OutlookFW.Mails;
 using OutlookFW.Mails.Dto;
 using OutlookFW.Senders.Dto;
 using OutlookFW.Tokens;
 using OutlookFW.Web.Models.Outlooks;
+using OutlookFW.Web.TokenStorage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
@@ -28,9 +31,24 @@ namespace OutlookFW.Web.Controllers
             //email = null;
             //_mailAppService = mailAppService;
         }
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+          if(check)
+            {
+                Session["Email"] = await GetUserDetails();
+                email = await GetUserDetails();
+                //get list mail
+                var listMail = await GetMail();
+
+                if (listMail != null)
+                {
+                    check = true;
+                }
+                var model = new IndexViewMail(listMail, email);
+                return View(model);
+            }
             return View();
+            
         }
         public ActionResult Error(string message, string debug)
         {
@@ -42,7 +60,7 @@ namespace OutlookFW.Web.Controllers
 
        
         
-        public async Task<ActionResult> Code(string state, string code, string scope, IndexViewMail model)
+        public async Task<ActionResult> Code(string state, string code, string scope)
         {
             string MicrosoftWebAppClientID = WebConfigurationManager.AppSettings["MicrosoftWebAppClientID"];
             string MicrosoftWebAppClientSecret = WebConfigurationManager.AppSettings["MicrosoftWebAppClientSecret"];
@@ -50,19 +68,23 @@ namespace OutlookFW.Web.Controllers
 
             // AccessToken:
             string Token = CreateOauthTokenForGmail(code, MicrosoftWebAppClientID, MicrosoftWebAppClientSecret, RedirectUrl);
-            //token1 = Token;
-            Session["Token"] = Token;
-            // get email
-            Session["Email"] = await GetUserDetails();
-            email = await GetUserDetails();
-            //get list mail
-            var listMail = await GetMail();
-            var _model = new IndexViewMail(listMail,Token);
-            if(listMail!=null)
+            if(Token!=null)
             {
                 check = true;
             }
-            return RedirectToAction("Index", new { model = _model });
+            //token1 = Token;
+            Session["Token"] = Token;
+            //// get email
+            //Session["Email"] = await GetUserDetails();
+            //email = await GetUserDetails();
+            ////get list mail
+            //var listMail = await GetMail();
+          
+            //if(listMail!=null)
+            //{
+            //    check = true;
+            //}
+            return RedirectToAction("Index");
 
 
 
@@ -136,28 +158,45 @@ namespace OutlookFW.Web.Controllers
             //var model = new IndexViewMail(listMail);
             return listMail;
         }
-        public async Task<ActionResult> SendMail()
+        public async Task SendMail(string subject, string to, string body)
         {
-            return View();
+             await _mailAppService.SendMailAsync(Session["Token"].ToString(), subject,to, body);
+           
         }
- 
+        
         public async Task<string> GetUserDetails()
         {
             var userDetail = await _mailAppService.GetUserDetailsAsync(Session["Token"].ToString());
             var email = userDetail.Email;
             return email;
         }
-        public ActionResult SignOut()
+        public async Task<ActionResult> SignOut()
         {
-            return Redirect("https://login.microsoftonline.com/common/oauth2/v2.0/logout");
+            //Request.GetOwinContext().Authentication.SignOut();
+
+            //var tokenStore = new SessionTokenStore(null,
+            //    System.Web.HttpContext.Current, ClaimsPrincipal.Current);
+
+            //tokenStore.Clear();
+
+            //Request.GetOwinContext().Authentication.SignOut(
+            //    CookieAuthenticationDefaults.AuthenticationType);
+
+            //Request.GetOwinContext().Authentication.SignOut();
+            
+            this.Session.Clear();
+            this.Session.Abandon();
             email = null;
             check = false;
-            //Request.GetOwinContext().Authentication.SignOut();
+            return Redirect("https://login.microsoftonline.com/common/oauth2/v2.0/logout?federated&returnTo=https://outlook.live.com/mail/0/drafts");
+
+            //await HttpContext.SignOutAsync();
            
-            return RedirectToAction("Index", "Outlook");
+            //return RedirectToAction("Login", "Account");
 
-
+            //return RedirectToAction("Index");
 
         }
+
     }
 }

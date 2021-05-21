@@ -4,163 +4,140 @@
 }
 
 @model  OutlookFW.Web.Models.Outlooks.IndexViewMail
-@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<div class="jumbotron">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link href="~/Views/Outlook/Index.css" rel="stylesheet" />
+@section scripts
+{
+    <environment names="Development">
+
+        <script src="~/Views/Outlook/Index.js"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/Views/Outlook/Index.min.js"></script>
+
+    </environment>
+
+}
+<div class="jumbotron" style="overflow-x:auto;overflow-y:hidden;">
     @if (OutlookFW.Web.Controllers.OutlookController.email != null)
     {
-        <h1>You are signed in</h1>
-
+    <button id="btnLogout">Đăng xuất</button>
         @Html.ActionLink("Sign Out", "SignOut", "Outlook", new { area = "" }, new { @class = "btn btn-primary btn-large" })
         <button id="btnCompose" data-toggle="modal" data-target="#myModal">Compose</button>
-        <button id="btnLogout">Logout</button>
-        <table class="table">
-            <tr>
-                <th>name</th>
-                <th>email</th>
-
-                <th>Subject</th>
-                <th>Summary</th>
-                <th>Date</th>
-                <th>Edit</th>
-            </tr>
-            @if (OutlookFW.Web.Controllers.OutlookController.check)
-            {
-                foreach (var item in Model.Mails)
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>email</th>
+                    <th>Subject</th>
+                    <th>Body</th>
+                    <th>Date</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @if (OutlookFW.Web.Controllers.OutlookController.check)
                 {
-                    <tr>
-                        <td> @item.name</td>
-                        <td>@item.from</td>
-                        <td>@item.subject</td>
-                        <td>@item.body</td>
-                        <td>@item.date</td>
-                        <td>
-                            ...
-                        </td>
-                    </tr>
+                    foreach (var item in Model.Mails)
+                    {
+                        <tr>
+                            <td> @item.name</td>
+                            <td>@item.from</td>
+                            <td>@item.subject</td>
+                            <td>@item.body</td>
+                            <td>@item.date</td>
+                            <td>
+                                ...
+                            </td>
+                        </tr>
+                    }
                 }
-            }
+            </tbody>
 
-            </table>
-
+        </table>
     }
     else
     {
         <button id="btnLogin">Login Outlook</button>
-        @*@Html.ActionLink("Sign in", "SignIn", "Mail", new { area = "" }, new { @class = "btn btn-primary btn-large" })*@
-    }
-    @*  @Html.ActionLink("Sign in", "SignIn", "Mail", new { area = "" }, new { @class = "btn btn-primary btn-large" })*@
 
-    @{
-        ViewBag.Title = "Index";
     }
 
 
 
 
+</div>
 
 
-    <!--Modal Send Email-->
-    <div class="panel-heading">
+<!--Modal Send Email-->
+<div class="panel-heading">
 
-        <div>
-            <!--Modal Send Email-->
-            <div class="modal fade" id="myModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
+    <div>
+        <!--Modal Send Email-->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
 
-                            <a href="#" class="close" data-dismiss="modal">&times;</a>
-                        </div>
-                        <div class="modal-body">
-                            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "sendEmailAPI" }))
-                            {
-                                @*@Html.AntiForgeryToken()*@
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "sendEmailAPI" }))
+                        {
+                            @*@Html.AntiForgeryToken()*@
 
-                                <div class="content" style="color:black;">
+                            <div class="content" style="color:black;">
 
-                                    <div class="content-body">
-                                        <form method="post">
+                                <div class="content-body">
+                                    <form method="post">
 
-                                            <div class="form-group">
-                                                Title
-                                                <div class="group-input">
-                                                    @Html.TextBox("subject", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
-                                                    @Html.ValidationMessage("subject", "", new { @class = "text-danger" })
-                                                </div>
+                                        <div class="form-group">
+                                            Title
+                                            <div class="group-input">
+                                                @Html.TextBox("subject", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                @Html.ValidationMessage("subject", "", new { @class = "text-danger" })
                                             </div>
-                                            <div class="form-group">
-                                                To
-                                                <div class="group-input">
-                                                    @Html.TextBox("to", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
-                                                    @Html.ValidationMessage("to", "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                Body Content
-                                                <div class="group-input">
-                                                    @Html.TextArea("body", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
-                                                    @Html.ValidationMessage("body", "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-
-
-                                        </form>
-
-                                        <hr />
-                                        <div claa="panel-footer">
-
-                                            <button type="submit" name="submit" id="btnSendEmail" value="Accept" class="btn btn-success" style="color:#fff; background-color:#0088c1">Send</button>
-                                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-
                                         </div>
-                                    </div>
+                                        <div class="form-group">
+                                            To
+                                            <div class="group-input">
+                                                @Html.TextBox("to", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                @Html.ValidationMessage("to", "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            Body Content
+                                            <div class="group-input">
+                                                @Html.TextArea("body", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                @Html.ValidationMessage("body", "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
 
+
+                                    </form>
+
+                                    <hr />
+                                    <div claa="panel-footer">
+
+                                        <button type="submit" name="submit" id="btnSendEmail" value="Accept" class="btn btn-success" style="color:#fff; background-color:#0088c1">Send</button>
+                                        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                                    </div>
                                 </div>
 
-                            }
-                        </div>
+                            </div>
 
+                        }
                     </div>
+
                 </div>
-            </div>    <!--Model send Email-->
+            </div>
+        </div>    <!--Model send Email-->
 
-        </div>
-
-        <script>
-            //gui request de lay code
-            $(document).ready(function () {
-                $('#btnLogin').click(function () {
-                   
-                    window.location.href = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?scope=https://graph.microsoft.com/mail.read&access_type=offline&response_type=code&state=12345&redirect_uri=https://localhost:44371/Outlook/Code&client_id=a8f83bd5-dd71-4f7b-a56b-295a5a1a0334&response_mode=query";
-
-                })
-
-            });
-        </script>
-        @*<script>
-                $(document).ready(function () {
-                    $('#sendEmailAPI').submit(function (e) {
-
-                        var valdata = $("form").serialize();
-
-                        $.ajax({
-                            url: "/Account/SendMail",
-                            type: "POST",
-                            data: valdata,
-                            success: function () {
-                                /*  location.reload();*/
-                                alert("Gửi mail thành công");
-                            }
-                            ,
-                            error: function () {
-                                alert("Gửi mail không thành công");
-                            },
-                        });
-                        e.preventDefault();
-                        $('#myModal').modal('hide');
-                    });
-                });
-
-            </script>*@
+    </div>
+</div>
