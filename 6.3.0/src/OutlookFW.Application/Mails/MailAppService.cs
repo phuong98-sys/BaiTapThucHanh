@@ -34,7 +34,7 @@ namespace OutlookFW.Mails
         //        ObjectMapper.Map<List<TaskListDto>>(tasks)
         //    );
         //}
-        public async Task<List<MailListDto>> GetMeAsync(string accessToken)
+        public async Task<List<MailListDto>> GetMailAsync(string accessToken)
             {
                 var graphClient = new GraphServiceClient(
                     new DelegateAuthenticationProvider(
@@ -72,7 +72,7 @@ namespace OutlookFW.Mails
 
 
 
-        public static async Task SendMailAsync(string accessToken, string subject, string to, string body)
+        public async Task SendMailAsync(string accessToken, string subject, string to, string body)
         {
             var graphClient = new GraphServiceClient(
                 new DelegateAuthenticationProvider(

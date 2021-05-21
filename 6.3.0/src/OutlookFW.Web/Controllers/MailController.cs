@@ -19,7 +19,7 @@ using System.Linq;
 //using DemoOutLook1.Helpers;
 using System.Configuration;
 using OutlookFW.Mails;
-using OutlookFW.Web.Models.Mails;
+using OutlookFW.Web.Models.Outlooks;
 using OutlookFW.Web.TokenStorage;
 //using DemoOutLook1.Model;
 namespace OutlookFW.Web.Controllers
@@ -29,7 +29,7 @@ namespace OutlookFW.Web.Controllers
     {
         // GET: Mail
         public static IMailAppService _mailAppService;
-
+        
         //private readonly ILookupAppService _lookupAppService;
         public MailController(IMailAppService mailAppService)
         {
@@ -55,8 +55,8 @@ namespace OutlookFW.Web.Controllers
         }
         public async Task<ActionResult> GetMail()
         {
-            var listMail = await _mailAppService.GetMeAsync(OutlookFW.Web.App_Start.Startup.accessToken);
-            var model = new IndexViewMail(listMail);
+            var listMail = await _mailAppService.GetMailAsync(OutlookFW.Web.App_Start.Startup.accessToken);
+            var model = new IndexViewMail(listMail,"");
             return View(model);
         }
 

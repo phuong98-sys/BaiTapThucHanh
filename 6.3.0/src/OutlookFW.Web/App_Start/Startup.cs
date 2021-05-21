@@ -20,7 +20,7 @@ namespace OutlookFW.Web
         {
 
             // OutlookFW.Web.App_Start.Startup.ConfigureAuth(app);
-            OutlookFW.Web.App_Start.Startup.ConfigureAuth(app);
+            //OutlookFW.Web.App_Start.Startup.ConfigureAuth(app);
 
 
             //app.UseOAuthBearerAuthentication(AccountController.OAuthBearerOptions);
@@ -30,13 +30,30 @@ namespace OutlookFW.Web
             //app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             //app.MapSignalR();
-    
+
 
             //ENABLE TO USE HANGFIRE dashboard (Requires enabling Hangfire in OutlookFWWebModule)
             //app.UseHangfireDashboard("/hangfire", new DashboardOptions
             //{
             //    Authorization = new[] { new AbpHangfireAuthorizationFilter() } //You can remove this line to disable authorization
             //});
+
+            app.UseAbp();
+              app.UseOAuthBearerAuthentication(AccountController.OAuthBearerOptions);
+            //app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/Account/Login"),
+                // by setting following values, the auth cookie will expire after the configured amount of time (default 14 days) when user set the (IsPermanent == true) on the login
+                ExpireTimeSpan = new TimeSpan(int.Parse(ConfigurationManager.AppSettings["AuthSession.ExpireTimeInDays.WhenPersistent"] ?? "14"), 0, 0, 0),
+                SlidingExpiration = bool.Parse(ConfigurationManager.AppSettings["AuthSession.SlidingExpirationEnabled"] ?? bool.FalseString)
+
+            });
+
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+            app.MapSignalR();
         }
     }
 }

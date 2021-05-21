@@ -2935,7 +2935,7 @@
     </Compile>
     <Compile Include="Models\Layout\SideBarNavViewModel.cs" />
     <Compile Include="Models\Layout\SideBarUserAreaViewModel.cs" />
-    <Compile Include="Models\Mails\IndexViewMail.cs" />
+    <Compile Include="Models\Outlooks\IndexViewMail.cs" />
     <Compile Include="Models\Roles\EditRoleModalViewModel.cs" />
     <Compile Include="Models\Roles\RoleListViewModel.cs" />
     <Compile Include="Models\Users\EditUserModalViewModel.cs" />
@@ -3105,6 +3105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Mails\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

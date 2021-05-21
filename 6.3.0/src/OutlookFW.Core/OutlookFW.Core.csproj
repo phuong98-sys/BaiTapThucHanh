@@ -372,6 +372,7 @@
     <Compile Include="Authorization\Users\UserManager.cs" />
     <Compile Include="Authorization\Users\UserStore.cs" />
     <Compile Include="Senders\Sender.cs" />
+    <Compile Include="Tokens\Token.cs" />
     <Compile Include="Validation\ValidationHelper.cs" />
   </ItemGroup>
   <ItemGroup>

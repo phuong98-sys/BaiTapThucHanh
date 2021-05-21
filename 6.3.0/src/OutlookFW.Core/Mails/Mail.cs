@@ -37,7 +37,7 @@ namespace OutlookFW.Mails
          
         }
         [ForeignKey(nameof(GSenderId))]
-        public Sender GSender { get; set; } // them tu Person table
+        public Sender GSender { get; set; } // them tu Sender table
         public int GSenderId { get; set; }
        
     }

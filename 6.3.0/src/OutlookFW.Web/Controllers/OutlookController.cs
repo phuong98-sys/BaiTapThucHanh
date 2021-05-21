@@ -1,7 +1,16 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using OutlookFW.Mails;
+using OutlookFW.Mails.Dto;
+using OutlookFW.Senders.Dto;
+using OutlookFW.Tokens;
+using OutlookFW.Web.Models.Outlooks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace OutlookFW.Web.Controllers
@@ -9,6 +18,16 @@ namespace OutlookFW.Web.Controllers
     public class OutlookController : Controller
     {
         // GET: Outlook
+        public static IMailAppService _mailAppService;
+        public static string email= null ;
+        public static bool check = false;
+        //private readonly ILookupAppService _lookupAppService;
+        public OutlookController(IMailAppService mailAppService)
+        {
+            _mailAppService = mailAppService;
+            //email = null;
+            //_mailAppService = mailAppService;
+        }
         public ActionResult Index()
         {
             return View();
@@ -20,21 +39,32 @@ namespace OutlookFW.Web.Controllers
         }
         #region to Fetch Response from mail API 
         // lay ma uy quyen
-        public static string name;
-        public static string accessToken;
-        public async Task<ActionResult> Code(string state, string code, string scope)
+
+       
+        
+        public async Task<ActionResult> Code(string state, string code, string scope, IndexViewMail model)
         {
             string MicrosoftWebAppClientID = WebConfigurationManager.AppSettings["MicrosoftWebAppClientID"];
             string MicrosoftWebAppClientSecret = WebConfigurationManager.AppSettings["MicrosoftWebAppClientSecret"];
             string RedirectUrl = WebConfigurationManager.AppSettings["RedirectUrl"];
-            string Authority = "https://login.microsoftonline.com/86797743-5a99-4f12-92bb-03f64ec3af41/v2.0";
+
             // AccessToken:
             string Token = CreateOauthTokenForGmail(code, MicrosoftWebAppClientID, MicrosoftWebAppClientSecret, RedirectUrl);
-            token1 = Token;
+            //token1 = Token;
             Session["Token"] = Token;
-            var a = GetMeAsync(Token);
-            var b = SendMailAsync(Token, "haha", "phuongred98@gmail.com phuong98.mta@gmail.com", "phuongred98@gmail.com");
-            return RedirectToAction("About");
+            // get email
+            Session["Email"] = await GetUserDetails();
+            email = await GetUserDetails();
+            //get list mail
+            var listMail = await GetMail();
+            var _model = new IndexViewMail(listMail,Token);
+            if(listMail!=null)
+            {
+                check = true;
+            }
+            return RedirectToAction("Index", new { model = _model });
+
+
 
 
         }
@@ -54,15 +84,15 @@ namespace OutlookFW.Web.Controllers
                 {"grant_type", "authorization_code"},
                 {"client_secret", MicrosoftWebAppClientSecret}
             };
-            RequestParameters requestParameters = new RequestParameters()
-            {
-                code = code,
-                client_id = MicrosoftWebAppClientID,
-                client_secret = MicrosoftWebAppClientSecret,
-                redirect_uri = RedirectUrl,
-                grant_type = "authorization_code",
-                scope = "https://graph.microsoft.com/mail.read"
-            };
+            //RequestParameters requestParameters = new RequestParameters()
+            //{
+            //    code = code,
+            //    client_id = MicrosoftWebAppClientID,
+            //    client_secret = MicrosoftWebAppClientSecret,
+            //    redirect_uri = RedirectUrl,
+            //    grant_type = "authorization_code",
+            //    scope = "https://graph.microsoft.com/mail.read"
+            //};
 
             //string inputJson = JsonConvert.SerializeObject(requestParameters);
             //string requestURI = "token";
@@ -85,42 +115,9 @@ namespace OutlookFW.Web.Controllers
                     {
                         // chuyen doi chuoi tra ve
                         ResponseString = JsonConvert.DeserializeObject(respone.Content.ReadAsStringAsync().Result).ToString();
-                        var result = JsonConvert.DeserializeObject<OAuthTokenViewModel>(ResponseString); // gan cho OAuthTokenViewModel
+
+                        var result = JsonConvert.DeserializeObject<Token>(ResponseString); // gan cho OAuthTokenViewModel
                         ResponseString = result.Access_token.ToString(); // access Token
-
-
-
-                        // Lay thông tin user
-                        //try
-                        //{
-
-                        //    //HttpClient client2 = new HttpClient();
-
-                        //    var url = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + ResponseString;
-
-                        //    HttpResponseMessage output = client.GetAsync(url).Result;
-                        //    GoogleUserOutputData serStatus = new GoogleUserOutputData();
-
-                        //    if (output.IsSuccessStatusCode)
-
-                        //    {
-
-                        //        string outputData = output.Content.ReadAsStringAsync().Result;
-
-                        //        serStatus = JsonConvert.DeserializeObject<GoogleUserOutputData>(outputData);
-                        //        name = serStatus.email;
-
-                        //    }
-                        //    else
-                        //    {
-                        //        ViewBag.test = "no";
-                        //    }
-
-                        //}
-
-                        //catch (Exception ex)
-                        //{
-                        //}
                     }
                 }
             }
@@ -133,13 +130,34 @@ namespace OutlookFW.Web.Controllers
 
         }
         #endregion
-        public async Task<ActionResult> GetMail()
+        public async Task<List<MailListDto>> GetMail()
         {
-            return View();
+            var listMail = await _mailAppService.GetMailAsync(Session["Token"].ToString());
+            //var model = new IndexViewMail(listMail);
+            return listMail;
         }
         public async Task<ActionResult> SendMail()
         {
             return View();
+        }
+ 
+        public async Task<string> GetUserDetails()
+        {
+            var userDetail = await _mailAppService.GetUserDetailsAsync(Session["Token"].ToString());
+            var email = userDetail.Email;
+            return email;
+        }
+        public ActionResult SignOut()
+        {
+            return Redirect("https://login.microsoftonline.com/common/oauth2/v2.0/logout");
+            email = null;
+            check = false;
+            //Request.GetOwinContext().Authentication.SignOut();
+           
+            return RedirectToAction("Index", "Outlook");
+
+
+
         }
     }
 }

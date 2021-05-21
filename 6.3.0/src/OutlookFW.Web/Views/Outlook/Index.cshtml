@@ -2,15 +2,48 @@
     ViewBag.Title = L("MailBox");
     ViewBag.ActiveMenu = "MailBox"; //Matches with the menu name in SimpleTaskAppNavigationProvider to highlight the menu item
 }
-@model  OutlookFW.Web.Models.Mails.IndexViewMail
+
+@model  OutlookFW.Web.Models.Outlooks.IndexViewMail
 @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
 
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <div class="jumbotron">
-    @if (OutlookFW.Web.App_Start.Startup.email != null)
+    @if (OutlookFW.Web.Controllers.OutlookController.email != null)
     {
         <h1>You are signed in</h1>
 
-        @Html.ActionLink("Sign Out", "SignOut", "Mail", new { area = "" }, new { @class = "btn btn-primary btn-large" })
+        @Html.ActionLink("Sign Out", "SignOut", "Outlook", new { area = "" }, new { @class = "btn btn-primary btn-large" })
+        <button id="btnCompose" data-toggle="modal" data-target="#myModal">Compose</button>
+        <button id="btnLogout">Logout</button>
+        <table class="table">
+            <tr>
+                <th>name</th>
+                <th>email</th>
+
+                <th>Subject</th>
+                <th>Summary</th>
+                <th>Date</th>
+                <th>Edit</th>
+            </tr>
+            @if (OutlookFW.Web.Controllers.OutlookController.check)
+            {
+                foreach (var item in Model.Mails)
+                {
+                    <tr>
+                        <td> @item.name</td>
+                        <td>@item.from</td>
+                        <td>@item.subject</td>
+                        <td>@item.body</td>
+                        <td>@item.date</td>
+                        <td>
+                            ...
+                        </td>
+                    </tr>
+                }
+            }
+
+            </table>
+
     }
     else
     {
@@ -23,19 +56,10 @@
         ViewBag.Title = "Index";
     }
 
-   
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 
-    <script>
-        //gui request de lay code
-        $(document).ready(function () {
-            $('#btnLogin').click(function () {
-                window.location.href = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?scope=https://graph.microsoft.com/mail.read&access_type=offline&response_type=code&state=12345&redirect_uri=https://localhost:44377/OutlookAPI/Code&client_id=a8f83bd5-dd71-4f7b-a56b-295a5a1a0334&response_mode=query";
 
-            })
 
-        });
-    </script>
+
 
     <!--Modal Send Email-->
     <div class="panel-heading">
@@ -104,7 +128,17 @@
 
         </div>
 
+        <script>
+            //gui request de lay code
+            $(document).ready(function () {
+                $('#btnLogin').click(function () {
+                   
+                    window.location.href = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?scope=https://graph.microsoft.com/mail.read&access_type=offline&response_type=code&state=12345&redirect_uri=https://localhost:44371/Outlook/Code&client_id=a8f83bd5-dd71-4f7b-a56b-295a5a1a0334&response_mode=query";
 
+                })
+
+            });
+        </script>
         @*<script>
                 $(document).ready(function () {
                     $('#sendEmailAPI').submit(function (e) {
