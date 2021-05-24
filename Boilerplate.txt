@@ -154,3 +154,9 @@ XÁC THỰC
  - SASL XOAUTH2: Mã hóa username và accesstoken trên quá trình truyền tải -> thành chuỗi
 
 How to authenticaion to login microsoft account read mail inbox of outlook using Microsoft Graph in asp.net mvc c#
+
+24/5
+- Sua giao dien ok,
+- send mail loi
+- Them accesstoken vao DB(tao moi lien he voi User)
+- Them Gmail

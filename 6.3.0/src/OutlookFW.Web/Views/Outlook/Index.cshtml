@@ -5,12 +5,11 @@
 
 @model  OutlookFW.Web.Models.Outlooks.IndexViewMail
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link href="~/Views/Outlook/Index.css" rel="stylesheet" />
+
+@section styles {
+    <link href="~/Views/Outlook/Index.css" rel="stylesheet" />
+}
+
 @section scripts
 {
     <environment names="Development">
@@ -24,46 +23,55 @@
     </environment>
 
 }
-<div class="jumbotron" style="overflow-x:auto;overflow-y:hidden;">
-    @if (OutlookFW.Web.Controllers.OutlookController.email != null)
+
+<div class="jumbotron">
+    @if (Model.isAuthenticated)
     {
-    <button id="btnLogout">Đăng xuất</button>
         @Html.ActionLink("Sign Out", "SignOut", "Outlook", new { area = "" }, new { @class = "btn btn-primary btn-large" })
         <button id="btnCompose" data-toggle="modal" data-target="#myModal">Compose</button>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>name</th>
-                    <th>email</th>
-                    <th>Subject</th>
-                    <th>Body</th>
-                    <th>Date</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                @if (OutlookFW.Web.Controllers.OutlookController.check)
-                {
-                    foreach (var item in Model.Mails)
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table table-bordered table-striped mb-0" style="width: 100%">
+                <colgroup>
+                    <col span="1" style="width: 10%;">
+                    <col span="1" style="width: 15%;">
+                    <col span="1" style="width: 15%;">
+                    <col span="1" style="width: 40%;">
+                    <col span="1" style="width: 20%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>email</th>
+                        <th>Subject</th>
+                        <th>Body</th>
+                        <th>Date</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model.Mails)
                     {
                         <tr>
                             <td> @item.name</td>
                             <td>@item.from</td>
                             <td>@item.subject</td>
-                            <td>@item.body</td>
+                            <td style="width: 20%">@item.body</td>
                             <td>@item.date</td>
                             <td>
                                 ...
                             </td>
                         </tr>
                     }
-                }
-            </tbody>
 
-        </table>
+                </tbody>
+
+            </table>
+        </div>
     }
     else
     {
+
         <button id="btnLogin">Login Outlook</button>
 
     }

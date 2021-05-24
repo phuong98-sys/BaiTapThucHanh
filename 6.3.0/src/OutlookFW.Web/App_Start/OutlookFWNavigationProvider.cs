@@ -17,13 +17,13 @@ namespace OutlookFW.Web
         {
             context.Manager.MainMenu
                 .AddItem(
-                new MenuItemDefinition(
-                    "MailBox",
-                    L("MailBox"),
-                    url: "Outlook",
-                    icon: "fa fa-mail"
-                    )
-            )
+                    new MenuItemDefinition(
+                        "MailBox",
+                        L("MailBox"),
+                        url: "Outlook",
+                        icon: "markunread_mailbox"
+                        )
+                )
                 .AddItem(
                     new MenuItemDefinition(
                         PageNames.Home,

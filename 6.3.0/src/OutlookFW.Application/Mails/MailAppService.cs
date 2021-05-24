@@ -21,19 +21,7 @@ namespace OutlookFW.Mails
             _mailRepository = mailRepository;
 
         }
-        //public async Task<ListResultDto<TaskListDto>> GetAll(GetAllTasksInput input)
-        //{
-        //    var tasks = await _taskRepository
-        //        .GetAll()
-        //        .Include(t => t.AssignedPerson) //truy van them ca bang nay de hien thi, tu dong copy vao DTO by AutoMapper
-        //        .WhereIf(input.State.HasValue, t => t.State == input.State.Value)
-        //        .OrderByDescending(t => t.CreationTime)
-        //        .ToListAsync();
-
-        //    return new ListResultDto<TaskListDto>(
-        //        ObjectMapper.Map<List<TaskListDto>>(tasks)
-        //    );
-        //}
+       
         public async Task<List<MailListDto>> GetMailAsync(string accessToken)
             {
                 var graphClient = new GraphServiceClient(
@@ -122,7 +110,10 @@ namespace OutlookFW.Mails
             }
             catch (ServiceException ex)
             {
-
+                if (ex.Data == null)
+                {
+                    throw;
+                }
             }
 
         }

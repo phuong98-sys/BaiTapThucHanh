@@ -24,12 +24,11 @@ namespace OutlookFW.Web.Controllers
         public static IMailAppService _mailAppService;
         public static string email= null ;
         public static bool check = false;
-        //private readonly ILookupAppService _lookupAppService;
+ 
         public OutlookController(IMailAppService mailAppService)
         {
             _mailAppService = mailAppService;
-            //email = null;
-            //_mailAppService = mailAppService;
+            
         }
         public async Task<ActionResult> Index()
         {
@@ -45,14 +44,20 @@ namespace OutlookFW.Web.Controllers
                     check = true;
                 }
                 var model = new IndexViewMail(listMail, email);
+                model.isAuthenticated = true;
                 return View(model);
             }
-            return View();
+            else
+            {
+                var model = new IndexViewMail();
+                return View(model);
+            }
+           
             
         }
         public ActionResult Error(string message, string debug)
         {
-            //Flash(message, debug);
+          
             return RedirectToAction("Index");
         }
         #region to Fetch Response from mail API 
@@ -68,21 +73,13 @@ namespace OutlookFW.Web.Controllers
 
             // AccessToken:
             string Token = CreateOauthTokenForGmail(code, MicrosoftWebAppClientID, MicrosoftWebAppClientSecret, RedirectUrl);
-            if(Token!=null)
+            Session["Token"] = Token;
+          
+            if (Session["Token"].ToString() != null)
             {
                 check = true;
             }
-            //token1 = Token;
-            Session["Token"] = Token;
-            //// get email
-            //Session["Email"] = await GetUserDetails();
-            //email = await GetUserDetails();
-            ////get list mail
-            //var listMail = await GetMail();
-          
-            //if(listMail!=null)
-            //{
-            //    check = true;
+
             //}
             return RedirectToAction("Index");
 
@@ -160,10 +157,22 @@ namespace OutlookFW.Web.Controllers
         }
         public async Task SendMail(string subject, string to, string body)
         {
-             await _mailAppService.SendMailAsync(Session["Token"].ToString(), subject,to, body);
-           
+            try
+            {
+                await _mailAppService.SendMailAsync(Session["Token"].ToString(), subject, to, body);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Data == null)
+                {
+                    throw;
+                }
+
+            }
+            
+
         }
-        
+
         public async Task<string> GetUserDetails()
         {
             var userDetail = await _mailAppService.GetUserDetailsAsync(Session["Token"].ToString());
@@ -172,29 +181,13 @@ namespace OutlookFW.Web.Controllers
         }
         public async Task<ActionResult> SignOut()
         {
-            //Request.GetOwinContext().Authentication.SignOut();
-
-            //var tokenStore = new SessionTokenStore(null,
-            //    System.Web.HttpContext.Current, ClaimsPrincipal.Current);
-
-            //tokenStore.Clear();
-
-            //Request.GetOwinContext().Authentication.SignOut(
-            //    CookieAuthenticationDefaults.AuthenticationType);
-
-            //Request.GetOwinContext().Authentication.SignOut();
-            
+          
             this.Session.Clear();
             this.Session.Abandon();
-            email = null;
-            check = false;
-            return Redirect("https://login.microsoftonline.com/common/oauth2/v2.0/logout?federated&returnTo=https://outlook.live.com/mail/0/drafts");
-
-            //await HttpContext.SignOutAsync();
            
-            //return RedirectToAction("Login", "Account");
-
-            //return RedirectToAction("Index");
+            check = false;
+            Session["Token"] = null;
+            return RedirectToAction("Index");
 
         }
 
