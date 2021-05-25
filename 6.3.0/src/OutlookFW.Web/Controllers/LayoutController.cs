@@ -32,7 +32,6 @@ namespace OutlookFW.Web.Controllers
             _multiTenancyConfig = multiTenancyConfig;
             _languageManager = languageManager;
         }
-
         [ChildActionOnly]
         public PartialViewResult SideBarNav(string activeMenu = "")
         {

@@ -372,6 +372,26 @@
     <Compile Include="Migrations\202105170718289_Init.designer.cs">
       <DependentUpon>202105170718289_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105250342205_Add_AppTokens.cs" />
+    <Compile Include="Migrations\202105250342205_Add_AppTokens.designer.cs">
+      <DependentUpon>202105250342205_Add_AppTokens.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105250650583_Edit-Token.cs" />
+    <Compile Include="Migrations\202105250650583_Edit-Token.designer.cs">
+      <DependentUpon>202105250650583_Edit-Token.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105250759451_edit_token_1.cs" />
+    <Compile Include="Migrations\202105250759451_edit_token_1.designer.cs">
+      <DependentUpon>202105250759451_edit_token_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105250922244_edit_token_2.cs" />
+    <Compile Include="Migrations\202105250922244_edit_token_2.designer.cs">
+      <DependentUpon>202105250922244_edit_token_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105250936536_edit_token_3.cs" />
+    <Compile Include="Migrations\202105250936536_edit_token_3.designer.cs">
+      <DependentUpon>202105250936536_edit_token_3.cs</DependentUpon>
+    </Compile>
     <Compile Include="OutlookFWDataModule.cs" />
     <Compile Include="Migrations\201809270654064_InitialMigrations.cs" />
     <Compile Include="Migrations\201809270654064_InitialMigrations.Designer.cs">
@@ -529,6 +549,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105170718289_Init.resx">
       <DependentUpon>202105170718289_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105250342205_Add_AppTokens.resx">
+      <DependentUpon>202105250342205_Add_AppTokens.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105250650583_Edit-Token.resx">
+      <DependentUpon>202105250650583_Edit-Token.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105250759451_edit_token_1.resx">
+      <DependentUpon>202105250759451_edit_token_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105250922244_edit_token_2.resx">
+      <DependentUpon>202105250922244_edit_token_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105250936536_edit_token_3.resx">
+      <DependentUpon>202105250936536_edit_token_3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

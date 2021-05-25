@@ -56,8 +56,8 @@ namespace OutlookFW.Web.Controllers
         public async Task<ActionResult> GetMail()
         {
             var listMail = await _mailAppService.GetMailAsync(OutlookFW.Web.App_Start.Startup.accessToken);
-            var model = new IndexViewMail(listMail,"");
-            return View(model);
+            //var model = new IndexViewMail(listMail,"");
+            return View(listMail);
         }
 
      

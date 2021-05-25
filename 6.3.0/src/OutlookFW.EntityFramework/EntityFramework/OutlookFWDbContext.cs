@@ -15,6 +15,7 @@ namespace OutlookFW.EntityFramework
         //TODO: Define an IDbSet for your Entities...
         public DbSet<Sender> Senders { get; set; }
         public DbSet<Mail> Mails { get; set; }
+        public DbSet<Token> Tokens { get; set; }
         /* NOTE: 
          *   Setting "Default" to base class helps us when working migration commands on Package Manager Console.
          *   But it may cause problems when working Migrate.exe of EF. If you will apply migrations on command line, do not

@@ -60,7 +60,7 @@ namespace OutlookFW.Mails
 
 
 
-        public async Task SendMailAsync(string accessToken, string subject, string to, string body)
+        public async Task<bool> SendMailAsync(string accessToken, string subject, string to, string body)
         {
             var graphClient = new GraphServiceClient(
                 new DelegateAuthenticationProvider(
@@ -106,14 +106,16 @@ namespace OutlookFW.Mails
                     .SendMail(message, null)
                             .Request()
                             .PostAsync();
-
+                return true;
             }
             catch (ServiceException ex)
             {
                 if (ex.Data == null)
                 {
                     throw;
+                    
                 }
+                return false;
             }
 
         }

@@ -156,7 +156,10 @@ XÁC THỰC
 How to authenticaion to login microsoft account read mail inbox of outlook using Microsoft Graph in asp.net mvc c#
 
 24/5
-- Sua giao dien ok,
+
 - send mail loi
 - Them accesstoken vao DB(tao moi lien he voi User)
++ Lay thanh cong ma
++ Lay doi tuong
++ gui request den ham
 - Them Gmail

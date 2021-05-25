@@ -348,6 +348,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mails\Mail.cs" />
+    <Compile Include="Mails\Token.cs" />
     <Compile Include="OutlookFWConsts.cs" />
     <Compile Include="OutlookFWCoreModule.cs" />
     <Compile Include="AppVersionHelper.cs" />
@@ -372,7 +373,6 @@
     <Compile Include="Authorization\Users\UserManager.cs" />
     <Compile Include="Authorization\Users\UserStore.cs" />
     <Compile Include="Senders\Sender.cs" />
-    <Compile Include="Tokens\Token.cs" />
     <Compile Include="Validation\ValidationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
