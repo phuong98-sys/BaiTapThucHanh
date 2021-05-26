@@ -16,11 +16,27 @@ namespace OutlookFW.Web
         public override void SetNavigation(INavigationProviderContext context)
         {
             context.Manager.MainMenu
+                 .AddItem(
+                    new MenuItemDefinition(
+                        "Zoom",
+                        L("Zoom"),
+                        url: "Zoom",
+                        icon: "markunread_mailbox"
+                        )
+                )
                 .AddItem(
                     new MenuItemDefinition(
                         "MailBox",
                         L("MailBox"),
                         url: "Outlook",
+                        icon: "markunread_mailbox"
+                        )
+                )
+                .AddItem(
+                    new MenuItemDefinition(
+                        "Gmail",
+                        L("Gmail"),
+                        url: "Gmail",
                         icon: "markunread_mailbox"
                         )
                 )

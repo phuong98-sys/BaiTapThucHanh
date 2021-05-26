@@ -392,6 +392,14 @@
     <Compile Include="Migrations\202105250936536_edit_token_3.designer.cs">
       <DependentUpon>202105250936536_edit_token_3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105260211297_add_token_type.cs" />
+    <Compile Include="Migrations\202105260211297_add_token_type.designer.cs">
+      <DependentUpon>202105260211297_add_token_type.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105260742068_add_token_gmail.cs" />
+    <Compile Include="Migrations\202105260742068_add_token_gmail.designer.cs">
+      <DependentUpon>202105260742068_add_token_gmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="OutlookFWDataModule.cs" />
     <Compile Include="Migrations\201809270654064_InitialMigrations.cs" />
     <Compile Include="Migrations\201809270654064_InitialMigrations.Designer.cs">
@@ -564,6 +572,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105250936536_edit_token_3.resx">
       <DependentUpon>202105250936536_edit_token_3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105260211297_add_token_type.resx">
+      <DependentUpon>202105260211297_add_token_type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105260742068_add_token_gmail.resx">
+      <DependentUpon>202105260742068_add_token_gmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

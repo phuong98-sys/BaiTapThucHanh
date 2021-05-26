@@ -155,11 +155,12 @@ XÁC THỰC
 
 How to authenticaion to login microsoft account read mail inbox of outlook using Microsoft Graph in asp.net mvc c#
 
-24/5
-
-- send mail loi
-- Them accesstoken vao DB(tao moi lien he voi User)
-+ Lay thanh cong ma
-+ Lay doi tuong
-+ gui request den ham
-- Them Gmail
+ZOOM API
+- secretID: EgKWYv79JQvd77z8o1ST31SbNm568CGy
+- ClientID: 6M7yDmdoTnaTE0cArJCCjg
+- Production:
++ secretID: N0PNcRQEf6VQog6a4N8L3CBlA9OAP8Of
++ clientID:HLa9LO1NQfWVG7iy3IpIBQ
+26/5
+https://marketplace.zoom.us/docs/guides/auth/oauth
+https://www.youtube.com/watch?v=KeXJAdxBjf4&list=PLlaJNuOIC_98Z24lEpYXxsXod0Z1Ix6z-&index=2

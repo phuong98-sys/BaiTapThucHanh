@@ -11,8 +11,9 @@ namespace OutlookFW.Tokens
     public interface ITokenAppService : IApplicationService
     {
         Task<TokenDto> CreateOauthTokenForMailAsync(string code);
-        Task SaveTokenAsync(TokenDto input);
-        string GetToken(int userId);
-        void DeleteToken(int userId);
+        Task<TokenDto> CreateOauthTokenForGmailAsync(string code);
+        Task SaveTokenAsync(SaveToken input);
+        TokenDto GetToken(int userId, int type);
+        void DeleteToken(int userId, int type);
     }
 }

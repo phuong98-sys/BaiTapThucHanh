@@ -20,7 +20,11 @@ namespace OutlookFW.Mails
         public User user { get; set; } // them tu User table
 
         public long? user_Id { get; set; }
-      
+        //type=0 : AccessToken cua Outlook
+        //type=1 : AccessToken cua Gmail
+        public int? type { get; set; }
+        public string gmail { get; set; }
+
     }
 
 }

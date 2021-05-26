@@ -2895,6 +2895,7 @@
     <Content Include="Views\Tenants\_EditTenantModal.js" />
     <Content Include="Views\Users\Index.js" />
     <Content Include="Views\Users\_EditUserModal.js" />
+    <Content Include="Views\Zoom\Index.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2912,20 +2913,29 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\OutlookController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\Results\ChallengeResult.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\TenantsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\ZoomController.cs" />
     <Compile Include="Helpers\GraphHelper.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Models\Account\TenantChangeModalViewModel.cs" />
     <Compile Include="Models\Account\TenantChangeViewModel.cs" />
     <Compile Include="Models\Alert.cs" />
     <Compile Include="Models\Common\Modals\ModalHeaderViewModel.cs" />
+    <Compile Include="Models\Gmails\Author.cs" />
+    <Compile Include="Models\Gmails\EmailContent.cs" />
+    <Compile Include="Models\Gmails\Entry.cs" />
+    <Compile Include="Models\Gmails\Feed.cs" />
+    <Compile Include="Models\Gmails\GoogleUserOutputData.cs" />
+    <Compile Include="Models\Gmails\OAuthTokenViewModel.cs" />
+    <Compile Include="Models\Gmails\RequestParameters.cs" />
+    <Compile Include="Models\Gmails\Root.cs" />
     <Compile Include="Models\Layout\RightSideBarViewModel.cs" />
     <Compile Include="Models\Account\LoginFormViewModel.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
@@ -3083,6 +3093,8 @@
     <Content Include="Views\Mail\GetMail.cshtml" />
     <Content Include="Views\Outlook\Index.cshtml" />
     <Content Include="Views\Mail\Index.cshtml" />
+    <Content Include="Views\Gmail\Index.cshtml" />
+    <Content Include="Views\Zoom\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3110,7 +3122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Mails\" />
+    <Folder Include="Models\NewFolder1\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OutlookFW.Tokens.Dto
 {
-    [AutoMapTo(typeof(Token))]
+    [AutoMapFrom(typeof(Token))]
     public class TokenDto   // map voi Task entity
     {
        
@@ -18,6 +18,21 @@ namespace OutlookFW.Tokens.Dto
         public string refresh_token { get; set; }
 
         public int? user_Id { get; set; }
+        public int? type { get; set; }
+        public string gmail { get; set; }
+    }
+    [AutoMapTo(typeof(Token))]
+    public class SaveToken   // map voi Task entity
+    {
+
+        public string access_token { get; set; }
+
+
+        public string refresh_token { get; set; }
+
+        public int? user_Id { get; set; }
+        public int? type { get; set; }
+        public string gmail { get; set; }
     }
     [AutoMapFrom(typeof(Token))]
     public class GetTokenInput

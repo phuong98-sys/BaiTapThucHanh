@@ -347,6 +347,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gmails\Author.cs" />
     <Compile Include="Mails\Mail.cs" />
     <Compile Include="Mails\Token.cs" />
     <Compile Include="OutlookFWConsts.cs" />

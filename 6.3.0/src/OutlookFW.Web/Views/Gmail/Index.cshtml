@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = L("Gmail");
+    ViewBag.ActiveMenu = "Gmail"; //Matches with the menu name in SimpleTaskAppNavigationProvider to highlight the menu item
+}
+
+@model  OutlookFW.Web.Models.Outlooks.IndexViewMail
+
+
+@section styles {
+    <link href="~/Views/Outlook/Index.css" rel="stylesheet" />
+}
+
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/Views/Gmail/Index.js"></script>
+
+    </environment>
+
+}
+
+<div class="jumbotron">
+    @if (Model.isAuthenticated)
+    {
+        <button id="btnLogout">Logout</button>
+        @Html.ActionLink("Sign Out", "SignOut", "Gmail", new { area = "" }, new { @class = "btn btn-primary btn-large" })
+        <button id="btnCompose" data-toggle="modal" data-target="#myModal">Compose</button>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table table-bordered table-striped mb-0" style="width: 100%">
+                <colgroup>
+                    <col span="1" style="width: 10%;">
+                    <col span="1" style="width: 15%;">
+                    <col span="1" style="width: 15%;">
+                    <col span="1" style="width: 40%;">
+                    <col span="1" style="width: 20%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>email</th>
+                        <th>Subject</th>
+                        <th>Body</th>
+                        <th>Date</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model.Mails)
+                    {
+                        <tr>
+                            <td> @item.name</td>
+                            <td>@item.from</td>
+                            <td>@item.subject</td>
+                            <td>@item.body</td>
+                            <td>@item.date</td>
+                            <td>
+                                ...
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        </div>
+        if (Model.IsSendSuccess)
+        {
+
+            <script>alert("gui mail thanh cong");</script>
+        }
+        else
+        {
+            <script>alert("gui mail khong thanh cong");</script>
+        }
+    }
+    else
+    {
+
+        <button id="btnLogin">Login Gmail</button>
+
+    }
+
+
+
+
+</div>
+
+
+<!--Modal Send Email-->
+<div class="panel-heading">
+
+    <div>
+        <!--Modal Send Email-->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "sendEmailAPI" }))
+                        {
+                            @*@Html.AntiForgeryToken()*@
+
+                            <div class="content" style="color:black;">
+
+                                <div class="content-body">
+                                    <form method="post">
+
+                                        <div class="form-group">
+                                            Title
+                                            <div class="group-input">
+                                                @Html.TextBox("subject", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                @Html.ValidationMessage("subject", "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            To
+                                            <div class="group-input">
+                                                @Html.TextBox("to", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                @Html.ValidationMessage("to", "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            Body Content
+                                            <div class="group-input">
+                                                @Html.TextArea("body", "", new { htmlAttributes = new { @class = "form-control" }, required = "required", style = "max-width:100%; width:100%;height:35px;" })
+                                                @Html.ValidationMessage("body", "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+
+                                    <hr />
+                                    <div claa="panel-footer">
+
+                                        <button type="submit" name="submit" id="btnSendEmail" value="Accept" class="btn btn-success" style="color:#fff; background-color:#0088c1">Send</button>
+                                        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>    <!--Model send Email-->
+
+    </div>
+</div>
