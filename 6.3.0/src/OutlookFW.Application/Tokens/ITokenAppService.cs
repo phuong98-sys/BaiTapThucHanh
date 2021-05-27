@@ -12,6 +12,7 @@ namespace OutlookFW.Tokens
     {
         Task<TokenDto> CreateOauthTokenForMailAsync(string code);
         Task<TokenDto> CreateOauthTokenForGmailAsync(string code);
+        Task<TokenDto> CreateOauthTokenForZoomAsync(string code);
         Task SaveTokenAsync(SaveToken input);
         TokenDto GetToken(int userId, int type);
         void DeleteToken(int userId, int type);

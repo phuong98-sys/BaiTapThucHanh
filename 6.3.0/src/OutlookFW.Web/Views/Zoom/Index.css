@@ -1,0 +1,31 @@
+﻿body {
+}
+.form-group{
+    margin-bottom:10px;
+}
+.form-control{
+    border-radius:10px;
+    height:25px;
+}
+.form-input {
+    border-radius: 10px;
+    height: 25px;
+}
+input {
+    height: 25px;
+}
+.g-panel-footer{
+    display:block;
+}
+.g-right {
+    float: right;
+}
+div.modal-body{
+    height:320px;
+}
+.modal .modal-content .modal-body{
+    padding:0 15px;
+}
+#btnSaveSchedule{
+    color:#fff;
+}

@@ -2895,6 +2895,7 @@
     <Content Include="Views\Tenants\_EditTenantModal.js" />
     <Content Include="Views\Users\Index.js" />
     <Content Include="Views\Users\_EditUserModal.js" />
+    <Content Include="Views\Zoom\Index.css" />
     <Content Include="Views\Zoom\Index.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -3095,6 +3096,8 @@
     <Content Include="Views\Mail\Index.cshtml" />
     <Content Include="Views\Gmail\Index.cshtml" />
     <Content Include="Views\Zoom\Index.cshtml" />
+    <Content Include="Views\Zoom\CreateOauthTokenForZoom.cshtml" />
+    <Content Include="Views\Zoom\Schedule.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3122,8 +3125,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\NewFolder1\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

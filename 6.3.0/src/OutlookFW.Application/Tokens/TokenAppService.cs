@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using OutlookFW.Mails;
 using OutlookFW.Models.Gmails;
 using OutlookFW.Tokens.Dto;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,40 @@ namespace OutlookFW.Tokens
             _tokenRepository = tokenRepository;
 
         }
+        private string AuthorizationHeader
+        {
+            get
+            {
+                var plainTextBytes = System.Text.Encoding.UTF8.GetBytes($"{WebConfigurationManager.AppSettings["ZoomWebAppClientID"]}:{WebConfigurationManager.AppSettings["ZoomWebAppClientSecret"]}");
+                var encodedString = System.Convert.ToBase64String(plainTextBytes);
+                return $"Basic {encodedString}";
+            }
+        }
+        public async Task<TokenDto> CreateOauthTokenForZoomAsync(string code)
+        {
+            RestClient restClient = new RestClient();
+            var request = new RestRequest();
+            restClient.BaseUrl = new Uri(string.Format(WebConfigurationManager.AppSettings["AccessTokenUrl"],code, WebConfigurationManager.AppSettings["ZoomRedirectUrl"]));
+            request.AddHeader("Authorization", string.Format(AuthorizationHeader));
 
+            var response = restClient.Post(request);
+            string ResponseString = "";
+            var token = new TokenDto();
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                //var a = response.Content;
+                ResponseString = JsonConvert.DeserializeObject(response.Content).ToString();
+
+                var result = JsonConvert.DeserializeObject<TokenDto>(ResponseString); // gan cho OAuthTokenViewModel
+
+                token.access_token = result.access_token.ToString(); // access Token
+                token.refresh_token = result.refresh_token.ToString();
+                token.type = 2;
+
+            }
+            return token;
+           
+        }
         #region to Create AccessToken by using this Parameters
         // Lay ma truy cap
         public async Task<TokenDto> CreateOauthTokenForMailAsync(string code)

@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function () {
     $('#btnLogin').click(function () {
-        window.location.href = "https://zoom.us/oauth/authorize?response_type=code&state=12345&client_id=a8f83bd5-dd71-4f7b-a56b-295a5a1a0334&redirect_uri=https://localhost:44371/Zoom/CreateOauthTokenForZoom";
+        window.location.href = "https://zoom.us/oauth/authorize?response_type=code&state=12345&client_id=6M7yDmdoTnaTE0cArJCCjg&redirect_uri=https://localhost:44371/Zoom/CreateOauthTokenForZoom";
     });
     $('#btnLogout').click(function () {
         externalLogout();
@@ -30,7 +30,7 @@ $(document).ready(function () {
         var valdata = $("form").serialize();
 
         $.ajax({
-            url: "/Gmail/SendMail",
+            url: "/Zoom/CreateMeeting",
             type: "POST",
             data: valdata,
             success: function (respone) {
@@ -49,5 +49,8 @@ $(document).ready(function () {
 
         e.preventDefault();
 
+    });
+    $(function () {
+        $('#datetimepicker1').datetimepicker({ format: 'YYYY-MM-DD' });
     });
 });
