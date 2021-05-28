@@ -14,10 +14,14 @@
 input {
     height: 25px;
 }
-.g-panel-footer{
-    display:block;
+.g-panel-footer {
+    display: block;
 }
-.g-right {
+.btn-feature {
+    display:block ;
+    background-color:red;
+}
+    .g-right,#btnLogout,#btnSchedule {
     float: right;
 }
 div.modal-body{
@@ -26,6 +30,42 @@ div.modal-body{
 .modal .modal-content .modal-body{
     padding:0 15px;
 }
-#btnSaveSchedule{
-    color:#fff;
+#btnSaveSchedule {
+    color: #fff;
+    background-color: #0094ff !important;
+    margin-right:10px;
 }
+#btnSchedule {
+    color: #fff;
+   
+    margin-right: 10px;
+}
+#btnLogout {
+    color: #fff;
+    background-color: #f00 !important
+}
+
+/*table*/
+#tbl {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #fff;
+}
+
+    #tbl td, #tbl th {
+        border-bottom: 1px solid #ddd;
+        padding: 8px;
+    }
+
+
+
+    #tbl tr:hover {
+        background-color: #ddd;
+    }
+
+    #tbl th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+    }

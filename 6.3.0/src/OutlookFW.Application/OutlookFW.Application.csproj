@@ -400,6 +400,7 @@
     <Compile Include="Models\Gmails\RequestParameters.cs" />
     <Compile Include="Models\Gmails\Root.cs" />
     <Compile Include="Models\Zoom\Meeting.cs" />
+    <Compile Include="Models\Zoom\UserMeeting.cs" />
     <Compile Include="OutlookFWApplicationModule.cs" />
     <Compile Include="OutlookFWAppServiceBase.cs" />
     <Compile Include="Authorization\Accounts\AccountAppService.cs" />

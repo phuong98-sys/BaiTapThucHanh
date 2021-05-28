@@ -33,6 +33,7 @@ namespace OutlookFW.Tokens.Dto
         public int? user_Id { get; set; }
         public int? type { get; set; }
         public string gmail { get; set; }
+        public string userZoomId { get; set; }
     }
     [AutoMapFrom(typeof(Token))]
     public class GetTokenInput

@@ -10,7 +10,7 @@ namespace OutlookFW.Zoom
 {
     public interface IZoomAppService : IApplicationService
     {
-        Task<string> GetUserDetailsAsync(string accessToken);
+        Task<UserMeeting> GetUserDetailsAsync(string accessToken);
         void CreateMeeting(Meeting meeting, string accessToken, string userId);
         Task<List<Meeting>> AllMeetings(string accessToken, string userId);
     }

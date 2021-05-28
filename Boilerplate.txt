@@ -165,3 +165,11 @@ ZOOM API
 26/5
 https://marketplace.zoom.us/docs/guides/auth/oauth
 https://www.youtube.com/watch?v=KeXJAdxBjf4&list=PLlaJNuOIC_98Z24lEpYXxsXod0Z1Ix6z-&index=2
+
+- btvn:
++ login vao roi thi bo nut login
++ Gio hien thi list sai
++ Gio nham lan AM- PM
++ Style Lich ko ok?
++ Sua lai nut login cac bai
++ Sua lai luc login lay ma CreateTokenOAuth....

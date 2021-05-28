@@ -46,7 +46,7 @@ $(document).ready(function () {
 
 
         $("div").removeClass("modal-backdrop fade in");
-
+        location.reload();
         e.preventDefault();
 
     });

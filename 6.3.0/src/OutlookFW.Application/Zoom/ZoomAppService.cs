@@ -13,7 +13,7 @@ namespace OutlookFW.Zoom
 {
     public class ZoomAppService : OutlookFWAppServiceBase, IZoomAppService
     {
-        public async Task<string> GetUserDetailsAsync(string accessToken)
+        public async Task<UserMeeting> GetUserDetailsAsync(string accessToken)
         {
             RestClient restClient = new RestClient();
             var request = new RestRequest();
@@ -21,27 +21,31 @@ namespace OutlookFW.Zoom
             request.AddHeader("Authorization", string.Format("Bearer {0}", accessToken));
             var response = restClient.Get(request);
             string ResponseString = "";
-            string userId = "";
+            var userMeeting = new UserMeeting();
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var user = JObject.Parse(response.Content);
-                userId = user["id"].ToString();
-                //ResponseString = JsonConvert.DeserializeObject(response.Content).ToString();
+                userMeeting.userId = user["id"].ToString();
+                userMeeting.userEmail = user["email"].ToString();
+             
 
-                // email = JsonConvert.DeserializeObject<string>(ResponseString); // gan cho 
-
-               
             }
-            return userId;
+            return userMeeting;
         }
         public void CreateMeeting(Meeting meeting, string accessToken, string userId)
         {
             //var userId = GetUserDetailsAsync(accessToken);
             var meetingModel = new JObject();
-            meetingModel["topic"] = meeting.Topic;
-            meetingModel["agenda"] = meeting.Agenda;
-            meetingModel["start_time"] = meeting.StartTime.ToString("yyyy-MM-dd") + "T" + TimeSpan.FromHours(meeting.Time1).ToString("hh':'mm':'ss");
-            meetingModel["end_time"] = meeting.StartTime.ToString("yyyy-MM-dd") + "T" + TimeSpan.FromHours(meeting.Time2).ToString("hh':'mm':'ss");
+            meetingModel["topic"] = meeting.Topic;    
+            DateTime dt1 = meeting.start_time;
+            DateTime dt2 = meeting.EndTime;
+            TimeSpan ts = dt2 - dt1;
+            var totalMinutes =ts.TotalMinutes;
+            meetingModel["start_time"] = meeting.start_time.ToString("yyyy-MM-dd"+"T"+ "hh':'mm':'ss"+ " tt");
+            meetingModel["end_time"] = meeting.EndTime.ToString("yyyy-MM-dd" + "T" + "hh':'mm':'ss");
+            meetingModel["duration"] = totalMinutes;
+            //meetingModel["start_time"] = meeting.StartTime.ToString("yyyy-MM-dd") + "T" + TimeSpan.FromHours(meeting.Time1).ToString("hh':'mm':'ss");
+            //meetingModel["end_time"] = meeting.EndTime.ToString("yyyy-MM-dd") + "T" + TimeSpan.FromHours(meeting.Time2).ToString("hh':'mm':'ss");
             //meetingModel["end_time"] = meeting.EndTime.ToString("dd-MM-yyyy");
             //meetingModel["duration"] = meeting.Duration;
             meetingModel["password"] = meeting.Password;
@@ -59,7 +63,7 @@ namespace OutlookFW.Zoom
             var response = restClient.Post(restRequest);
             if(response.StatusCode == System.Net.HttpStatusCode.Created)
             {
-                var a = response.Content;
+                var a1= response.Content;
             }
         }
         public async Task<List<Meeting>> AllMeetings(string accessToken, string userId)
@@ -69,12 +73,26 @@ namespace OutlookFW.Zoom
             RestClient restClient = new RestClient();
             restClient.BaseUrl = new Uri($"https://api.zoom.us/v2/users/{userId}/meetings");
             var response = restClient.Get(restRequest);
+            List<Meeting> listMeeting = new List<Meeting>();
+           
             if(response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var zoomMeetings = JObject.Parse(response.Content)["meetings"].ToObject<IEnumerable<Meeting>>();
 
+                foreach (var meeting1 in zoomMeetings)
+                {
+                    Meeting meeting = new Meeting(); 
+                    //gmail.name = message.From.EmailAddress.Name;
+                    meeting.Topic = meeting1.Topic;
+                    meeting.start_time = meeting1.start_time;
+                    meeting.Duration = meeting1.Duration;
+                    meeting.Agenda = meeting1.Agenda;
+                    meeting.join_url = meeting1.join_url;
+
+                    listMeeting.Add(meeting);
+                }
             }
-            return null;
+            return listMeeting;
 
         }
             
