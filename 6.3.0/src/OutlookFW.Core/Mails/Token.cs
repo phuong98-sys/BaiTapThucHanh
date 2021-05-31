@@ -24,7 +24,6 @@ namespace OutlookFW.Mails
         //type=1 : AccessToken cua Gmail
         public int? type { get; set; }
         public string gmail { get; set; }
-
     }
 
 }

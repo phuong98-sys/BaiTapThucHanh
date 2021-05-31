@@ -35,21 +35,42 @@ namespace OutlookFW.Web.Controllers
         }
         public async Task<ActionResult> Index()
         {
-            if (Session["AccessToken"] != null)
+            var model = new ZoomIndexViewModel();
+            //Lay userID de Kiem tra login
+            var userId = GetUserId(); // Co the su dung AbpSession de lay UserId
+            // Chu y tenantID
+            // luu accessToken vao Db
+            UserMeeting userMeeting;
+            // kiem tra access Token da co trong Db chua
+            // Neu chua co thi them vao, co roi thi thoi
+            var checkToken = _tokenAppService.GetToken(userId, 2);// nen tach ra thanh 1 ham
+            if (checkToken != null)
             {
                 //Session["Email"] = await GetUserDetails();
                 // email = await GetUserDetails();
                 //get list mail
-                var listMail = await GetAllMeeting();
+                Session["AccessToken"] = "1";
+                userMeeting = await _zoomAppService.GetUserDetailsAsync(Session["AccessToken"].ToString());
+               
+                if (userMeeting.userEmail == null)
+                {
+                    await _zoomAppService.RefreshToken(checkToken.refresh_token);
+                    Session["AccessToken"] = checkToken.access_token;
+                    userMeeting = await _zoomAppService.GetUserDetailsAsync(Session["AccessToken"].ToString());
+                    //listMail = await GetAllMeeting();
+                }
 
-
-                var model = new ZoomIndexViewModel(listMail, Session["UserZoomEmail"].ToString());
+                Session["UserZoomId"] = userMeeting.userId;
+                Session["UserZoomEmail"] = checkToken.gmail;
+                List<Meeting> listMail = GetAllMeeting();
+                model = new ZoomIndexViewModel(listMail, Session["UserZoomEmail"].ToString());
                 model.isAuthenticated = true;
                 return View(model);
+
             }
             else
             {
-                var model = new ZoomIndexViewModel();
+               
                 return View(model);
             }
         }
@@ -65,12 +86,8 @@ namespace OutlookFW.Web.Controllers
             var userId = GetUserId();
             // luu accessToken vao Db
             UserMeeting userMeeting ;
-            // kiem tra access Token da co trong Db chua
-            // Neu chua co thi them vao, co roi thi thoi
-            var isCheck = _tokenAppService.GetToken(userId, 2);
-            if (isCheck == null)
-            {
-             
+         // Luc nay la dang nhap moi => luu TOken vao DB
+          
                 var a = await _tokenAppService.CreateOauthTokenForZoomAsync(code);
                 Session["AccessToken"] = a.access_token;
                 Session["RefreshToken"] = a.refresh_token;
@@ -81,16 +98,7 @@ namespace OutlookFW.Web.Controllers
                 // luu accessToken vao Db
                 await SaveToken(Session["AccessToken"].ToString(), Session["RefreshToken"].ToString(), userId, Session["UserZoomEmail"].ToString());
 
-            }
-            else
-            {
-
-                Session["AccessToken"] = isCheck.access_token;
-                 userMeeting = await _zoomAppService.GetUserDetailsAsync(Session["AccessToken"].ToString());
-                Session["UserZoomId"] = userMeeting.userId;
-                Session["UserZoomEmail"] = isCheck.gmail;
-            }
-
+           
             return RedirectToAction("Index");
         }
         public ActionResult CreateMeeting(Meeting meeting)
@@ -98,9 +106,9 @@ namespace OutlookFW.Web.Controllers
             _zoomAppService.CreateMeeting(meeting, Session["AccessToken"].ToString(), Session["UserZoomId"].ToString());
             return View();
         }
-        public async Task<List<Meeting>> GetAllMeeting()
+        public List<Meeting> GetAllMeeting()
         {
-            var listMeeting = await _zoomAppService.AllMeetings(Session["AccessToken"].ToString(), Session["UserZoomId"].ToString());
+            var listMeeting =  _zoomAppService.AllMeetings(Session["AccessToken"].ToString(), Session["UserZoomId"].ToString());
             return listMeeting;
         }
         [ChildActionOnly]

@@ -12,6 +12,7 @@ namespace OutlookFW.Zoom
     {
         Task<UserMeeting> GetUserDetailsAsync(string accessToken);
         void CreateMeeting(Meeting meeting, string accessToken, string userId);
-        Task<List<Meeting>> AllMeetings(string accessToken, string userId);
+        List<Meeting> AllMeetings(string accessToken, string userId);
+        Task RefreshToken(string refreshToken);
     }
 }

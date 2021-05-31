@@ -24,7 +24,7 @@ namespace OutlookFW.Tokens
             _tokenRepository = tokenRepository;
 
         }
-        private string AuthorizationHeader
+        public string AuthorizationHeader
         {
             get
             {

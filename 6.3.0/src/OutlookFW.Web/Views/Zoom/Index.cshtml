@@ -8,6 +8,7 @@
 @section styles {
 
     <link href="~/Views/Zoom/Index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
 }
 
 @section scripts
@@ -27,36 +28,44 @@
                         {
 
                         });
-                    $("#datetimepicker1").click(function () {
-                        //$('#datetimepicker1').data("DateTimePicker").minDate(today);
 
-                    });
                     $('#datetimepicker2').datetimepicker({
                         useCurrent: false //Important! See issue #1075
                     });
                     $("#datetimepicker1").on("dp.change", function (e) {
 
-                        $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
-                       
+                        $('#datetimepicker2').data("DateTimePicker").minDate(e.date );
+
                         $('#datetimepicker1').data("DateTimePicker").minDate(new Date());
 
                     });
-               
+                    $("#datetimepicker2").on("dp.change", function (e) {
+                        $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+                    });
 
+
+                });
+                $(function () {
+                    $('#datetimepicker3').datetimepicker({
+
+                    });
                 });
             });
         </script>
         <script src="~/Views/Zoom/Index.js"></script>
-
-
+       
     </environment>
 
 }
 
-<div >
+<div>
 
     @if (Model.isAuthenticated)
     {
+
+       
+
+
         <h4 style="text-align: center;">Zoom Demo</h4>
         <div>Email: @Session["UserZoomEmail"].ToString()</div>
         <div class="btn-feature">
@@ -64,8 +73,8 @@
             <button class="btn btn-default" id="btnSchedule" data-toggle="modal" data-target="#myModal" style="color:#fff ;background-color: #0094ff !important; float:right; margin-right:10px; ">Schedule a meeting</button>
         </div>
 
-        <hr/>
-  
+        <hr />
+
         //list Meeting
         <div>
             <table id="tbl" style="width: 100%; border-collapse: collapse; background-color:#fff;">

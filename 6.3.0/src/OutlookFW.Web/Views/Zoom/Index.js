@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function () {
     $('#btnLogin').click(function () {
-        window.location.href = "https://zoom.us/oauth/authorize?response_type=code&state=12345&client_id=6M7yDmdoTnaTE0cArJCCjg&redirect_uri=https://localhost:44371/Zoom/CreateOauthTokenForZoom";
+        window.location.href = "https://zoom.us/oauth/authorize?response_type=code&state=12345&client_id=6M7yDmdoTnaTE0cArJCCjg&redirect_uri=https://localhost:44371/Zoom/CreateOauthTokenForZoom&prompt=select_account";
     });
     $('#btnLogout').click(function () {
         //externalLogout();

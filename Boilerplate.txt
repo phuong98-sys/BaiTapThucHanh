@@ -173,3 +173,9 @@ https://www.youtube.com/watch?v=KeXJAdxBjf4&list=PLlaJNuOIC_98Z24lEpYXxsXod0Z1Ix
 + Style Lich ko ok?
 + Sua lai nut login cac bai
 + Sua lai luc login lay ma CreateTokenOAuth....
++ Neu ma het han, xoa ma di dang nhap lai/ lam moi ma access token
+- Note: 
++ TenantId, để cho ng dùng có thể dùng app trong phạm vi doanh nghiệp đó, được dùng các tính năng feature trong hạn cho phép
+ + Nên viết code gọn lại, hạn chế truyền tham số, Hàm tính toán tính ở Model làm gọn code, đặt tên chuẩn, chú ý comment + thay thế type =  enum cho dễ hiểu
+
+-XÓA 2 MÃ CŨ ĐI, CẦN CẬP NHẬT 2 MÃ MỚI SAU MỖI LẦN REFRESH NẾU KO MUỐN LỖI
