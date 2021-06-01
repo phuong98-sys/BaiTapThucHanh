@@ -16,5 +16,6 @@ namespace OutlookFW.Tokens
         Task SaveTokenAsync(SaveToken input);
         TokenDto GetToken(int userId, int type);
         void DeleteToken(int userId, int type);
+        void UpdateToken(UpdateTokenInput input);
     }
 }

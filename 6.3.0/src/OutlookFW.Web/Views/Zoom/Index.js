@@ -1,5 +1,6 @@
 ﻿
 $(document).ready(function () {
+    (function ($) {
     $('#btnLogin').click(function () {
         window.location.href = "https://zoom.us/oauth/authorize?response_type=code&state=12345&client_id=6M7yDmdoTnaTE0cArJCCjg&redirect_uri=https://localhost:44371/Zoom/CreateOauthTokenForZoom&prompt=select_account";
     });
@@ -37,5 +38,30 @@ $(document).ready(function () {
         e.preventDefault();
 
     });
-  
+    ///
+    //$(function () {
+
+    //    var _$form = $('#saveTask');
+
+    //    _$form.find('input:first').focus();
+
+    //    //_$form.validate();
+
+    //    _$form.find('button[type=submit]')
+    //        .click(function (e) {
+    //            e.preventDefault();
+    //            console.log("vao submit r");
+    //            if (!_$form.valid()) {
+    //                return;
+    //            }
+
+    //            var input = _$form.serializeFormToObject();
+
+    //            abp.services.app.task.update(input)
+    //                .done(function () {
+    //                    location.href = '/Tasks';
+    //                });
+    //        });
+    //});
+})(jQuery);
 });

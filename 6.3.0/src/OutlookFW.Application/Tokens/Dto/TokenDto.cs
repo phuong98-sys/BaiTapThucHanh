@@ -11,7 +11,7 @@ namespace OutlookFW.Tokens.Dto
     [AutoMapFrom(typeof(Token))]
     public class TokenDto   // map voi Task entity
     {
-       
+        public int Id { get; set; }
         public string access_token { get; set; }
 
       
@@ -24,7 +24,7 @@ namespace OutlookFW.Tokens.Dto
     [AutoMapTo(typeof(Token))]
     public class SaveToken   // map voi Task entity
     {
-
+      
         public string access_token { get; set; }
 
 
@@ -34,6 +34,15 @@ namespace OutlookFW.Tokens.Dto
         public int? type { get; set; }
         public string gmail { get; set; }
         public string userZoomId { get; set; }
+    }
+    [AutoMapTo(typeof(Token))]
+    public class UpdateTokenInput   // map voi Task entity
+    {
+        public long Id { get; set; }
+        public string access_token { get; set; }
+        public string refresh_token { get; set; }
+
+      
     }
     [AutoMapFrom(typeof(Token))]
     public class GetTokenInput

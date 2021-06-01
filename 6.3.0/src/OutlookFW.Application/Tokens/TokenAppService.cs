@@ -22,7 +22,6 @@ namespace OutlookFW.Tokens
         public TokenAppService(IRepository<Token> tokenRepository)
         {
             _tokenRepository = tokenRepository;
-
         }
         public string AuthorizationHeader
         {
@@ -207,6 +206,18 @@ namespace OutlookFW.Tokens
         {
             var token = ObjectMapper.Map<Token>(input);
             await _tokenRepository.InsertAsync(token); // ko trả ve thi thuong dung cach nay
+        }
+        public void UpdateToken(UpdateTokenInput input)
+        {
+            //C1:
+            var token =  _tokenRepository.FirstOrDefault(x => x.Id == input.Id);
+
+            ObjectMapper.Map(input, token);
+
+            //var task = GetTask(input.Id);
+            //C2:
+            //var output = ObjectMapper.Map<Task>(input);
+            //await _taRepository.UpdateAsync(output);
         }
     }
 }

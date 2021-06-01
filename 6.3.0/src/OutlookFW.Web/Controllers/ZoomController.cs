@@ -49,13 +49,19 @@ namespace OutlookFW.Web.Controllers
                 //Session["Email"] = await GetUserDetails();
                 // email = await GetUserDetails();
                 //get list mail
-                Session["AccessToken"] = "1";
+                Session["AccessToken"] = checkToken.access_token;
                 userMeeting = await _zoomAppService.GetUserDetailsAsync(Session["AccessToken"].ToString());
                
                 if (userMeeting.userEmail == null)
                 {
-                    await _zoomAppService.RefreshToken(checkToken.refresh_token);
-                    Session["AccessToken"] = checkToken.access_token;
+                     var newToken = await _zoomAppService.RefreshToken(checkToken.refresh_token);
+                    // luu lai vao DB
+                    UpdateTokenInput input = new UpdateTokenInput();
+                    input.Id = checkToken.Id;
+                    input.access_token = newToken.access_token;
+                    input.refresh_token = newToken.refresh_token;
+                    _tokenAppService.UpdateToken(input);
+                    Session["AccessToken"] = newToken.access_token;
                     userMeeting = await _zoomAppService.GetUserDetailsAsync(Session["AccessToken"].ToString());
                     //listMail = await GetAllMeeting();
                 }

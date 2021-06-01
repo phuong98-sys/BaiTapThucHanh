@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OutlookFW.Models.Zoom;
+using OutlookFW.Tokens.Dto;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -52,20 +53,13 @@ namespace OutlookFW.Zoom
             TimeSpan ts = dt2 - dt1;
             var totalMinutes =ts.TotalMinutes; // nen tinh cai nay tu ben Model
             var vnTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
-            //var japaneseTime = TimeZoneInfo.ConvertTimeFromUtc(databaseUtcTime, japaneseTimeZone);
-
-            // convert japanese time to UTC for database save
+          
             var startTimeUtcTime = TimeZoneInfo.ConvertTimeToUtc(meeting.start_time, vnTimeZone);
             var endTimeUtcTime = TimeZoneInfo.ConvertTimeToUtc(meeting.EndTime, vnTimeZone);
-            //meetingModel["start_time"] = meeting.start_time.ToUniversalTime().ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"); 
+
             meetingModel["start_time"] = startTimeUtcTime;
-            meetingModel["end_time"] = endTimeUtcTime;
-            //meetingModel["end_time"] = meeting.EndTime.ToUniversalTime().ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'");
             meetingModel["duration"] = totalMinutes;
-            //meetingModel["start_time"] = meeting.StartTime.ToString("yyyy-MM-dd") + "T" + TimeSpan.FromHours(meeting.Time1).ToString("hh':'mm':'ss");
-            //meetingModel["end_time"] = meeting.EndTime.ToString("yyyy-MM-dd") + "T" + TimeSpan.FromHours(meeting.Time2).ToString("hh':'mm':'ss");
-            //meetingModel["end_time"] = meeting.EndTime.ToString("dd-MM-yyyy");
-            //meetingModel["duration"] = meeting.Duration;
+           
             meetingModel["password"] = meeting.Password;
             meetingModel["description"] = meeting.Description;
 
@@ -116,7 +110,7 @@ namespace OutlookFW.Zoom
             return listMeeting;
 
         }
-        public async Task RefreshToken(string refreshToken)
+        public async Task<TokenDto> RefreshToken(string refreshToken)
         {
             RestClient restClient = new RestClient();
             // get Token
@@ -127,13 +121,16 @@ namespace OutlookFW.Zoom
             //request.AddQueryParameter("grant_type", "refresh_token");
             //request.AddQueryParameter("refresh_token", refreshToken);
             request.AddHeader("Authorization", string.Format(AuthorizationHeader));
-
+            TokenDto token = new TokenDto();
             var response = restClient.Post(request);
             if(response.StatusCode == System.Net.HttpStatusCode.OK)// lam them truong hop ko thanh cong thi vang ra loi
             {
-                var a = response.Content;
+                var user = JObject.Parse(response.Content);
+                token.access_token = user["access_token"].ToString();
+                token.refresh_token = user["refresh_token"].ToString();
+                
             }
-
+            return token;
 
         }
             
