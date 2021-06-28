@@ -1,0 +1,26 @@
+<div class="row">
+    <div>
+        <button class="btn btn-primary margin-bottom-10" type="button" (click)="showTaskModal()">{{('NewTask')}}</button>
+        <ul class="list-group" id="TaskList">
+                <li class="list-group-item">
+                    <h2>
+                        {{l('TaskList')}}
+                        <span class="pull-right">
+                            <select name="taskState" class="form-control" [(ngModel)]="selectedState" (change)="getTasks()">
+                                <option *ngFor="let option of stateSelectedOptions" [ngValue]="option.value">{{option.text}}</option>
+                            </select>
+                        </span>
+                    </h2>
+                </li>
+                <li *ngFor="let task of tasks" class="list-group-item">
+                    <span class="pull-right label" [ngClass]="getTaskLabel(task)">{{getTaskState(task)}}</span>
+                    <h4 class="list-group-item-heading">{{task.title}}</h4>
+                    <div class="list-group-item-text">
+                        {{task.creationTime?.format('LLL')}}
+                    </div>
+                </li>
+        </ul>
+    </div>
+</div>
+
+<addOrEditTaskModal #addOrEditTaskModal (modalSave)="onTaskUpdated($event)"></addOrEditTaskModal>
